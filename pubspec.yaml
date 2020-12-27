@@ -1,4 +1,4 @@
-name: tibetan_handwriting_app
+name: tibetan_handwriting_app_0_1
 description: A new Flutter application.
 
 # The following line prevents the package from being accidentally published to
@@ -47,10 +47,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
 
