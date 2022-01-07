@@ -24,18 +24,35 @@ class _TextDisplayState extends State<TextDisplay> {
         alignment: Alignment.bottomCenter,
         children: <Widget>[
           Container(//Display
+            padding: EdgeInsets.only(left: kTextMargin),
             width: 414,
             height: 350,
             color: kTextDisplayColor,
-            child:  Consumer<SuggestionToDisplay>(
-              builder: (context,sentenceStr, child)=>SelectableText(
-                sentenceStr.getTextDisplaySentence(),
-                style: kTextDisplayStyle,
-                showCursor: true,
-                // autofocus: true,     does work, but always at the front.
+            child:  Consumer<AppBrain>(
+              builder: (context,appBrain, child)=> TextField(
+                controller: appBrain.textDisplayController,
 
+                readOnly: true,
+                showCursor: true,
+                maxLines: null,
+                decoration: null, //InputDecoration(),
+                cursorColor: Colors.red,
+
+                style: TextStyle(
+                  fontSize: kTextFontSize,
+                )
               ),
             ),
+
+
+            // Consumer<AppBrain>(
+            //   builder: (context,appBrain, child)=>SelectableText(
+            //     appBrain.getTextDisplaySentence(),
+            //     style: kTextDisplayStyle,
+            //     showCursor: true,
+            //     // autofocus: true,     does work, but always at the front.
+            //   ),
+            // ),
           ),
 
 
@@ -46,13 +63,16 @@ class _TextDisplayState extends State<TextDisplay> {
                 width: 80,
                 height: 60,
                 child: RaisedButton(
-                    color: kDeleteButtonColor,
-                    child:Text(
-                      "Copy\nAll",
-                      textAlign: TextAlign.center,
-                      // style: kTextDisplayButtonStyle,
-                    ),
-                    onPressed: widget.copyTextCallback
+                  color: kDeleteButtonColor,
+                  child:Text(
+                    "Copy\nAll",
+                    textAlign: TextAlign.center,
+                    // style: kTextDisplayButtonStyle,
+                  ),
+                  onPressed: widget.copyTextCallback,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(topRight: Radius.circular( 1.5*kRoundedButtonRadius)),
+                  ),
                 )
               ),
 
@@ -66,6 +86,9 @@ class _TextDisplayState extends State<TextDisplay> {
                   ),
                   onPressed: widget.deleteWordCallback,
                   onLongPress: widget.clearSentenceCallback,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular( 1.5*kRoundedButtonRadius)),
+                  ),
 
                 ),
               ),

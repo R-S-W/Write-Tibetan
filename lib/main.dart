@@ -67,8 +67,7 @@ class MainPage extends StatelessWidget {
       ),
       body: MultiProvider(
           providers: [
-            ChangeNotifierProvider(create:(context) => SuggestionToDisplay()),
-            ChangeNotifierProvider(create:(context) => StrokesToSuggestion())
+            ChangeNotifierProvider(create:(context) => AppBrain()),
           ],
           child:MainBody()
       )

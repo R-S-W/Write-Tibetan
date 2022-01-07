@@ -105,7 +105,6 @@ void tibetanLetterFinder(List<List<Offset>> inputStrokeList,
         isVowel = (finalStrokesSuggestionMap.values.first <=
             oneStrokeVowelDiffRatingTolerance) && (isTopVowel || isBottomVowel);
 
-
         //if we're checking the 2-stroke naro,
       }else if (vowelLen == 2) {
         //Check if the constraining rectangle lengthened after the addition of
@@ -126,11 +125,34 @@ void tibetanLetterFinder(List<List<Offset>> inputStrokeList,
         //If the previous letter suggestions did not have any letters with
         // vowels,
         if(vowelString.indexOf(suggestions.first[suggestions.first.length-1])<0)
-        {//simply update the list, suggestions.
-          for (int i = 0; i < suggestions.length; i++) {
-            suggestions[i] += vowelToAdd;
+        {//update the suggestions list.
+          //Do some Spelling Checks
+          bool isSpellingOkay;
+          for (int i=0; i< suggestions.length; i++){
+            isSpellingOkay = true;
+            //1.  The letter wa is also a suffix.  If the suffix
+            // form of wa, watag, is used in a letter, the tibetan keyboard
+            // does not allow an addition of the shabkyu vowel, \u0f74.
+
+            // bool a = vowelToAdd == vowelString[2] ;
+            // bool b = sug[sug.length-1] == "\u0fad" ;
+            // bool c = sug.length >1;
+            // print ([a,b,c]);
+
+            if ( vowelToAdd == vowelString[2] &&
+                suggestions[i][suggestions[i].length-1] == "\u0fad" &&
+                suggestions[i].length >1){
+              isSpellingOkay = false;
+            }
+            if (isSpellingOkay){
+              suggestions[i]+=vowelToAdd;
+            }
           }
-          return;
+
+          //
+          // for (int i = 0; i < suggestions.length; i++) {
+          //   suggestions[i] += vowelToAdd;
+          // }
         }else{//if  prev suggestions have vowels,  remove them.
           suggestionMap = makeSuggestionMap(
               inputStrokeList.sublist(0,inputLength - vowelLen),
@@ -139,16 +161,19 @@ void tibetanLetterFinder(List<List<Offset>> inputStrokeList,
           );
           suggestions.clear();
           suggestionMap.keys.forEach((lStr) =>suggestions.add(lStr+vowelToAdd));
-          return;
         }
-
-      }else{//It doesn't have a vowel
-        suggestionMap = makeSuggestionMap(
-            inputStrokeList, encyclopedia, inputRectangleData);
-        suggestions.clear();
-        suggestionMap.keys.forEach((lStr) => suggestions.add(lStr));
+        return;
       }
     }
+    //At this point, the suggestions don't have a vowel.
+    // Make suggestions without vowels.
+    suggestionMap = makeSuggestionMap(
+        inputStrokeList, encyclopedia, inputRectangleData);
+    suggestions.clear();
+    suggestionMap.keys.forEach((lStr) => suggestions.add(lStr));
+
+
+
   }else { //it's a 2-stroke letter.
     // At this point, it's not a vowel. compute the inputStroke in full.
     suggestionMap = makeSuggestionMap(
@@ -159,7 +184,6 @@ void tibetanLetterFinder(List<List<Offset>> inputStrokeList,
         suggestions.add(lStr);
       }
     });
-
   }
 
 
@@ -394,7 +418,7 @@ List<List<String>> strokeListToPathList(
 
   //Remove "duplicate" points that are in the same gridspace as  previous point.
   // From this, see if a duplicate point cluster is long enough.  If it only is
-  // in a gridspace for 4  points, then add an apostrophe to say that it is a
+  // in a gridspace for 4  points, then add a letter instead to say that it is a
   // weak/possible entry.
   List<List<String>> pathList = [];
   for (int  i=0; i< unabridgedPathList.length; i++){

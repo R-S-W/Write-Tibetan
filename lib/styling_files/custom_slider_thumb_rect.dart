@@ -1,14 +1,22 @@
 
 import 'dart:ui' as ui;//for image thumbslider
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../styling_files/constants.dart';
 
 class CustomSliderThumbRect extends SliderComponentShape {
-  final double thumbRadius;
-  final double thumbHeight;
-  final int min;
-  final int max;
-  final String text;
-  final ui.Image image;
+  double thumbRadius;
+  double thumbHeight;
+  double thumbWidth;
+  int min;
+  int max;
+  String text;
+  ui.Image image;
+
+
+
+
+
 
 
   //
@@ -20,7 +28,20 @@ class CustomSliderThumbRect extends SliderComponentShape {
   //
   // };
 
-  const CustomSliderThumbRect({this.thumbRadius,this.thumbHeight,this.min,this.max,this.text, this.image});
+  CustomSliderThumbRect({double thumbRadius,double thumbHeight,double thumbWidth,int min,int max,String text,ui.Image image}){
+    this.thumbRadius = thumbRadius;
+    this.thumbHeight = thumbHeight;
+    this.thumbWidth = thumbWidth;
+    this.min = min;
+    this.max = max;
+    this.text  = text;
+    this.image = image;
+
+  }
+
+
+
+
 
   @override
   Size getPreferredSize(bool isEnabled, bool isDiscrete) {
@@ -58,24 +79,14 @@ class CustomSliderThumbRect extends SliderComponentShape {
 
     final rRect = RRect.fromRectAndRadius(
       Rect.fromCenter(
-          center: center, width: thumbHeight * 1.2, height: thumbHeight * .6),
-      Radius.circular(thumbRadius * .4),
+          center: center, width: thumbHeight , height: thumbWidth),
+      Radius.circular(thumbRadius),
     );
 
 
 
-    //
-    // final imageWidth = image?.width ?? 10;
-    // final imageHeight = image?.height ?? 10;
-    // Offset imageOffset = Offset(
-    //   center.dx - (imageWidth / 2),
-    //   center.dy - (imageHeight / 2),
-    // );
-    //
-
-
     final paint = Paint()
-      ..color = sliderTheme.activeTrackColor //Thumb Background Color
+      ..color = sliderTheme.thumbColor //Thumb Background Color
       ..style = PaintingStyle.fill
       ..filterQuality = FilterQuality.high;
 
@@ -103,7 +114,7 @@ class CustomSliderThumbRect extends SliderComponentShape {
 
     // Draw the text:=----------------------
     final textStyle = TextStyle(
-      color: Colors.black,
+      // color: kTsegSheTextColor,
       fontSize:25,
     );
     final textSpan = TextSpan(
@@ -118,17 +129,16 @@ class CustomSliderThumbRect extends SliderComponentShape {
         minWidth: 0,
         maxWidth: tp.width,// ../////////
     );
-    final offset =    textCenter; // Offset(center.dx , center.dy );
-    // if (this.text == "་།") {
-    //   canvas.rotate(3.141592653 / 2);
-    //   canvas.translate(0,90);
-    // }
-    textPainter.paint(canvas, offset);
+    // final offset =    textCenter; // Offset(center.dx , center.dy );
 
     //Draw the image:_________________________________
     if (image != null) {
       canvas.drawImage(image, imageOffset, paint);
     }
+    // Paragraph para = Paragraph(
+    //
+    // );
+    // canvas.drawParagraph(para, imageOffset);
 
 
 

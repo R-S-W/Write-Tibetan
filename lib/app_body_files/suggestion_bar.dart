@@ -25,10 +25,10 @@ class _SuggestionBarState extends State<SuggestionBar> {
         color: kSuggestionBarColor,
 
       ),
-      child:  Consumer<StrokesToSuggestion>(
-        builder: (context,stroke2Sug, child)=> ListView.builder(
+      child:  Consumer<AppBrain>(
+        builder: (context,appBrain, child)=> ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: stroke2Sug.getSuggestionsLength(),
+          itemCount: appBrain.getSuggestionsLength(),
           itemBuilder: (BuildContext context, int index){
             return Container(
               width: kSuggestionListViewWidgetDim.dx,
@@ -41,7 +41,7 @@ class _SuggestionBarState extends State<SuggestionBar> {
                   children: <Widget>[  //(order Matters)
 
 
-                    Text(stroke2Sug.getSuggestionAt(index),
+                    Text(appBrain.getSuggestionAt(index),
                       style: kSuggestionTextStyle.copyWith(
                         foreground: Paint()
                           ..style = PaintingStyle.stroke
@@ -52,7 +52,7 @@ class _SuggestionBarState extends State<SuggestionBar> {
                       )
                     ),
 
-                    Text(stroke2Sug.getSuggestionAt(index),
+                    Text(appBrain.getSuggestionAt(index),
                       style: kSuggestionTextStyle.copyWith(
                       ),
                     ),
@@ -69,7 +69,7 @@ class _SuggestionBarState extends State<SuggestionBar> {
                 // ),
 
                 onTap: () {
-                  widget.tappedLetterCallback( stroke2Sug.getSuggestionAt(index),);
+                  widget.tappedLetterCallback( appBrain.getSuggestionAt(index),);
                 }
               ),
             );

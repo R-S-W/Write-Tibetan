@@ -6,6 +6,7 @@ import 'bottom_right_buttons.dart';
 import 'package:provider/provider.dart';
 import '../letter_suggestion_files/my_change_notifier_classes.dart';
 import '../styling_files/constants.dart';
+import 'dart:math' as m;
 
 
 class WritingStack extends StatefulWidget {
@@ -32,7 +33,6 @@ class _WritingStackState extends State<WritingStack>{
         Container(// redundant, the size of the pad
           width: kWritingStackDim.dx,
           height: kWritingStackDim.dy,
-          // color: kWritingPadColor,
         ),
 
         GestureDetector(
@@ -76,77 +76,71 @@ class _WritingStackState extends State<WritingStack>{
           },
 
           onPanEnd: (details){setState((){
-            var stroke2Sug = Provider.of<StrokesToSuggestion>(context);
-            stroke2Sug.suggestLetters();
+            var appBrain = Provider.of<AppBrain>(context);
+            appBrain.suggestLetters();
           });}
         ),
 
 
         Container(//Rightmost Buttons
+          padding: const EdgeInsets.only(right: kMargin, bottom: kMargin),
           alignment: Alignment.centerRight,
-          width: kRightmostButtonDim.dx,
-          height:kRightmostButtonDim.dy ,
+          width: kRightmostButtonsDim.dx,
+          height: kWritingStackDim.dy,
+          // height:kRightmostButtonsDim.dy ,
 
           child:  Column(
-          mainAxisSize: MainAxisSize.max,
+          // mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.end,
 
           children: <Widget>[
             // PunctuationButtons(),
             TsegShe(
               onPressed: (){
-                var sug2Disp = Provider.of<SuggestionToDisplay>(context) ;
-                var stroke2Sug = Provider.of<StrokesToSuggestion>(context);
+                var appBrain = Provider.of<AppBrain>(context) ;
                 //Display the tseg.
-                if (stroke2Sug.getSuggestionsLength()>0){
+                if (appBrain.getSuggestionsLength()>0){
                   //if there's suggestions, add 1st suggested letter first.
-                  sug2Disp.addWord(stroke2Sug.getSuggestionAt(0));
+                  appBrain.addWord(appBrain.getSuggestionAt(0));
                 }
-                sug2Disp.addWord('་');
-                stroke2Sug.clearAll(); //Clear the strokes+suggestions
+                appBrain.addWord('་');
+                appBrain.clearAllStrokesAndSuggestions(); //Clear the strokes+suggestions
               },
               onSlid: (){
                 //Display the tseg
-                var sug2Disp =Provider.of<SuggestionToDisplay>(context);
+                var appBrain =Provider.of<AppBrain>(context);
                 //onPressed always precedes onSlid.  Delete tseg, add she.
-                sug2Disp.deleteWord();
-                sug2Disp.addWord('།');
+                appBrain.deleteWord();
+                appBrain.addWord('།');
                 //Clear the strokes+suggestions
-                var stroke2Sug = Provider.of<StrokesToSuggestion>(context);
-                stroke2Sug.clearAll();
+                appBrain.clearAllStrokesAndSuggestions();
               }
             ),
 
             //enterButton()
 
-            Expanded(
-              child: Container(
-                // width: kRightmostButtonDim.dx,
-                // height:kRightmostButtonDim.dy/2- 20 ,
-                color:Colors.red
-              ),
-            ),
+            SizedBox(height: kMargin + 15.0 - m.max(0,80- kTsegSheButtonDim.dy)/2 ),
+
             DeleteUndo(
               onPressed: (){//Delete latest stroke
-                var stroke2Sug = Provider.of<StrokesToSuggestion>(context);
-                stroke2Sug.suggestLetters();
-                if (widget.strokeList.length > 0 ) {
-                  widget.strokeList.removeLast();
-                }
+                var appBrain = Provider.of<AppBrain>(context);
+                appBrain.deleteStroke();
               },
 
-              onSlid: (){ //Delete all strokes
-                var stroke2Sug = Provider.of<StrokesToSuggestion>(context);
-                stroke2Sug.clearAll();
+              onLongPress: (){ //Delete all strokes
+                var appBrain = Provider.of<AppBrain>(context);
+                appBrain.clearAllStrokesAndSuggestions();
                 //Don't Delete this comment.  widget.StrokeList.clear();  Not needed because consumer handles this. Use if not using changenotifier.
               },
             ),
 
+            SizedBox(height: kMargin),
 
-            Container(
-              width: kRightmostButtonDim.dx,
-              height:kRightmostButtonDim.dy/6 ,
+            Container(//ENTER BUTTON
+              width: kEnterButtonDim.dx,
+              height:kEnterButtonDim.dy ,
+
               child: RaisedButton(
                 child: Text(
                   "Enter",
@@ -155,9 +149,13 @@ class _WritingStackState extends State<WritingStack>{
                   ),
                 ),
                 onPressed: () {
-                  var sug2Disp =Provider.of<SuggestionToDisplay>(context) ;
-                  sug2Disp.addWord('\n');
+                  var appBrain =Provider.of<AppBrain>(context) ;
+                  appBrain.addWord('\n');
                 },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(kRoundedButtonRadius)),
+                ),
+                color: kEnterButtonColor,
 
               ),
             ),

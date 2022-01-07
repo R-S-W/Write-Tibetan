@@ -22,16 +22,16 @@ class _MainBodyState extends State<MainBody> {
       children : <Widget>[
         TextDisplay(
           clearSentenceCallback:(){
-            var sug2Disp =Provider.of<SuggestionToDisplay>(context) ;
-            sug2Disp.clearSentence();
+            var appBrain =Provider.of<AppBrain>(context) ;
+            appBrain.clearSentence();
           },
           deleteWordCallback: (){
-            var sug2Disp =Provider.of<SuggestionToDisplay>(context) ;
-            sug2Disp.deleteWord();
+            var appBrain =Provider.of<AppBrain>(context) ;
+            appBrain.deleteWord();
           },
           copyTextCallback: (){
-            var sug2Disp = Provider.of<SuggestionToDisplay>(context);
-            FlutterClipboard.copy(sug2Disp.getTextDisplaySentence());
+            var appBrain = Provider.of<AppBrain>(context);
+            FlutterClipboard.copy(appBrain.getTextDisplaySentence());
           },
         ),
 
@@ -45,12 +45,11 @@ class _MainBodyState extends State<MainBody> {
         SuggestionBar(
           tappedLetterCallback: (str){
             //Display the word
-            var sug2Disp =Provider.of<SuggestionToDisplay>(context) ;
-            sug2Disp.addWord(str);
+            var appBrain =Provider.of<AppBrain>(context) ;
+            appBrain.addWord(str);
             //Clear the strokes+suggestions
-            var stroke2Sug = Provider.of<StrokesToSuggestion>(context);
-            stroke2Sug.printPathListString();/////PRINT
-            stroke2Sug.clearAll();//
+            appBrain.printPathListString();/////PRINT
+            appBrain.clearAllStrokesAndSuggestions();//
           },
         ),
 
@@ -63,10 +62,10 @@ class _MainBodyState extends State<MainBody> {
         ),
 
 
-        Consumer<StrokesToSuggestion>(
-          builder: (context,stroke2Sug, child)=>
+        Consumer<AppBrain>(
+          builder: (context,appBrain, child)=>
               WritingStack(
-                strokeList: stroke2Sug.getStrokeList(),
+                strokeList: appBrain.getStrokeList(),
           ),
         ),
 
