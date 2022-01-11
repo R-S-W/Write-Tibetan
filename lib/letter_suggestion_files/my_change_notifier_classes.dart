@@ -27,7 +27,7 @@ class AppBrain with ChangeNotifier {
 
 
   TextEditingController textDisplayController = TextEditingController();
-  int cursorCharIndex = -1; // The true index for the cursor in the text string,
+  int cursorCharIndex = 0; // The true index for the cursor in the text string,
   //since characters can be stacked and appear to have a smaller index.
 
 
@@ -40,87 +40,81 @@ class AppBrain with ChangeNotifier {
   List<String> getSuggestions()=> _suggestions;
   String getSuggestionAt(int index) => _suggestions[index];
   int getSuggestionsLength() => _suggestions.length;
-  String getTextDisplaySentence() => _textDisplaySentence;
+  String getTextDisplaySentence() => textDisplayController.text;//_textDisplaySentence;
 
   //MODIFIERS
 
 
 
   void addWord (String aWord){
-    _textDisplaySentence+=aWord;
+    // _textDisplaySentence+=aWord;
 
 
 
     String displayText = textDisplayController.text;
-    print("DISPLAY TEXT : $displayText");
+    int cursorDisplayIndex = findCursorDisplayIndex(cursorCharIndex);
+    // print("DISPLAY TEXT : $displayText");
 
     setCursorCharIndex(); // used to update the cursor index.
 
-
-    if (cursorCharIndex ==-1){//cursor at end of text
-      print ('Coisor indecs ${cursorCharIndex}');
-
-      _numTChars.add(aWord.length);
+    if (displayText.length==0 || cursorCharIndex ==displayText.length){
       textDisplayController.text += aWord;
-
+      cursorDisplayIndex+=1;
+      print('Empty text, first addition => offset = ${textDisplayController.selection.baseOffset}');
     }else {
-      print('cursorIndex: $cursorCharIndex || displayText: $displayText |||   extent: ${textDisplayController.selection.extentOffset}');
-
+      // int newCursorIdx = cursorCharIndex+_numTChars[cursorDisplayIndex];
       textDisplayController.text = displayText.substring(0, cursorCharIndex) +
           aWord + displayText.substring(cursorCharIndex, displayText.length);
-
-      cursorCharIndex += aWord.length;
-      //place the cursor in the correct position.
-      textDisplayController.selection = TextSelection(baseOffset : cursorCharIndex, extentOffset: cursorCharIndex);
-
-      _numTChars.insert(findCursorDisplayIndex(cursorCharIndex), aWord.length);
     }
+
+    // print('cursorIndex: $cursorCharIndex || displayText: $displayText |||   extent: ${textDisplayController.selection.extentOffset}');
+
+    cursorCharIndex += aWord.length;
+    //place the cursor in the correct position.
+    textDisplayController.selection = TextSelection(baseOffset : cursorCharIndex, extentOffset: cursorCharIndex);
+    _numTChars.insert(cursorDisplayIndex-1, aWord.length);
+    print('Stats: ${cursorCharIndex} ${cursorDisplayIndex} ${textDisplayController.selection.baseOffset} ${textDisplayController.selection.extentOffset} ${_numTChars}');
 
     notifyListeners();
   }
   void deleteWord(){
-    String aString = textDisplayController.text;
-
-    print('BEFORE: ${aString} ||| ${_numTChars} ');
-
     String displayText = textDisplayController.text;
+
+    // print('BEFORE: ${displayText} ||| ${_numTChars} ');
     setCursorCharIndex();
-    print("TEXT DISPLAY INDEX: $cursorCharIndex !!!!!");
-    if (cursorCharIndex != 0 && displayText.length>0) {
+    // print("TEXT DISPLAY INDEX: $cursorCharIndex !!!!!");
+    int cursorDisplayIndex;
+    if (cursorCharIndex > 0 && displayText.length>0) {
       int newCursorIndex;
-      // _textDisplaySentence = _textDisplaySentence.substring(0,
-      //     _textDisplaySentence.length - _numTChars.last);
-
-
-      if (cursorCharIndex == -1 ){
+      if (cursorCharIndex == textDisplayController.text.length ){
         textDisplayController.text =
             displayText.substring(0,displayText.length - _numTChars.last);
-
-        newCursorIndex = -1;
-        _numTChars.removeLast();
+        print(_numTChars.last);
+        newCursorIndex =cursorCharIndex - _numTChars.removeLast();
 
       }else{
-        int cursorDisplayIndex = findCursorDisplayIndex(cursorCharIndex); //The index in the text string the cursor appears to be.
-        print('cursorDispInd: $cursorDisplayIndex ,     ||  cursorCharInd: $cursorCharIndex');
+        cursorDisplayIndex = findCursorDisplayIndex(cursorCharIndex); //The index in the text string the cursor appears to be.
+        // print('cursorDispInd: $cursorDisplayIndex ,     ||  cursorCharInd: $cursorCharIndex');
+        newCursorIndex = cursorCharIndex - _numTChars[cursorDisplayIndex];
         textDisplayController.text =
-            displayText.substring(0,cursorCharIndex - _numTChars[cursorDisplayIndex])+
+            displayText.substring(0,newCursorIndex)+
           displayText.substring(cursorCharIndex);
 
-        newCursorIndex = cursorCharIndex - _numTChars[cursorDisplayIndex];
-        _numTChars = _numTChars.sublist(0, cursorDisplayIndex-1) + _numTChars.sublist(cursorDisplayIndex);
+        _numTChars = _numTChars.sublist(0, cursorDisplayIndex) + _numTChars.sublist(cursorDisplayIndex+1);
       }
 
       textDisplayController.selection = TextSelection(baseOffset : newCursorIndex, extentOffset: newCursorIndex);
+      cursorCharIndex=newCursorIndex;
+      // print ("AFTER: ${textDisplayController.text} ||| ${_numTChars}");
 
-
-      print ("AFTER: ${textDisplayController.text} ||| ${_numTChars}");
-
+      print('Stats: ${cursorCharIndex} ${cursorDisplayIndex} ${textDisplayController.selection.baseOffset} ${textDisplayController.selection.extentOffset} ${_numTChars}');
       notifyListeners();
     }
   }
   void clearSentence(){
-    if (_textDisplaySentence.length>0) {
-      _textDisplaySentence = "";
+    if (textDisplayController.text.length>0) {
+      // _textDisplaySentence = "";
+      textDisplayController.text = '';
       _numTChars.clear();
       notifyListeners();
     }
@@ -176,24 +170,24 @@ class AppBrain with ChangeNotifier {
 
   void setCursorCharIndex(){
     cursorCharIndex = textDisplayController.selection.baseOffset;
-    if (cursorCharIndex == textDisplayController.text.length){
-      cursorCharIndex = -1;
+    print('setcursorcharindex new value: $cursorCharIndex');
+    if (cursorCharIndex==-1){
+      cursorCharIndex = 0;
     }
+    // if (cursorCharIndex == textDisplayController.text.length){
+    //   cursorCharIndex = -1;
+    // }
   }
 
 
   int findCursorDisplayIndex(int cursorCharIndex ){
     //helper function for addWord and deleteWord
-    if (cursorCharIndex == -1){// if cursor at front of text,
-      return -1;
-    }else{
-      int s = 0;
-      int i = 0;
-      for ( ; s< cursorCharIndex && i< _numTChars.length ; i++ ){
-        s+= _numTChars[i];
-      }
-      return i;
+    int s = 0;
+    int i = 0;
+    for ( ; s< cursorCharIndex && i< _numTChars.length ; i++ ){
+      s+= _numTChars[i];
     }
+    return i;
   }
 
 
