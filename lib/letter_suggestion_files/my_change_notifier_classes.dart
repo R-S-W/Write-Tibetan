@@ -55,13 +55,13 @@ class AppBrain with ChangeNotifier {
     // print("DISPLAY TEXT : $displayText");
 
     setCursorCharIndex(); // used to update the cursor index.
-    int cursorDisplayIndex = findCursorDisplayIndex(cursorCharIndex);
+    int newCursorDisplayIndex = findCursorDisplayIndex(cursorCharIndex);
 
     if (displayText.length==0 || cursorCharIndex ==displayText.length){
       textDisplayController.text += aWord;
-      // cursorDisplayIndex+=1;
+      // newCursorDisplayIndex+=1;
     }else {
-      // int newCursorIdx = cursorCharIndex+_numTChars[cursorDisplayIndex];
+      // int newCursorIdx = cursorCharIndex+_numTChars[newCursorDisplayIndex];
       textDisplayController.text = displayText.substring(0, cursorCharIndex) +
           aWord + displayText.substring(cursorCharIndex, displayText.length);
     }
@@ -71,42 +71,39 @@ class AppBrain with ChangeNotifier {
     cursorCharIndex += aWord.length;
     //place the cursor in the correct position.
     textDisplayController.selection = TextSelection(baseOffset : cursorCharIndex, extentOffset: cursorCharIndex);
-    _numTChars.insert(cursorDisplayIndex, aWord.length);
-    print('Stats: ${cursorCharIndex} ${cursorDisplayIndex} ${textDisplayController.selection.baseOffset} ${textDisplayController.selection.extentOffset} ${_numTChars}');
+    _numTChars.insert(newCursorDisplayIndex, aWord.length);
+    print('Stats: ${cursorCharIndex} ${newCursorDisplayIndex} ${textDisplayController.selection.baseOffset} ${textDisplayController.selection.extentOffset} ${_numTChars}');
 
     notifyListeners();
   }
   void deleteWord(){
     String displayText = textDisplayController.text;
-
-    // print('BEFORE: ${displayText} ||| ${_numTChars} ');
     setCursorCharIndex();
-    // print("TEXT DISPLAY INDEX: $cursorCharIndex !!!!!");
-    int cursorDisplayIndex;
+    int newCursorDisplayIndex;
     if (cursorCharIndex > 0 && displayText.length>0) {
-      int newCursorIndex;
+      int newCursorCharIndex;
       if (cursorCharIndex == textDisplayController.text.length ){
         textDisplayController.text =
             displayText.substring(0,displayText.length - _numTChars.last);
         print(_numTChars.last);
-        newCursorIndex =cursorCharIndex - _numTChars.removeLast();
+        newCursorCharIndex =cursorCharIndex - _numTChars.removeLast();
 
       }else{
-        cursorDisplayIndex = findCursorDisplayIndex(cursorCharIndex); //The index in the text string the cursor appears to be.
-        // print('cursorDispInd: $cursorDisplayIndex ,     ||  cursorCharInd: $cursorCharIndex');
-        newCursorIndex = cursorCharIndex - _numTChars[cursorDisplayIndex];
+        newCursorDisplayIndex =findCursorDisplayIndex(cursorCharIndex) - 1 ; //The index in the text string the cursor appears to be.
+        newCursorCharIndex = cursorCharIndex - _numTChars[newCursorDisplayIndex];
+        print('cursorDispInd: $newCursorDisplayIndex ,     ||  cursorCharInd: $cursorCharIndex  ||newCursorCharIndex: $newCursorCharIndex');
         textDisplayController.text =
-            displayText.substring(0,newCursorIndex)+
+            displayText.substring(0,newCursorCharIndex)+
           displayText.substring(cursorCharIndex);
 
-        _numTChars = _numTChars.sublist(0, cursorDisplayIndex) + _numTChars.sublist(cursorDisplayIndex+1);
+        _numTChars = _numTChars.sublist(0, newCursorDisplayIndex) + _numTChars.sublist(newCursorDisplayIndex+1);
       }
 
-      textDisplayController.selection = TextSelection(baseOffset : newCursorIndex, extentOffset: newCursorIndex);
-      cursorCharIndex=newCursorIndex;
+      textDisplayController.selection = TextSelection(baseOffset : newCursorCharIndex, extentOffset: newCursorCharIndex);
+      cursorCharIndex=newCursorCharIndex;
       // print ("AFTER: ${textDisplayController.text} ||| ${_numTChars}");
 
-      print('Stats: ${cursorCharIndex} ${cursorDisplayIndex} ${textDisplayController.selection.baseOffset} ${textDisplayController.selection.extentOffset} ${_numTChars}');
+      print('Stats: ${cursorCharIndex} ${newCursorDisplayIndex} ${textDisplayController.selection.baseOffset} ${textDisplayController.selection.extentOffset} ${_numTChars}');
       notifyListeners();
     }
   }
