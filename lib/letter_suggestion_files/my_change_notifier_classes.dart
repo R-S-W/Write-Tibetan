@@ -52,15 +52,14 @@ class AppBrain with ChangeNotifier {
 
 
     String displayText = textDisplayController.text;
-    int cursorDisplayIndex = findCursorDisplayIndex(cursorCharIndex);
     // print("DISPLAY TEXT : $displayText");
 
     setCursorCharIndex(); // used to update the cursor index.
+    int cursorDisplayIndex = findCursorDisplayIndex(cursorCharIndex);
 
     if (displayText.length==0 || cursorCharIndex ==displayText.length){
       textDisplayController.text += aWord;
-      cursorDisplayIndex+=1;
-      print('Empty text, first addition => offset = ${textDisplayController.selection.baseOffset}');
+      // cursorDisplayIndex+=1;
     }else {
       // int newCursorIdx = cursorCharIndex+_numTChars[cursorDisplayIndex];
       textDisplayController.text = displayText.substring(0, cursorCharIndex) +
@@ -72,7 +71,7 @@ class AppBrain with ChangeNotifier {
     cursorCharIndex += aWord.length;
     //place the cursor in the correct position.
     textDisplayController.selection = TextSelection(baseOffset : cursorCharIndex, extentOffset: cursorCharIndex);
-    _numTChars.insert(cursorDisplayIndex-1, aWord.length);
+    _numTChars.insert(cursorDisplayIndex, aWord.length);
     print('Stats: ${cursorCharIndex} ${cursorDisplayIndex} ${textDisplayController.selection.baseOffset} ${textDisplayController.selection.extentOffset} ${_numTChars}');
 
     notifyListeners();
