@@ -84,7 +84,7 @@ class _TextDisplayState extends State<TextDisplay> {
                     "Del"
                   ),
                   onPressed: widget.deleteWordCallback,
-                  onLongPress: widget.clearSentenceCallback,
+                  onLongPress: widget.deleteWordCallback,//widget.clearSentenceCallback,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(topLeft: Radius.circular( 1.5*kRoundedButtonRadius)),
                   ),
