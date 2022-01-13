@@ -4,7 +4,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../styling_files/constants.dart';
-
 import '../styling_files/custom_slider_thumb_rect.dart';
 
 
