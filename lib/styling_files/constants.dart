@@ -104,7 +104,9 @@ const Color kTsegSheButtonColor = Color(0xff364962);
 // const Color kTsegSheTextColor = Colors.white;
 
 const Offset kDeleteUndoButtonDim = Offset(70,50);
-const Color kDeleteUndoButtonColor =  Color(0xff58C6DF);//light navy Color(0xff4367a4);
+const Color kDeleteUndoButtonColor =  Color(0xff416688);
+//light teal turqoise color 0xff58abcf
+//light navy Color(0xff4367a4);
 //Color(0xff556b80);
 const Color kDeleteUndoTextColor = Colors.white;
 
