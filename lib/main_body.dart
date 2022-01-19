@@ -36,7 +36,7 @@ class _MainBodyState extends State<MainBody> {
         ),
 
         SizedBox(
-          height: 2.5,
+          height: 3.5,
           child: Container(
             color: kSuggestionBarBorderlineColor,
           )
@@ -55,7 +55,7 @@ class _MainBodyState extends State<MainBody> {
 
 
         SizedBox(
-            height: 2.5,
+            height: 3.5,
             child: Container(
               color: kSuggestionBarBorderlineColor,
             )
