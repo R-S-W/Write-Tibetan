@@ -3,6 +3,18 @@ import 'package:flutter/material.dart';
 
 
 
+//Basic Colors______________________________________________________
+const Color kTRed = Color(0xff982929);
+  // 0xafab0000 //Color(0xafab3333);
+const Color kTWhite = Color(0xffececec);
+  // 0xfff1f2ff
+  //Color(0xffe8e8e8);
+// 0xffdddddd // light off white   // 0xff5ebff2//light blue
+// 0xffece6d7   // white with yellow
+
+const Color kTGreen = Color(0xff317486);
+
+
 //Main---------------------------------------------------------------
 const Offset kScreenDim = Offset(414.0,896.0);
 
@@ -11,16 +23,12 @@ final ThemeData kMyAppThemeData = ThemeData(
   primarySwatch: Colors.blue,
 );
 
-const Color kAppBarBackgroundColor = Color(
-    // 0xff57c2ff
-  // 0xff4aa0d1
-  // 0xff4eade3 //subdued light blue
-  // 0xff2061c4 // dark blue
-  0xff317486
-
-); // Color(0xff57c2ff);
-
-
+const Color kAppBarBackgroundColor = Color(0xff1d6596);//Nice dark blue: Color(0xff075b8f)  // kTGreen;
+// 0xff57c2ff
+// 0xff4aa0d1
+// 0xff4eade3 //subdued light blue
+// 0xff2061c4 // dark blue
+// Color(0xff57c2ff);
 
 const double kMargin = 5.0;
 const double kRoundedButtonRadius = 10;
@@ -28,30 +36,21 @@ const double kRoundedButtonRadius = 10;
 
 //Text Display---------------------------------------------------------------
 const double kTextMargin  = 10.0;
+const double kTextDisplayHeight = 350.0;
 
 const double kTextFontSize =45.0;
 
 
-const Color kTextDisplayColor = Color(
+const Color kTextDisplayColor = kTWhite;
 
-    // 0xfff1f2ff
-  // 0xffdddddd // light off white
-  // 0xff5ebff2//light blue
-  // 0xffece6d7   // white with yellow
-  0xffececec
 
-);//Color(0xffe8e8e8);
 const TextStyle kTextDisplayStyle= TextStyle(
   fontSize: 50.0,
 );
 
 
-const Color  kCopyButtonColor = Color(
-    // 0xafab0000
-    0xff982929
+const Color  kCopyButtonColor = kTRed;
 
-
-);//Color(0xafab3333);
 const Color kDeleteButtonColor = kCopyButtonColor;
 // const TextStyle kTextDisplayButtonStyle = TextStyle(
 //
@@ -67,13 +66,14 @@ const Color kSuggestionBarColor = kCopyButtonColor;
 
 const Offset kSuggestionListViewWidgetDim = Offset(55,65);
 
+const kSuggestionTextColor = Color(0xffc8900a);
 const TextStyle kSuggestionTextStyle =  TextStyle(
   fontSize: 39,
-  color: Color(0xffc8900a),//Color(0xffa87d14),
+  color: kSuggestionTextColor,//Color(0xffa87d14),
 );
 
 
-const Color kSuggestionBarBorderlineColor= Color(0xff8d9ca3);
+const Color kSuggestionBarBorderlineColor= kSuggestionTextColor;//Color(0xff8d9ca3);
 
 //Writing Stack---------------------------------------------------------------
 const Offset kWritingStackDim = Offset(414.0, 310.0);
