@@ -73,15 +73,16 @@ const TextStyle kSuggestionTextStyle =  TextStyle(
 );
 
 
-const Color kSuggestionBarBorderlineColor= Color(0xffca7e08);//Color(0xff8d9ca3);
+const Color kSuggestionBarBorderlineColor1= Color(0xffca7e08);//Color(0xff8d9ca3);
+const Color kSuggestionBarBorderlineColor2= Color(0xffbf7709);//Color(0xff8d9ca3);
 
 //Writing Stack---------------------------------------------------------------
 const Offset kWritingStackDim = Offset(414.0, 310.0);
  //MediaQuery.of(context).size.width);
 
-//Writing Pad
-const Color kWritingPadColor = Color(0xff33798b   //0xff3a88a5 // nice bluegreen
-);
+//Writing Pad------------------------------------------------------------------
+const Color kWritingPadColor = Color(0xff2f6b7e);
+//Color(0xff33798b);   //0xff3a88a5 // nice bluegreen
 // 0xffcab99e
 // 0xffbaaf74 //khaki
 // 0xff337687 //turquoise
@@ -96,15 +97,20 @@ const Color kWritingPadColor = Color(0xff33798b   //0xff3a88a5 // nice bluegreen
 const Offset kRightmostButtonsDim = Offset(100.0, 200.0);
 const Offset kTsegSheContainerDim = Offset(50.0,90);
 const Offset kTsegSheButtonDim = Offset(50.0,80);
-const Color kTsegSheButtonColor = Color(0xff465869);
-const Color kTsegSheTextColor = Colors.white;
+const Color kTsegSheButtonColor = Color(0xff364962);
+  // faded Navy 0xff2b435d
+  // Nice dark navy  blue 0xff263d5b
+// Color test = Color(0xff465869);//FFC900
+// const Color kTsegSheTextColor = Colors.white;
 
 const Offset kDeleteUndoButtonDim = Offset(70,50);
-const Color kDeleteUndoButtonColor = Color(0xff556b80);
+const Color kDeleteUndoButtonColor =  Color(0xff58C6DF);//light navy Color(0xff4367a4);
+//Color(0xff556b80);
 const Color kDeleteUndoTextColor = Colors.white;
 
 final Offset kEnterButtonDim = Offset(kRightmostButtonsDim.dx,50);
-final Color kEnterButtonColor = Color(0xff98c6f2);
+final Color kEnterButtonColor =Color(0xffC29638);
+//Color(0xff98c6f2);
 // final Offset kTsegSheButtonDim = Offset();
 
 //TsegShe and  Delete Undo Constants are in the bottom_right_buttons.dart
