@@ -73,7 +73,7 @@ const TextStyle kSuggestionTextStyle =  TextStyle(
 );
 
 
-const Color kSuggestionBarBorderlineColor= kSuggestionTextColor;//Color(0xff8d9ca3);
+const Color kSuggestionBarBorderlineColor= Color(0xffca7e08);//Color(0xff8d9ca3);
 
 //Writing Stack---------------------------------------------------------------
 const Offset kWritingStackDim = Offset(414.0, 310.0);

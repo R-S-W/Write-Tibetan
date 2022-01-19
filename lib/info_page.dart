@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './styling_files/constants.dart';
 
 
 
@@ -21,6 +22,7 @@ class InfoPage extends StatelessWidget {
             title: Center(
               child: Text("Information"),
             ),
+            backgroundColor: kAppBarBackgroundColor
           ),
 
         ),
