@@ -79,8 +79,10 @@ class CustomSliderThumbRect extends SliderComponentShape {
 
     final rRect = RRect.fromRectAndRadius(
       Rect.fromCenter(
-          center: center, width: thumbHeight , height: thumbWidth),
-      Radius.circular(thumbRadius),
+          center: center,
+          width: thumbHeight ,
+          height: thumbWidth),
+          Radius.circular(thumbRadius),
     );
 
 
@@ -89,6 +91,11 @@ class CustomSliderThumbRect extends SliderComponentShape {
       ..color = sliderTheme.thumbColor //Thumb Background Color
       ..style = PaintingStyle.fill
       ..filterQuality = FilterQuality.high;
+
+    final borderPaint = Paint()
+      ..color = Color(0x86ffffff)
+      ..strokeWidth = 1.5
+      ..style = PaintingStyle.stroke;
 
     TextSpan span = new TextSpan(
         style: new TextStyle(         
@@ -103,9 +110,10 @@ class CustomSliderThumbRect extends SliderComponentShape {
         textDirection: TextDirection.ltr);
     tp.layout();
     Offset textCenter =
-    Offset(center.dx - (tp.width / 2), center.dy - (tp.height / 2));
+      Offset(center.dx - (tp.width / 2), center.dy - (tp.height / 2));
 
     canvas.drawRRect(rRect, paint);
+    canvas.drawRRect(rRect,borderPaint);
     tp.paint(canvas, textCenter);
 
 

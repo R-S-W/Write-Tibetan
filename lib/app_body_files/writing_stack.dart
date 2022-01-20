@@ -154,6 +154,11 @@ class _WritingStackState extends State<WritingStack>{
                 },
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(kRoundedButtonRadius)),
+                  side:BorderSide(
+                    color: Color(0x80ffffff),
+                    width:1.5
+                  )
+
                 ),
                 color: kEnterButtonColor,
 
