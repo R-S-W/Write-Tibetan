@@ -120,8 +120,8 @@ class DeleteUndo extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(kRoundedButtonRadius)),
           side:BorderSide(
-            color:Color(0x5EFFFFFF),
-            width:1.5
+            color: kBottomRightButtonsBorderColor,//Color(0x5EFFFFFF),
+            width:kBottomRightButtonsBorderWidth
           )
         ),
 

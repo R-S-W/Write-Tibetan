@@ -14,11 +14,6 @@ class CustomSliderThumbRect extends SliderComponentShape {
   ui.Image image;
 
 
-
-
-
-
-
   //
   // const CustomSliderThumbRect(double aThumbRadius, double aThumbHeight, int aMin, int aMax, [String aText]){
   //   this.thumbRadius=aThumbRadius;
@@ -36,7 +31,6 @@ class CustomSliderThumbRect extends SliderComponentShape {
     this.max = max;
     this.text  = text;
     this.image = image;
-
   }
 
 
@@ -81,8 +75,9 @@ class CustomSliderThumbRect extends SliderComponentShape {
       Rect.fromCenter(
           center: center,
           width: thumbHeight ,
-          height: thumbWidth),
-          Radius.circular(thumbRadius),
+          height: thumbWidth
+      ),
+      Radius.circular(thumbRadius),
     );
 
 
@@ -93,8 +88,8 @@ class CustomSliderThumbRect extends SliderComponentShape {
       ..filterQuality = FilterQuality.high;
 
     final borderPaint = Paint()
-      ..color = Color(0x86ffffff)
-      ..strokeWidth = 1.5
+      ..color = kBottomRightButtonsBorderColor
+      ..strokeWidth = kBottomRightButtonsBorderWidth
       ..style = PaintingStyle.stroke;
 
     TextSpan span = new TextSpan(

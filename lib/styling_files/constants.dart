@@ -102,6 +102,10 @@ const Color kTsegSheButtonColor = Color(0xff364962);
   // Nice dark navy  blue 0xff263d5b
 // Color test = Color(0xff465869);//FFC900
 // const Color kTsegSheTextColor = Colors.white;
+const Color kBottomRightButtonsBorderColor = Color(0x86ffffff);
+const double kBottomRightButtonsBorderWidth = 1.75;
+// const Color kTsegSheButtonBorderColor = Color(0x86ffffff);
+
 
 const Offset kDeleteUndoButtonDim = Offset(70,50);
 const Color kDeleteUndoButtonColor =  Color(0xff416688);
@@ -111,7 +115,7 @@ const Color kDeleteUndoButtonColor =  Color(0xff416688);
 const Color kDeleteUndoTextColor = Colors.white;
 
 final Offset kEnterButtonDim = Offset(kRightmostButtonsDim.dx,50);
-final Color kEnterButtonColor =Color(0xffC29638);
+final Color kEnterButtonColor =Color(0xffc19140);
 //Color(0xff98c6f2);
 // final Offset kTsegSheButtonDim = Offset();
 
