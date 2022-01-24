@@ -29,7 +29,7 @@ class _TsegSheState extends State<TsegShe> {
     _loadImage();
   }
   _loadImage() async{
-    ByteData bd = await rootBundle.load("assets/images/TsegShePic.png");
+    ByteData bd = await rootBundle.load("assets/images/TsegSheWhitePic.png");
     final Uint8List bytes = Uint8List.view(bd.buffer);
     final ui.Codec codec = await ui.instantiateImageCodec(bytes);
     final ui.Image image=(await codec.getNextFrame()).image;

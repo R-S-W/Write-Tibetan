@@ -53,6 +53,7 @@ flutter:
 
   assets:
     - assets/images/TsegShePic.png
+    - assets/images/TsegSheWhitePic.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
