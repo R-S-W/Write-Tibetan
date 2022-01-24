@@ -76,7 +76,7 @@ class _WritingStackState extends State<WritingStack>{
           },
 
           onPanEnd: (details){setState((){
-            var appBrain = Provider.of<AppBrain>(context);
+            var appBrain = Provider.of<AppBrain>(context, listen:false);
             appBrain.suggestLetters();
           });}
         ),
@@ -98,7 +98,7 @@ class _WritingStackState extends State<WritingStack>{
             // PunctuationButtons(),
             TsegShe(
               onPressed: (){
-                var appBrain = Provider.of<AppBrain>(context) ;
+                var appBrain = Provider.of<AppBrain>(context, listen:false) ;
                 //Display the tseg.
                 if (appBrain.getSuggestionsLength()>0){
                   //if there's suggestions, add 1st suggested letter first.
@@ -109,7 +109,7 @@ class _WritingStackState extends State<WritingStack>{
               },
               onSlid: (){
                 //Display the tseg
-                var appBrain =Provider.of<AppBrain>(context);
+                var appBrain =Provider.of<AppBrain>(context, listen:false);
                 //onPressed always precedes onSlid.  Delete tseg, add she.
                 appBrain.deleteWord();
                 appBrain.addWord('།');
@@ -124,12 +124,12 @@ class _WritingStackState extends State<WritingStack>{
 
             DeleteUndo(
               onPressed: (){//Delete latest stroke
-                var appBrain = Provider.of<AppBrain>(context);
+                var appBrain = Provider.of<AppBrain>(context, listen:false);
                 appBrain.deleteStroke();
               },
 
               onLongPress: (){ //Delete all strokes
-                var appBrain = Provider.of<AppBrain>(context);
+                var appBrain = Provider.of<AppBrain>(context, listen:false);
                 appBrain.clearAllStrokesAndSuggestions();
                 //Don't Delete this comment.  widget.StrokeList.clear();  Not needed because consumer handles this. Use if not using changenotifier.
               },
@@ -149,7 +149,7 @@ class _WritingStackState extends State<WritingStack>{
                   ),
                 ),
                 onPressed: () {
-                  var appBrain =Provider.of<AppBrain>(context) ;
+                  var appBrain =Provider.of<AppBrain>(context, listen:false) ;
                   appBrain.addWord('\n');
                 },
                 shape: RoundedRectangleBorder(

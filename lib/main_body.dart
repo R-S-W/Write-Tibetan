@@ -22,15 +22,15 @@ class _MainBodyState extends State<MainBody> {
       children : <Widget>[
         TextDisplay(
           clearSentenceCallback:(){
-            var appBrain =Provider.of<AppBrain>(context) ;
+            var appBrain =Provider.of<AppBrain>(context, listen:false) ;
             appBrain.clearSentence();
           },
           deleteWordCallback: (){
-            var appBrain =Provider.of<AppBrain>(context) ;
+            var appBrain =Provider.of<AppBrain>(context, listen:false) ;
             appBrain.deleteWord();
           },
           copyTextCallback: (){
-            var appBrain = Provider.of<AppBrain>(context);
+            var appBrain = Provider.of<AppBrain>(context, listen:false);
             FlutterClipboard.copy(appBrain.getTextDisplaySentence());
           },
         ),
@@ -45,7 +45,7 @@ class _MainBodyState extends State<MainBody> {
         SuggestionBar(
           tappedLetterCallback: (str){
             //Display the word
-            var appBrain =Provider.of<AppBrain>(context) ;
+            var appBrain =Provider.of<AppBrain>(context, listen:false) ;
             appBrain.addWord(str);
             //Clear the strokes+suggestions
             appBrain.printPathListString();/////PRINT
