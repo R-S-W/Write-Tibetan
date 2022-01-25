@@ -13,17 +13,15 @@ class CustomSliderThumbRect extends SliderComponentShape {
   String text;
   ui.Image image;
 
-
-  //
-  // const CustomSliderThumbRect(double aThumbRadius, double aThumbHeight, int aMin, int aMax, [String aText]){
-  //   this.thumbRadius=aThumbRadius;
-  //   this.thumbHeight=aThumbHeight;
-  //   this.min=aMin;
-  //   this.max=aMax;
-  //
-  // };
-
-  CustomSliderThumbRect({double thumbRadius,double thumbHeight,double thumbWidth,int min,int max,String text,ui.Image image}){
+  CustomSliderThumbRect({
+        double thumbRadius,
+        double thumbHeight,
+        double thumbWidth,
+        int min,
+        int max,
+        String text,
+        ui.Image image
+      }){
     this.thumbRadius = thumbRadius;
     this.thumbHeight = thumbHeight;
     this.thumbWidth = thumbWidth;
@@ -32,9 +30,6 @@ class CustomSliderThumbRect extends SliderComponentShape {
     this.text  = text;
     this.image = image;
   }
-
-
-
 
 
   @override
@@ -69,13 +64,11 @@ class CustomSliderThumbRect extends SliderComponentShape {
 
 
 
-
-
     final rRect = RRect.fromRectAndRadius(
       Rect.fromCenter(
-          center: center,
-          width: thumbHeight ,
-          height: thumbWidth
+        center: center,
+        width: thumbHeight ,
+        height: thumbWidth
       ),
       Radius.circular(thumbRadius),
     );
@@ -132,24 +125,14 @@ class CustomSliderThumbRect extends SliderComponentShape {
         minWidth: 0,
         maxWidth: tp.width,// ../////////
     );
-    // final offset =    textCenter; // Offset(center.dx , center.dy );
 
     //Draw the image:_________________________________
     if (image != null) {
       canvas.drawImage(image, imageOffset, paint);
     }
-    // Paragraph para = Paragraph(
-    //
-    // );
-    // canvas.drawParagraph(para, imageOffset);
-
-
-
-
   }
 
   String getValue(double value) {
     return (min+(max-min)*value).round().toString();
   }
 }
-//-------

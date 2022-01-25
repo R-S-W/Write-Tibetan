@@ -24,7 +24,7 @@ class _TsegSheState extends State<TsegShe> {
   double restValue = 1;
   ui.Image _image;
   @override
-  void initState(){ /////////////idk?? lookat the warning when you hover over initstate
+  void initState(){
     super.initState();
     _loadImage();
   }
@@ -42,49 +42,45 @@ class _TsegSheState extends State<TsegShe> {
     return RotatedBox(
       quarterTurns: 3,
       child: Container(
-          height: kTsegSheContainerDim.dx, //This is width, because widget is rotated.
-          width: kTsegSheContainerDim.dy,//Similarly, this is height.
-          // color: Color(0xaf000000),
-
-          child: SliderTheme(
-              data: SliderThemeData(
-                thumbShape: CustomSliderThumbRect(
-                  min:0,
-                  max:1,
-                  thumbRadius: kRoundedButtonRadius,
-                  thumbHeight: kTsegSheButtonDim.dy ,//*1.1,
-                  thumbWidth:  kTsegSheButtonDim.dx,
-                  image: _image,
-                ),
-                thumbColor: kTsegSheButtonColor,
-                // disabledThumbColor: Colors.blue,
-                inactiveTrackColor: Color(0x00),
-                activeTrackColor: Color(0x00),
-                // trackHeight: 15
-
-              ),
-              child: Slider(
-                value: restValue,
-                min: 0,
-                max: 1,
-                onChanged: (double value) {
-                  setState(() {
-                    restValue=value;
-                  });
-                },
-                onChangeStart:(double startValue){
-                  widget.onPressed();
-                },
-                onChangeEnd:(double endValue){
-                  if (endValue == 0){// hopefully this doesnt need a tolerance
-                    widget.onSlid();
-                  }
-                  setState((){
-                    restValue=1;
-                  });
-                },
-              )
+        //Width and height are switched because the widget is rotated.
+        height: kTsegSheContainerDim.dx,//Width
+        width: kTsegSheContainerDim.dy,//Height
+        child: SliderTheme(
+          data: SliderThemeData(
+            thumbShape: CustomSliderThumbRect(
+              min:0,
+              max:1,
+              thumbRadius: kRoundedButtonRadius,
+              thumbHeight: kTsegSheButtonDim.dy ,
+              thumbWidth:  kTsegSheButtonDim.dx,
+              image: _image,
+            ),
+            thumbColor: kTsegSheButtonColor,
+            inactiveTrackColor: Color(0x00),
+            activeTrackColor: Color(0x00),
+          ),
+          child: Slider(
+            value: restValue,
+            min: 0,
+            max: 1,
+            onChanged: (double value) {
+              setState(() {
+                restValue=value;
+              });
+            },
+            onChangeStart:(double startValue){
+              widget.onPressed();
+            },
+            onChangeEnd:(double endValue){
+              if (endValue == 0){
+                widget.onSlid();
+              }
+              setState((){
+                restValue=1;
+              });
+            },
           )
+        )
       ),
     );
   }
@@ -103,8 +99,6 @@ class DeleteUndo extends StatelessWidget {
     return Container(
       width: kDeleteUndoButtonDim.dx,
       height: kDeleteUndoButtonDim.dy,
-
-
       child: RaisedButton(
         onPressed: onPressed,
         onLongPress:onLongPress,
@@ -115,19 +109,15 @@ class DeleteUndo extends StatelessWidget {
             fontWeight: FontWeight.w700,
             color: kDeleteUndoTextColor,
           )
-        ),//Text("\u232B") ,
+        ),
         color:kDeleteUndoButtonColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(kRoundedButtonRadius)),
           side:BorderSide(
-            color: kBottomRightButtonsBorderColor,//Color(0x5EFFFFFF),
+            color: kBottomRightButtonsBorderColor,
             width:kBottomRightButtonsBorderWidth
           )
         ),
-
-
-
-
       ),
     );
   }

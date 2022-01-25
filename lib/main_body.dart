@@ -18,15 +18,15 @@ class _MainBodyState extends State<MainBody> {
   @override
   Widget build(BuildContext context) {
     return   Column(
-      crossAxisAlignment: CrossAxisAlignment.start, //mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children : <Widget>[
         TextDisplay(
           clearSentenceCallback:(){
-            var appBrain =Provider.of<AppBrain>(context, listen:false) ;
+            var appBrain =Provider.of<AppBrain>(context, listen:false);
             appBrain.clearSentence();
           },
           deleteWordCallback: (){
-            var appBrain =Provider.of<AppBrain>(context, listen:false) ;
+            var appBrain = Provider.of<AppBrain>(context, listen:false);
             appBrain.deleteWord();
           },
           copyTextCallback: (){
@@ -49,7 +49,7 @@ class _MainBodyState extends State<MainBody> {
             appBrain.addWord(str);
             //Clear the strokes+suggestions
             appBrain.printPathListString();/////PRINT
-            appBrain.clearAllStrokesAndSuggestions();//
+            appBrain.clearAllStrokesAndSuggestions();
           },
         ),
 

@@ -25,7 +25,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: kMyAppThemeData,
-
       home: MainPage(),// this was done to use navigator
     );
   }
@@ -45,8 +44,6 @@ class MainPage extends StatelessWidget {
         centerTitle: true,
         elevation: 0,
         backgroundColor: kAppBarBackgroundColor,
-
-        // leading:Icon(Icons.circle),
         title: Center(
             child: const Text(
               'Tibetan Handwritten Input Method',
@@ -63,7 +60,7 @@ class MainPage extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: Icon(
-              Icons.info_outline ,// Icons.settings,
+              Icons.info_outline,
             ),
             onPressed: (){
               Navigator.push(

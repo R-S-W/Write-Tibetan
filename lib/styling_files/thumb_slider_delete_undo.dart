@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 
 
-
 class ThumbSliderDeleteUndo extends SliderComponentShape {
   final double thumbRadius;
   final double thumbHeight;
@@ -11,7 +10,12 @@ class ThumbSliderDeleteUndo extends SliderComponentShape {
   final String text;
 
 
-  const ThumbSliderDeleteUndo({this.thumbRadius,this.thumbHeight,this.min,this.max,this.text});
+  const ThumbSliderDeleteUndo({
+    this.thumbRadius,
+    this.thumbHeight,
+    this.min,this.max,
+    this.text
+  });
 
   @override
   Size getPreferredSize(bool isEnabled, bool isDiscrete) {
@@ -60,13 +64,10 @@ class ThumbSliderDeleteUndo extends SliderComponentShape {
         textAlign: TextAlign.left,
         textDirection: TextDirection.ltr);
     tp.layout();
-    Offset textCenter =
-    // Offset(center.dx - (tp.width / 2), center.dy - (tp.height / 2));
-    Offset(center.dx, center.dy);
+    Offset textCenter = Offset(center.dx, center.dy);
 
     canvas.drawRRect(rRect, paint);
     tp.paint(canvas, textCenter);
-
 
 
 
@@ -85,21 +86,13 @@ class ThumbSliderDeleteUndo extends SliderComponentShape {
     );
     textPainter.layout(
       minWidth: 0,
-      maxWidth: tp.width,// ../////////
+      maxWidth: tp.width
     );
-    final offset =    textCenter; // Offset(center.dx , center.dy );
-    // if (this.text == "་།") {
-    //   canvas.rotate(3.141592653 / 2);
-    //   canvas.translate(0,90);
-    // }
+    final offset =    textCenter;
     textPainter.paint(canvas, offset);
-
-
-
   }
 
   String getValue(double value) {
     return (min+(max-min)*value).round().toString();
   }
 }
-//-------

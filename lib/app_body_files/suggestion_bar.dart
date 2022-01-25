@@ -19,11 +19,9 @@ class _SuggestionBarState extends State<SuggestionBar> {
   @override
   Widget build(BuildContext context){
     return Container(
-
       height: kSuggestionBarHeight,
       decoration: BoxDecoration(
         color: kSuggestionBarColor,
-
       ),
       child:  Consumer<AppBrain>(
         builder: (context,appBrain, child)=> ListView.builder(
@@ -38,17 +36,13 @@ class _SuggestionBarState extends State<SuggestionBar> {
               padding: const EdgeInsets.all(5.0) ,
               child: ListTile(
                 title: Stack(
-                  children: <Widget>[  //(order Matters)
-
-
+                  children: <Widget>[
                     Text(appBrain.getSuggestionAt(index),
                       style: kSuggestionTextStyle.copyWith(
                         foreground: Paint()
                           ..style = PaintingStyle.stroke
                           ..strokeWidth = 1.9
                           ..color = Color(0xa0000000)
-
-
                       )
                     ),
 
@@ -56,17 +50,8 @@ class _SuggestionBarState extends State<SuggestionBar> {
                       style: kSuggestionTextStyle.copyWith(
                       ),
                     ),
-
-
                   ]
                 ),
-
-
-
-
-                // Text(stroke2Sug.getSuggestionAt(index),
-                //   style: kSuggestionTextStyle,
-                // ),
 
                 onTap: () {
                   widget.tappedLetterCallback( appBrain.getSuggestionAt(index),);

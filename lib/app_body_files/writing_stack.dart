@@ -36,14 +36,14 @@ class _WritingStackState extends State<WritingStack>{
           height: kWritingStackDim.dy,
         ),
 
+
         GestureDetector(
           child:ClipRect(
             child: CustomPaint(
               foregroundPainter: WordPainter(
-                strokeList: widget.strokeList,
+                strokeList: widget.strokeList
               ),
-                // size: Size(MediaQuery.of(context).size.width,280)
-                child: Container(            //edit02, child container -> parent container
+                child: Container(
                   height: kWritingStackDim.dy,
                   width: kWritingStackDim.dx,
                   color: kWritingPadColor,
@@ -88,15 +88,10 @@ class _WritingStackState extends State<WritingStack>{
           alignment: Alignment.centerRight,
           width: kRightmostButtonsDim.dx,
           height: kWritingStackDim.dy,
-          // height:kRightmostButtonsDim.dy ,
-
           child:  Column(
-          // mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.end,
-
           children: <Widget>[
-            // PunctuationButtons(),
             TsegShe(
               onPressed: (){
                 var appBrain = Provider.of<AppBrain>(context, listen:false) ;
@@ -106,7 +101,8 @@ class _WritingStackState extends State<WritingStack>{
                   appBrain.addWord(appBrain.getSuggestionAt(0));
                 }
                 appBrain.addWord('་');
-                appBrain.clearAllStrokesAndSuggestions(); //Clear the strokes+suggestions
+                //Clear the strokes+suggestions
+                appBrain.clearAllStrokesAndSuggestions();
               },
               onSlid: (){
                 //Display the tseg
@@ -119,8 +115,6 @@ class _WritingStackState extends State<WritingStack>{
               }
             ),
 
-            //enterButton()
-
             SizedBox(height: kMargin + 15.0 - m.max(0,80- kTsegSheButtonDim.dy)/2 ),
 
             DeleteUndo(
@@ -128,11 +122,11 @@ class _WritingStackState extends State<WritingStack>{
                 var appBrain = Provider.of<AppBrain>(context, listen:false);
                 appBrain.deleteStroke();
               },
-
               onLongPress: (){ //Delete all strokes
                 var appBrain = Provider.of<AppBrain>(context, listen:false);
                 appBrain.clearAllStrokesAndSuggestions();
-                //Don't Delete this comment.  widget.StrokeList.clear();  Not needed because consumer handles this. Use if not using changenotifier.
+                /* Remember: widget.StrokeList.clear();  Not needed because
+                  consumer handles this. Use if not using changenotifier.  */
               },
             ),
 
@@ -146,7 +140,6 @@ class _WritingStackState extends State<WritingStack>{
                 appBrain.addWord('\n');
               },
             )
-
 
           ]
         )),
@@ -164,7 +157,6 @@ class _WritingStackState extends State<WritingStack>{
             },
           )
         )
-
       ],
     );
   }
@@ -175,8 +167,8 @@ class _WritingStackState extends State<WritingStack>{
 
 class WordPainter extends CustomPainter{
   WordPainter({this.strokeList});
-  List<List<Offset>> strokeList ;
-  List<Offset> offsetPoints= List();
+  List<List<Offset>> strokeList;
+  List<Offset> offsetPoints= [];
   @override
   void paint(Canvas canvas, Size size){
     final paintSettings = Paint()
@@ -186,7 +178,6 @@ class WordPainter extends CustomPainter{
       ..strokeCap = StrokeCap.round;
 
     for (int i=0; i< strokeList.length; i++){
-      // canvas.drawPoints(PointMode.points, strokeList[i], paintSettings );//
       for (int j=0; j< strokeList[i].length-1; j++){
         //draw endpoints
         canvas.drawPoints(
