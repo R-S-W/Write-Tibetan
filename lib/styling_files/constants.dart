@@ -133,6 +133,8 @@ const Color kDeleteUndoTextColor = Colors.white;
 final Offset kEnterButtonDim =
   Offset(kRightmostButtonsDim.dx,kBottomButtonsHeight);
 final Color kEnterButtonColor =Color(0xffc19140);
+
+final Color kSpacebarColor = Color(0xffE97821);
 //Color(0xff98c6f2);
 // final Offset kTsegSheButtonDim = Offset();
 

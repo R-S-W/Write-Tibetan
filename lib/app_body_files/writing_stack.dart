@@ -152,14 +152,17 @@ class _WritingStackState extends State<WritingStack>{
         )),
 
 
-        Positioned(//Spacebar
+        Positioned(//SPACEBAR
           left: kMargin,
           bottom: kMargin,
-          child: Container(
-            color:Colors.red,
-            height: kSpaceButtonDim.dy,
-            width: kSpaceButtonDim.dx,
-          ),
+          child: BottomButton(
+            label: 'Space',
+            color: kSpacebarColor,
+            onPressed: (){
+              var appBrain = Provider.of<AppBrain>(context, listen: false);
+              appBrain.addWord(' ');
+            },
+          )
         )
 
       ],
