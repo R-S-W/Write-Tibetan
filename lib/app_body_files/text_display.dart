@@ -78,6 +78,7 @@ class _TextDisplayState extends State<TextDisplay> {
                           fontSize: 18,
                           color: kButtonTextColor,
                           letterSpacing: -.5,
+                          height:1.2,
                         )
                       ),
                       onPressed: widget.copyTextCallback,

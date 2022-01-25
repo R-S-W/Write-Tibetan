@@ -52,7 +52,7 @@ class MainPage extends StatelessWidget {
               'Tibetan Handwritten Input Method',
               style: TextStyle(
                 fontFamily:kSairaCondensed,
-                fontSize:26.5,
+                fontSize:26,
                 fontWeight:FontWeight.bold,
                 letterSpacing: .5,
                 overflow:TextOverflow.visible,
