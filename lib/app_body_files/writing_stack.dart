@@ -2,6 +2,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'bottom_right_buttons.dart';
+import 'bottom_button.dart';
 
 import 'package:provider/provider.dart';
 import '../letter_suggestion_files/my_change_notifier_classes.dart';
@@ -137,40 +138,31 @@ class _WritingStackState extends State<WritingStack>{
 
             SizedBox(height: kMargin),
 
-            Container(//ENTER BUTTON
-              width: kEnterButtonDim.dx,
-              height:kEnterButtonDim.dy ,
-
-              child: RaisedButton(
-                child: Text(
-                  "Enter",
-                  style: TextStyle(
-                    fontFamily: kShipporiAntiqueB1,
-                    fontSize:22.0,
-                    color: kButtonTextColor,
-                    letterSpacing: -.5,
-                  ),
-                ),
-                onPressed: () {
-                  var appBrain =Provider.of<AppBrain>(context, listen:false) ;
-                  appBrain.addWord('\n');
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(kRoundedButtonRadius)),
-                  side:BorderSide(
-                    color: kBottomRightButtonsBorderColor,
-                    width:kBottomRightButtonsBorderWidth
-                  )
-
-                ),
-                color: kEnterButtonColor,
-
-              ),
-            ),
+            BottomButton(//ENTER BUTTON
+              label: 'Enter',
+              color: kEnterButtonColor,
+              onPressed: () {
+                var appBrain =Provider.of<AppBrain>(context, listen:false) ;
+                appBrain.addWord('\n');
+              },
+            )
 
 
           ]
-        ))],
+        )),
+
+
+        Positioned(//Spacebar
+          left: kMargin,
+          bottom: kMargin,
+          child: Container(
+            color:Colors.red,
+            height: kSpaceButtonDim.dy,
+            width: kSpaceButtonDim.dx,
+          ),
+        )
+
+      ],
     );
   }
 }

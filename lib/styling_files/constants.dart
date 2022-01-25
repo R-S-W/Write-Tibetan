@@ -42,7 +42,7 @@ const Color kAppBarBackgroundColor = Color(0xff1d6596);//Nice dark blue: Color(0
 // 0xff2061c4 // dark blue
 // Color(0xff57c2ff);
 
-const double kMargin = 5.0;
+const double kMargin = 9.0;
 const double kRoundedButtonRadius = 10;
 
 
@@ -106,6 +106,7 @@ const Color kWritingPadColor = Color(0xff2f6b7e);
 //2b9173
 //17a495
 
+const double kBottomButtonsHeight = 50;
 
 //BottomRight Buttons-----------------------------------------------------------
 // const Offset kRightmostButtonsDim = Offset(100.0, 280.0);
@@ -129,7 +130,8 @@ const Color kDeleteUndoButtonColor =  Color(0xff416688);
 //Color(0xff556b80);
 const Color kDeleteUndoTextColor = Colors.white;
 
-final Offset kEnterButtonDim = Offset(kRightmostButtonsDim.dx,50);
+final Offset kEnterButtonDim =
+  Offset(kRightmostButtonsDim.dx,kBottomButtonsHeight);
 final Color kEnterButtonColor =Color(0xffc19140);
 //Color(0xff98c6f2);
 // final Offset kTsegSheButtonDim = Offset();
@@ -138,6 +140,8 @@ final Color kEnterButtonColor =Color(0xffc19140);
 // and custom_slider_thumb_rect.dart.
 
 
+//SpaceBar--------------------------------------------------------------------
+final Offset kSpaceButtonDim = Offset(kRightmostButtonsDim.dx,kBottomButtonsHeight);
 
 
 //Bottom Bar ---------------------------------------------------------------
