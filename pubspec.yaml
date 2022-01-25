@@ -55,6 +55,14 @@ flutter:
     - assets/images/TsegShePic.png
     - assets/images/TsegSheWhitePic.png
 
+  fonts:
+    - family: Merriweather
+      fonts:
+        - asset: assets/fonts/Merriweather/Merriweather-Regular.ttf
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Regular.ttf
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
