@@ -12,8 +12,10 @@ const Color kTWhite = Color(0xffececec);
 // 0xffdddddd // light off white   // 0xff5ebff2//light blue
 // 0xffece6d7   // white with yellow
 const Color kTGreen = Color(0xff317486);
-const Color kButtonTextColor = Colors.white;
 
+
+const Color kButtonTextColor = Colors.white;
+const double kButtonTextSize = 16;
 
 //Main---------------------------------------------------------------
 const Offset kScreenDim = Offset(414.0,896.0);

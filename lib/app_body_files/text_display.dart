@@ -73,8 +73,10 @@ class _TextDisplayState extends State<TextDisplay> {
                       child:Text(
                         "Copy\nAll",
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: kButtonTextColor)
-                        // style: kTextDisplayButtonStyle,
+                        style: TextStyle(
+                            color: kButtonTextColor,
+                            fontSize: kButtonTextSize
+                        )
                       ),
                       onPressed: widget.copyTextCallback,
                       shape: RoundedRectangleBorder(
@@ -111,8 +113,13 @@ class _TextDisplayState extends State<TextDisplay> {
                     child: RaisedButton(
                       color: kCopyButtonColor,
                       child: Text(
-                        "Del",
-                        style: TextStyle(color: kButtonTextColor)
+                        "Delete",
+                        style: TextStyle(
+                            color: kButtonTextColor,
+                            fontSize: kButtonTextSize
+                        ),
+                        softWrap: false,
+                        overflow:TextOverflow.visible,
                       ),
                       onPressed: widget.deleteWordCallback,
                       onLongPress: widget.deleteWordCallback,//widget.clearSentenceCallback,
