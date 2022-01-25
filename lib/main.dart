@@ -50,7 +50,13 @@ class MainPage extends StatelessWidget {
         title: Center(
             child: const Text(
               'Tibetan Handwritten Input Method',
-              style: TextStyle(fontFamily:'Roboto',fontSize:20)
+              style: TextStyle(
+                fontFamily:kSairaCondensed,
+                fontSize:26.5,
+                fontWeight:FontWeight.bold,
+                letterSpacing: .5,
+                overflow:TextOverflow.visible,
+              ),
             ),
         ),
 

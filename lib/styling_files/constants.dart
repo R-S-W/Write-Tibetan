@@ -13,9 +13,19 @@ const Color kTWhite = Color(0xffececec);
 // 0xffece6d7   // white with yellow
 const Color kTGreen = Color(0xff317486);
 
+//Fonts________________________________________________________________
+const String kSairaCondensed = 'Saira_Condensed';
+const String kShipporiAntiqueB1 = 'ShipporiAntiqueB1';
+// const String kMerriweather = 'Merriweather';
+// const String kRoboto = 'Roboto';
+// const String kMetrophobic = 'Metrophobic';
+
+
+
+
 
 const Color kButtonTextColor = Colors.white;
-const double kButtonTextSize = 16;
+const double kButtonTextSize = 19;
 
 //Main---------------------------------------------------------------
 const Offset kScreenDim = Offset(414.0,896.0);

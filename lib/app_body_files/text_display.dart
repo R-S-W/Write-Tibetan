@@ -74,8 +74,10 @@ class _TextDisplayState extends State<TextDisplay> {
                         "Copy\nAll",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            color: kButtonTextColor,
-                            fontSize: kButtonTextSize
+                          fontFamily: kShipporiAntiqueB1,
+                          fontSize: 18,
+                          color: kButtonTextColor,
+                          letterSpacing: -.5,
                         )
                       ),
                       onPressed: widget.copyTextCallback,
@@ -115,8 +117,10 @@ class _TextDisplayState extends State<TextDisplay> {
                       child: Text(
                         "Delete",
                         style: TextStyle(
-                            color: kButtonTextColor,
-                            fontSize: kButtonTextSize
+                          fontFamily: kShipporiAntiqueB1,
+                          fontSize: 19,
+                          color: kButtonTextColor,
+                          letterSpacing: -.5,
                         ),
                         softWrap: false,
                         overflow:TextOverflow.visible,
