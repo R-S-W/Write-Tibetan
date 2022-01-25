@@ -73,6 +73,7 @@ class _TextDisplayState extends State<TextDisplay> {
                       child:Text(
                         "Copy\nAll",
                         textAlign: TextAlign.center,
+                        style: TextStyle(color: kButtonTextColor)
                         // style: kTextDisplayButtonStyle,
                       ),
                       onPressed: widget.copyTextCallback,
@@ -110,7 +111,8 @@ class _TextDisplayState extends State<TextDisplay> {
                     child: RaisedButton(
                       color: kCopyButtonColor,
                       child: Text(
-                        "Del"
+                        "Del",
+                        style: TextStyle(color: kButtonTextColor)
                       ),
                       onPressed: widget.deleteWordCallback,
                       onLongPress: widget.deleteWordCallback,//widget.clearSentenceCallback,

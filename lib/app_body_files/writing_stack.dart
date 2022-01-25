@@ -146,6 +146,7 @@ class _WritingStackState extends State<WritingStack>{
                   "Enter",
                   style: TextStyle(
                     fontSize:20.0,
+                    color: kButtonTextColor
                   ),
                 ),
                 onPressed: () {

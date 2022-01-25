@@ -11,8 +11,8 @@ const Color kTWhite = Color(0xffececec);
   //Color(0xffe8e8e8);
 // 0xffdddddd // light off white   // 0xff5ebff2//light blue
 // 0xffece6d7   // white with yellow
-
 const Color kTGreen = Color(0xff317486);
+const Color kButtonTextColor = Colors.white;
 
 
 //Main---------------------------------------------------------------
@@ -32,6 +32,9 @@ const Color kAppBarBackgroundColor = Color(0xff1d6596);//Nice dark blue: Color(0
 
 const double kMargin = 5.0;
 const double kRoundedButtonRadius = 10;
+
+
+// const TextStyle kTitleTextStyle = GoogleFonts.merriweather();
 
 
 //Text Display---------------------------------------------------------------

@@ -48,7 +48,10 @@ class MainPage extends StatelessWidget {
 
         // leading:Icon(Icons.circle),
         title: Center(
-            child: const Text('Tibetan Handwritten Input Method'),
+            child: const Text(
+              'Tibetan Handwritten Input Method',
+              style: TextStyle(fontFamily:'Roboto',fontSize:20)
+            ),
         ),
 
         actions: <Widget>[
