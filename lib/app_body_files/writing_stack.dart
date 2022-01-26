@@ -20,7 +20,7 @@ class WritingStack extends StatefulWidget {
 class _WritingStackState extends State<WritingStack>{
 
 
-  List<Offset> points = List();
+  List<Offset> points = [];
   /*isInBounds used to make sure a stroke that goes out of bounds has only the
   in-bounds position data saved. */
   bool isInBounds = false;
@@ -136,7 +136,7 @@ class _WritingStackState extends State<WritingStack>{
               label: 'Enter',
               color: kEnterButtonColor,
               onPressed: () {
-                var appBrain =Provider.of<AppBrain>(context, listen:false) ;
+                var appBrain = Provider.of<AppBrain>(context, listen:false);
                 appBrain.addWord('\n');
               },
             )

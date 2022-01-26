@@ -99,9 +99,7 @@ class DeleteUndo extends StatelessWidget {
     return Container(
       width: kDeleteUndoButtonDim.dx,
       height: kDeleteUndoButtonDim.dy,
-      child: RaisedButton(
-        onPressed: onPressed,
-        onLongPress:onLongPress,
+      child: ElevatedButton(
         child: Text(
           "\u21BA",
           style:TextStyle(
@@ -110,12 +108,16 @@ class DeleteUndo extends StatelessWidget {
             color: kDeleteUndoTextColor,
           )
         ),
-        color:kDeleteUndoButtonColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(kRoundedButtonRadius)),
-          side:BorderSide(
-            color: kBottomRightButtonsBorderColor,
-            width:kBottomRightButtonsBorderWidth
+        onPressed: onPressed,
+        onLongPress:onLongPress,
+        style: ElevatedButton.styleFrom(
+          primary:kDeleteUndoButtonColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(kRoundedButtonRadius)),
+            side:BorderSide(
+              color: kBottomRightButtonsBorderColor,
+              width:kBottomRightButtonsBorderWidth
+            )
           )
         ),
       ),
