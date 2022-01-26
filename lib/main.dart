@@ -48,11 +48,8 @@ class MainPage extends StatelessWidget {
             child: const Text(
               'Tibetan Handwritten Input Method',
               style: TextStyle(
-                fontFamily:kSairaCondensed,
+                fontFamily:kMohave,
                 fontSize:26,
-                fontWeight:FontWeight.bold,
-                letterSpacing: .5,
-                overflow:TextOverflow.visible,
               ),
             ),
         ),

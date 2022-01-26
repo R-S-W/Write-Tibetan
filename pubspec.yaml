@@ -70,6 +70,27 @@ flutter:
       fonts:
         - asset: assets/fonts/Shippori_Antique_B1/ShipporiAntiqueB1-Regular.ttf
 
+    - family: BigShouldersInlineText
+      fonts:
+        - asset: assets/fonts/Big_Shoulders_Inline_Text/BigShouldersInlineText-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Big_Shoulders_Inline_Text/BigShouldersInlineText-SemiBold.ttf
+          weight: 600
+
+    - family: KohSantepheap
+      fonts:
+        - asset: assets/fonts/Koh_Santepheap/KohSantepheap-Regular.ttf
+
+    - family: Koulen
+      fonts:
+        - asset: assets/fonts/Koulen/Koulen-Regular.ttf
+
+    - family: Mohave
+      fonts:
+        - asset: assets/fonts/Mohave/Mohave-Medium.ttf
+          weight: 500
+
+
 #    - family: Merriweather
 #      fonts:
 #        - asset: assets/fonts/Merriweather/Merriweather-Regular.ttf
