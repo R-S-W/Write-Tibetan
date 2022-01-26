@@ -32,6 +32,7 @@ class AppBrain with ChangeNotifier {
     deleteWord, and clearSentence.
   */
   TextEditingController textDisplayController = TextEditingController();
+  ScrollController textDisplayScrollController = ScrollController();
 
 
 
@@ -106,6 +107,16 @@ class AppBrain with ChangeNotifier {
     cursorCharIndex += aWord.length;
     textDisplayController.selection = TextSelection(
         baseOffset: cursorCharIndex, extentOffset: cursorCharIndex);
+
+    //Scroll to bottom of text display if a new line is created..
+    // textDisplayScrollController.position.correctPixels(textDisplayScrollController.position.);
+    // textDisplayScrollController.animateTo(
+    //   textDisplayScrollController.position.maxScrollExtent,
+    //   duration: Duration(milliseconds: 200),
+    //   curve: Curves.easeInOut
+    // );
+
+
 
     print(
         'Stats: ${cursorCharIndex} ${newCursorDisplayIndex} ${textDisplayController

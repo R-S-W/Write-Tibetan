@@ -27,7 +27,7 @@ class _TextDisplayState extends State<TextDisplay> {
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: <Widget>[
-          Positioned(//Display
+          Positioned(//Text Display
             top:0,
             left:0,
             width:kScreenDim.dx,
@@ -48,8 +48,12 @@ class _TextDisplayState extends State<TextDisplay> {
                 child: Consumer<AppBrain>(
                   builder: (context,appBrain, child)=> TextField(
                     controller: appBrain.textDisplayController,
+                    scrollController: appBrain.textDisplayScrollController,
                     readOnly: true,
+                    autofocus: true,
+
                     showCursor: true,
+                    minLines:null,
                     maxLines: null,
                     decoration: null, //InputDecoration(),
                     cursorColor: Colors.red,
@@ -68,8 +72,7 @@ class _TextDisplayState extends State<TextDisplay> {
                 Container(
                   width: 80,
                   height: 60,
-                  child: RaisedButton(
-                    color: kDeleteButtonColor,
+                  child: ElevatedButton(
                     child:Text(
                       "Copy\nAll",
                       textAlign: TextAlign.center,
@@ -82,12 +85,16 @@ class _TextDisplayState extends State<TextDisplay> {
                       )
                     ),
                     onPressed: widget.copyTextCallback,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(1.5*kRoundedButtonRadius)),
-                    ),
+                    style:ElevatedButton.styleFrom(
+                      primary: kCopyButtonColor,
+                      shape:RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(1.5*kRoundedButtonRadius)),
+                      )
+                    )
                   )
                 ),
+
 
                 Expanded(
                   child: Stack(
@@ -113,8 +120,7 @@ class _TextDisplayState extends State<TextDisplay> {
                 Container( //DeleteButton
                   width: 80,
                   height: 60,
-                  child: RaisedButton(
-                    color: kCopyButtonColor,
+                  child: ElevatedButton(
                     child: Text(
                       "Delete",
                       style: TextStyle(
@@ -128,9 +134,12 @@ class _TextDisplayState extends State<TextDisplay> {
                     ),
                     onPressed: widget.deleteWordCallback,
                     onLongPress: widget.deleteWordCallback,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(1.5*kRoundedButtonRadius)),
+                    style: ElevatedButton.styleFrom(
+                      primary: kCopyButtonColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(1.5*kRoundedButtonRadius)),
+                      )
                     ),
                   ),
                 ),
