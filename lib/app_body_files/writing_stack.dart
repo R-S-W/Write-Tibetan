@@ -5,7 +5,7 @@ import 'bottom_right_buttons.dart';
 import 'bottom_button.dart';
 
 import 'package:provider/provider.dart';
-import '../letter_suggestion_files/my_change_notifier_classes.dart';
+import '../letter_suggestion_files/app_brain.dart';
 import '../styling_files/constants.dart';
 import 'dart:math' as m;
 

@@ -97,7 +97,7 @@ class AppBrain with ChangeNotifier {
       if (displayText.length == 0 || cursorCharIndex == displayText.length) {
         textDisplayController.text += aWord;
       } else {
-        textDisplayController.text = displayText.substring(0, cursorCharIndex)+
+        textDisplayController.text = displayText.substring(0, cursorCharIndex) +
             aWord + displayText.substring(cursorCharIndex);
       }
       _numTChars.insert(newCursorDisplayIndex, aWord.length);

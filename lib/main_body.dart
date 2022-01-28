@@ -1,7 +1,7 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'letter_suggestion_files/my_change_notifier_classes.dart';
+import 'letter_suggestion_files/app_brain.dart';
 
 import 'app_body_files/text_display.dart';
 import 'app_body_files/suggestion_bar.dart';

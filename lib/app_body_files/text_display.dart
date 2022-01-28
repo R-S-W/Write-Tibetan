@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../letter_suggestion_files/my_change_notifier_classes.dart';
+import '../letter_suggestion_files/app_brain.dart';
 import '../styling_files/constants.dart';
 
 
@@ -51,9 +51,7 @@ class _TextDisplayState extends State<TextDisplay> {
                     scrollController: appBrain.textDisplayScrollController,
                     readOnly: true,
                     autofocus: true,
-
                     showCursor: true,
-                    minLines:null,
                     maxLines: null,
                     decoration: null, //InputDecoration(),
                     cursorColor: Colors.red,
