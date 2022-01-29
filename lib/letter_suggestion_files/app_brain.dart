@@ -30,6 +30,8 @@ class AppBrain with ChangeNotifier {
         of where the selection begins and ends in the text.
     When updated, it updates the TextDisplay.  It is modified by addWord,
     deleteWord, and clearSentence.
+
+    Similarly, textDisplayScrollController scrolls the TextDisplay.
   */
   TextEditingController textDisplayController = TextEditingController();
   ScrollController textDisplayScrollController = ScrollController();
@@ -43,9 +45,10 @@ class AppBrain with ChangeNotifier {
   List<String> getSuggestions()=> _suggestions;
   String getSuggestionAt(int index) => _suggestions[index];
   int getSuggestionsLength() => _suggestions.length;
-  String getTextDisplaySentence() => textDisplayController.text;//_textDisplaySentence;
 
-  List<int> getSelectionRange(){//get range of highlighted text in TextDisplay
+
+
+  List<int> _getSelectionRange(){//get range of highlighted text in TextDisplay
     //helper function of addWord and deleteWord
     int leftIndex = textDisplayController.selection.baseOffset;
     int rightIndex = textDisplayController.selection.extentOffset;
@@ -55,7 +58,7 @@ class AppBrain with ChangeNotifier {
     return [leftIndex,rightIndex];
   }
 
-  int getCursorDisplayIndex(int cursorCharIndex ){
+  int _getCursorDisplayIndex(int cursorCharIndex){
     //using the index position of a character in TextDisplay text, get the
     // corresponding index of _numTChars.
     //helper function for addWord and deleteWord
@@ -72,18 +75,18 @@ class AppBrain with ChangeNotifier {
   //---------------------------------MODIFIERS---------------------------------
   void addWord (String aWord){//Inserts/replaces word into text of TextDisplay
     String displayText = textDisplayController.text;
-    List<int> selectionRange = getSelectionRange();
+    List<int> selectionRange = _getSelectionRange();
     int cursorCharIndex = selectionRange[0]; //position in text
     //position in _numTChars
-    int newCursorDisplayIndex = getCursorDisplayIndex(cursorCharIndex);
+    int newCursorDisplayIndex = _getCursorDisplayIndex(cursorCharIndex);
 
     //Update text and _numTChar.
     //If there is a highlighted selection of text to be replaced,
     if (selectionRange[0]!=selectionRange[1]){
       int lidx = selectionRange[0];
       int ridx = selectionRange[1];
-      int lDisplayIdx = getCursorDisplayIndex(lidx);
-      int rDisplayIdx = getCursorDisplayIndex(ridx);
+      int lDisplayIdx = _getCursorDisplayIndex(lidx);
+      int rDisplayIdx = _getCursorDisplayIndex(ridx);
 
       textDisplayController.text = displayText.substring(0,lidx) + aWord;
       if (ridx < displayText.length) {
@@ -107,9 +110,7 @@ class AppBrain with ChangeNotifier {
     textDisplayController.selection = TextSelection(
         baseOffset: cursorCharIndex, extentOffset: cursorCharIndex);
 
-
-    //Scroll display if cursor is not visible
-    _handleScroll(cursorCharIndex);
+    _handleScroll(cursorCharIndex);  //Scroll display if cursor is not visible
 
     notifyListeners();
   }
@@ -117,14 +118,14 @@ class AppBrain with ChangeNotifier {
 
   void deleteWord(){//Deletes words from TextDisplay.
     String displayText = textDisplayController.text;
-    List<int> selectionRange = getSelectionRange();
+    List<int> selectionRange = _getSelectionRange();
     int lidx = selectionRange[0];
     int ridx = selectionRange[1];
     //If text is nonempty and is a highlighted text selection or the cursor is
     // in the middle of the text,
     if ((0<lidx || lidx<ridx) && displayText.length>0) {
-      int lDisplayIndex = getCursorDisplayIndex(lidx);
-      int rDisplayIndex = getCursorDisplayIndex(ridx);
+      int lDisplayIndex = _getCursorDisplayIndex(lidx);
+      int rDisplayIndex = _getCursorDisplayIndex(ridx);
       if (lidx==ridx){//If we are deleting behind the cursor:
         lidx-=_numTChars[lDisplayIndex-1];
         lDisplayIndex-=1;
@@ -145,7 +146,8 @@ class AppBrain with ChangeNotifier {
     }
   }
 
-  void clearSentence(){
+
+  void clearSentence(){//Clear TextDisplay
     if (textDisplayController.text.length>0) {
       textDisplayController.text = '';
       textDisplayController.selection =
@@ -161,12 +163,14 @@ class AppBrain with ChangeNotifier {
     suggestLetters();
   }
 
+
   void deleteStroke() {
     if (_strokeList.length>0) {
       _strokeList.removeLast();
       suggestLetters();
     }
   }
+
 
   void clearAllStrokesAndSuggestions() {
     _suggestions.clear();
@@ -176,15 +180,18 @@ class AppBrain with ChangeNotifier {
 
     notifyListeners();
   }
+
+
   void _clearVerySmallStrokes(){
     /*remove the 1 or 2 point strokes from the strokeList, as they usually are
-    errors.  Used in suggestLetters. */
+    errors.  Helper function in suggestLetters. */
     for (int i = _strokeList.length-1 ; i>=0; i--){
       if (_strokeList[i].length <3){
         _strokeList.removeAt(i);
       }
     }
   }
+
 
   void suggestLetters() {
     _clearVerySmallStrokes();
@@ -203,8 +210,10 @@ class AppBrain with ChangeNotifier {
     notifyListeners();
   }
 
+
   //Helper function for _handleScroll
   double _calcCursorOffset(int numNewlines) => (numNewlines)*cLineHeight + 34;
+
 
   //Scrolls TextDisplay to keep cursor visible.
   void _handleScroll( int cursorCharIndex){
@@ -239,8 +248,6 @@ class AppBrain with ChangeNotifier {
       );
     }
   }
-
-
 
 
   void printPathListString(){
