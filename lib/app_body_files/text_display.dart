@@ -42,9 +42,8 @@ class _TextDisplayState extends State<TextDisplay> {
                     topRight: Radius.elliptical(17,20)
                   ),
                   color:kTextDisplayColor
-
-
                 ),
+
                 child: Consumer<AppBrain>(
                   builder: (context,appBrain, child)=> TextField(
                     controller: appBrain.textDisplayController,

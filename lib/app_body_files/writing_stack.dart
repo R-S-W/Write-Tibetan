@@ -95,6 +95,7 @@ class _WritingStackState extends State<WritingStack>{
             TsegShe(
               onPressed: (){
                 var appBrain = Provider.of<AppBrain>(context, listen:false) ;
+
                 //Display the tseg.
                 if (appBrain.getSuggestionsLength()>0){
                   //if there's suggestions, add 1st suggested letter first.

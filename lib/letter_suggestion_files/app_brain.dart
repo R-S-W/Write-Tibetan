@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:tibetan_handwriting_app_0_1/styling_files/constants.dart';
 import 'tibetan_letter_finder.dart';
 import '../letter_files/letter_encyclopedia.dart';
 
@@ -69,7 +69,6 @@ class AppBrain with ChangeNotifier {
 
 
 
-
   //---------------------------------MODIFIERS---------------------------------
   void addWord (String aWord){//Inserts/replaces word into text of TextDisplay
     String displayText = textDisplayController.text;
@@ -108,20 +107,9 @@ class AppBrain with ChangeNotifier {
     textDisplayController.selection = TextSelection(
         baseOffset: cursorCharIndex, extentOffset: cursorCharIndex);
 
-    //Scroll to bottom of text display if a new line is created..
-    // textDisplayScrollController.position.correctPixels(textDisplayScrollController.position.);
-    // textDisplayScrollController.animateTo(
-    //   textDisplayScrollController.position.maxScrollExtent,
-    //   duration: Duration(milliseconds: 200),
-    //   curve: Curves.easeInOut
-    // );
 
-
-
-    print(
-        'Stats: ${cursorCharIndex} ${newCursorDisplayIndex} ${textDisplayController
-            .selection.baseOffset} ${textDisplayController.selection
-            .extentOffset} ${_numTChars}');
+    //Scroll display if cursor is not visible
+    _handleScroll(cursorCharIndex);
 
     notifyListeners();
   }
@@ -148,11 +136,15 @@ class AppBrain with ChangeNotifier {
       textDisplayController.selection =
           TextSelection(baseOffset : lidx, extentOffset: lidx);
 
-      print('Stats: ${lidx} ___ ${textDisplayController.selection.baseOffset} ${textDisplayController.selection.extentOffset} ${_numTChars}');
+      //Scroll display if cursor is not visible
+      _handleScroll(lidx);
+
+      // print('Stats: ${lidx} ___ ${textDisplayController.selection.baseOffset} ${textDisplayController.selection.extentOffset} ${_numTChars}');
 
       notifyListeners();
     }
   }
+
   void clearSentence(){
     if (textDisplayController.text.length>0) {
       textDisplayController.text = '';
@@ -168,6 +160,7 @@ class AppBrain with ChangeNotifier {
     _strokeList.add(aStroke);
     suggestLetters();
   }
+
   void deleteStroke() {
     if (_strokeList.length>0) {
       _strokeList.removeLast();
@@ -209,6 +202,44 @@ class AppBrain with ChangeNotifier {
     }
     notifyListeners();
   }
+
+  //Helper function for _handleScroll
+  double _calcCursorOffset(int numNewlines) => (numNewlines)*cLineHeight + 34;
+
+  //Scrolls TextDisplay to keep cursor visible.
+  void _handleScroll( int cursorCharIndex){
+    int numNewlinesBeforeCursor =
+        textDisplayController.text.substring(0,cursorCharIndex).split('\n').length;
+    //Estimated vertical pixel positions of text cursor in TextField.
+    double bottomCursorOffset = _calcCursorOffset(numNewlinesBeforeCursor);
+    double topCursorOffset = bottomCursorOffset - cLineHeight;
+    //Scroll offsets for top and bottom of screen
+    double topScrollOffset = textDisplayScrollController.offset;
+    double bottomScrollOffset = topScrollOffset + kTextDisplayHeight;
+
+    // print('cursorcharindex: $cursorCharIndex');
+    // print('calc:  $numNewlinesBeforeCursor ||   Offsets: $topScrollOffset, $topCursorOffset, $bottomCursorOffset, $bottomScrollOffset');
+
+    //If cursor is not on screen, scroll so it is shown.
+    if (  !(topScrollOffset < topCursorOffset) ||
+        !(bottomCursorOffset < bottomScrollOffset)){
+      double topDiff = topCursorOffset - topScrollOffset;
+      double bottomDiff = bottomCursorOffset - bottomScrollOffset;
+      int numLinesAdded =  (topDiff<0) ?
+          -(topDiff ~/ cLineHeight + 1) :  bottomDiff ~/ cLineHeight +1 ;
+      //Offset where top of display will scroll to.
+      double newScrollOffset = topScrollOffset + cLineHeight*numLinesAdded;
+      // print('>>numLines added:   $numLinesAdded, newoffset: $newScrollOffset');
+
+      //Scroll to newScrollOffset
+      textDisplayScrollController.animateTo(
+          newScrollOffset,
+          duration: Duration(milliseconds: 200),
+          curve: Curves.easeInOut
+      );
+    }
+  }
+
 
 
 

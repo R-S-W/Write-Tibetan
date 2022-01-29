@@ -20,6 +20,7 @@ const String kMohave = 'Mohave';
 //General Constants____________________________________________________
 const Color kButtonTextColor = Colors.white;
 const double kButtonTextSize = 19;
+const double kMargin = 9.0;
 
 
 //Main---------------------------------------------------------------
@@ -29,7 +30,6 @@ final ThemeData kMyAppThemeData = ThemeData(
 );
 const Color kAppBarBackgroundColor = Color(0xff1d6596);
 
-const double kMargin = 9.0;
 const double kRoundedButtonRadius = 10;
 
 
@@ -38,7 +38,9 @@ const double kRoundedButtonRadius = 10;
 const double kTextMargin  = 10.0;
 const double kTextDisplayHeight = 350.0;
 const Color kTextDisplayColor = kTWhite;
+
 const double kTextFontSize =45.0;
+const double cLineHeight = 54.0; // Pixel height of line of text at font size of 45
 
 const Color  kCopyButtonColor = kTRed;
 const Color kDeleteButtonColor = kCopyButtonColor;
@@ -56,16 +58,18 @@ const TextStyle kSuggestionTextStyle =  TextStyle(
   color: kSuggestionTextColor,
 );
 
-
 const Color kSuggestionBarBorderlineColor1 = Color(0xffca7e08);
 const Color kSuggestionBarBorderlineColor2 = Color(0xffbf7709);
+
 
 //Writing Stack---------------------------------------------------------------
 const Offset kWritingStackDim = Offset(414.0, 310.0);
 
+
 //Writing Pad------------------------------------------------------------------
 const Color kWritingPadColor = Color(0xff2f6b7e);
 const double kBottomButtonsHeight = 50;
+
 
 //BottomRight Buttons-----------------------------------------------------------
 
@@ -97,6 +101,7 @@ final Offset kSpaceButtonDim = Offset(kRightmostButtonsDim.dx,kBottomButtonsHeig
 final Color kSpacebarColor = Color(0xff4f86c1);
 
 
+
 //Bottom Bar ---------------------------------------------------------------
-//  (not equal to the BottomButton)
+//  (this is not BottomButton)
 const Color kBottomBarColor = Color(0xff280000);
