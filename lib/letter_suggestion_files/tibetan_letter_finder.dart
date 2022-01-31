@@ -456,10 +456,10 @@ List<Offset> smallestBoundingRectangle(List<List<Offset>> strokeList){
 
   for (int i=0; i < strokeList.length; i++){
     for (int j=0; j< strokeList[i].length; j++){
-      xMin > strokeList[i][j].dx ? xMin = strokeList[i][j].dx : null;
-      yMin > strokeList[i][j].dy ? yMin = strokeList[i][j].dy : null;
-      xMax < strokeList[i][j].dx ? xMax = strokeList[i][j].dx : null;
-      yMax < strokeList[i][j].dy ? yMax = strokeList[i][j].dy : null;
+      xMin = (xMin > strokeList[i][j].dx) ? strokeList[i][j].dx : null;
+      yMin = (yMin > strokeList[i][j].dy) ? strokeList[i][j].dy : null;
+      xMax = (xMax < strokeList[i][j].dx) ? strokeList[i][j].dx : null;
+      yMax = (yMax < strokeList[i][j].dy) ? strokeList[i][j].dy : null;
     }
   }
   return [ Offset(xMin,yMin), Offset(xMax,yMax), Offset(xMax-xMin, yMax-yMin) ];

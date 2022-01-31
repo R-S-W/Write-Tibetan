@@ -1,6 +1,5 @@
 
 import 'dart:ui' as ui;//for image thumbslider
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../styling_files/constants.dart';
 

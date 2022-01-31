@@ -2,25 +2,22 @@ import 'package:flutter/material.dart';
 
 
 class WritingPad extends StatefulWidget {
-  List<List<Offset>>  StrokeList;
+  List<List<Offset>>  strokeList;
 
-  WritingPad({Key key,this.StrokeList}): super(key:key);
+  WritingPad({Key key,this.strokeList}): super(key:key);
 
   @override
   _WritingPadState createState()=> _WritingPadState();
 }
 
 class _WritingPadState extends State<WritingPad> {
-  List<Offset> points = List();
+  List<Offset> points = [];
   ///
   /*isInBounds used to make sure a stroke that goes out of bounds has only the
   in-bounds position data saved. */
   bool isInBounds = false;
 
-  List<List<String>> _LetterList = List.filled(0, <String>[]);
-  List<String> _Letter = <String>[];
-
-  final Offset WritingPadDim = Offset(414.0,280.0);     //MediaQuery.of(context).size.width);
+  final Offset writingPadDim = Offset(414.0,280.0);     //MediaQuery.of(context).size.width);
 
 
 
@@ -32,7 +29,7 @@ class _WritingPadState extends State<WritingPad> {
       child:ClipRect(
         child: CustomPaint(
           foregroundPainter: WordPainter(
-            strokeList: widget.StrokeList,
+            strokeList: widget.strokeList,
           ),
 
           // size: Size(MediaQuery.of(context).size.width,280)
@@ -40,8 +37,8 @@ class _WritingPadState extends State<WritingPad> {
 
 
             child: Container(                //edit02, child container -> parent container
-              height: WritingPadDim.dy,
-              width: WritingPadDim.dx,
+              height: writingPadDim.dy,
+              width: writingPadDim.dx,
               color: Colors.blue[200],
             )
         )
@@ -53,7 +50,7 @@ class _WritingPadState extends State<WritingPad> {
         setState(() {
           RenderBox renderBox = context.findRenderObject();
           points = <Offset>[renderBox.globalToLocal(details.globalPosition)];
-          widget.StrokeList.add(points);
+          widget.strokeList.add(points);
 
           isInBounds = true;
         });
@@ -64,26 +61,28 @@ class _WritingPadState extends State<WritingPad> {
       onPanUpdate: (details){
         setState(() {
           RenderBox renderBox = context.findRenderObject();
-          Offset TempPoint = renderBox.globalToLocal(details.globalPosition);
+          Offset tempPoint = renderBox.globalToLocal(details.globalPosition);
 
-          if (!(Offset.zero<=TempPoint && TempPoint<=WritingPadDim)){//not in bounds
+          if (!(Offset.zero<=tempPoint && tempPoint<=writingPadDim)){//not in bounds
             isInBounds=  false;
           }
           if (isInBounds){
-            points.add(TempPoint);
+            points.add(tempPoint);
           }
         });
       },
 
 
-      onPanEnd: (details){setState(){
-        List a= <int>[];
-        for (int i=0; i< widget.StrokeList.length; i++){
-          a.add(widget.StrokeList[i].length);
-        }
-        print(a);
-        //// convert from points+time to pathnumber
-      }}
+      onPanEnd: (details){
+        setState((){
+          List a= <int>[];
+          for (int i=0; i< widget.strokeList.length; i++){
+            a.add(widget.strokeList[i].length);
+          }
+          print(a);
+          //// convert from points+time to pathnumber
+        });
+      }
     );
   }
 }
@@ -93,7 +92,7 @@ class WordPainter extends CustomPainter{
   WordPainter({this.strokeList});
   List<List<Offset>> strokeList ;
 
-  List<Offset> offsetPoints= List();
+  List<Offset> offsetPoints= <Offset>[];
   @override
   void paint(Canvas canvas, Size size){
 

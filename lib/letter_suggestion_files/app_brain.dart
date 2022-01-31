@@ -45,6 +45,7 @@ class AppBrain with ChangeNotifier {
   List<String> getSuggestions()=> _suggestions;
   String getSuggestionAt(int index) => _suggestions[index];
   int getSuggestionsLength() => _suggestions.length;
+  String getTextDisplaySentence() => textDisplayController.text;
 
 
 
