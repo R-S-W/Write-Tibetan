@@ -1,4 +1,6 @@
+import 'dart:collection';
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart';
 import 'package:tibetan_handwriting_app_0_1/styling_files/constants.dart';
 import 'tibetan_letter_finder.dart';
 import '../letter_files/letter_encyclopedia.dart';
@@ -35,6 +37,20 @@ class AppBrain with ChangeNotifier {
   */
   TextEditingController textDisplayController = TextEditingController();
   ScrollController textDisplayScrollController = ScrollController();
+
+
+  /* The textHistory contains the history of  string values of TextDisplay.
+    Every change to TextDisplay adds a new element to textHistory.  The elements
+    of textHistory are lists with two values: the first is the sentence, while
+    the second is a _numTChars array that indicates the length of characters
+    for each character in the sentence.
+
+    The textHistory is capped to a certain length defined below.  The
+    textHistory is altered by the undo() and updateTextHistory(). The last
+    value represents the current state of the text in TextDisplay.
+  */
+  int _maxTextHistoryLength = 50;
+  Queue _textHistory = Queue();
 
 
 
@@ -112,6 +128,7 @@ class AppBrain with ChangeNotifier {
         baseOffset: cursorCharIndex, extentOffset: cursorCharIndex);
 
     _handleScroll(cursorCharIndex);  //Scroll display if cursor is not visible
+    _updateTextHistory();
 
     notifyListeners();
   }
@@ -140,6 +157,7 @@ class AppBrain with ChangeNotifier {
 
       //Scroll display if cursor is not visible
       _handleScroll(lidx);
+      _updateTextHistory();
 
       // print('Stats: ${lidx} ___ ${textDisplayController.selection.baseOffset} ${textDisplayController.selection.extentOffset} ${_numTChars}');
 
@@ -154,8 +172,38 @@ class AppBrain with ChangeNotifier {
       textDisplayController.selection =
           TextSelection(baseOffset: 0,extentOffset:0);
       _numTChars.clear();
+
+      _updateTextHistory();
       notifyListeners();
     }
+  }
+
+  void _updateTextHistory(){
+    //Check if the text state has changed at all
+    bool isModified = true;
+    if (_textHistory.length > 0){
+      var prevState = _textHistory.last;
+      isModified = prevState[0] == getTextDisplaySentence() &&
+        ListEquality().equals(prevState[1],_numTChars);
+    }
+    //If the state was changed:
+    if (isModified){
+      _textHistory.add([getTextDisplaySentence(),[..._numTChars]]);
+      if (_maxTextHistoryLength < _textHistory.length){
+        _textHistory.removeFirst();
+      }
+    }
+  }
+
+
+  void undo(){//Undo last change to TextDisplay
+    if (_textHistory.length > 0){
+      _textHistory.removeLast();
+      textDisplayController.text = _textHistory.last[0];
+      _numTChars = _textHistory.last[1];
+      notifyListeners();
+    }
+
   }
 
 
