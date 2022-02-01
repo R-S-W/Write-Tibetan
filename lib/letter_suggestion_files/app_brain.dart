@@ -41,11 +41,12 @@ class AppBrain with ChangeNotifier {
 
   /* The textHistory contains the history of  string values of TextDisplay.
     Every change to TextDisplay adds a new element to textHistory.  The elements
-    of textHistory are lists with two values: the first is the sentence, while
+    of textHistory are lists with three values: the first is the sentence, while
     the second is a _numTChars array that indicates the length of characters
-    for each character in the sentence.
+    for each character in the sentence.  The third is a list of offsets of the
+    beginning and end of the current text selection for the cursor.
 
-    The textHistory is capped to a certain length defined below.  The
+    The textHistory length ranges from 1 to _maxTextHistoryLength.
     textHistory is altered by the undo() and updateTextHistory(). The last
     value represents the current state of the text in TextDisplay.
   */
@@ -69,7 +70,6 @@ class AppBrain with ChangeNotifier {
     //helper function of addWord and deleteWord
     int leftIndex = textDisplayController.selection.baseOffset;
     int rightIndex = textDisplayController.selection.extentOffset;
-    print('selection range: $leftIndex, $rightIndex');
     leftIndex = leftIndex!=-1 ? leftIndex : 0;
     rightIndex = rightIndex!=-1 ? rightIndex : 0;
     return [leftIndex,rightIndex];
@@ -126,6 +126,7 @@ class AppBrain with ChangeNotifier {
     cursorCharIndex += aWord.length;
     textDisplayController.selection = TextSelection(
         baseOffset: cursorCharIndex, extentOffset: cursorCharIndex);
+    print("${getTextDisplaySentence()}, $_numTChars, ${_getSelectionRange()}");
 
     _handleScroll(cursorCharIndex);  //Scroll display if cursor is not visible
     _updateTextHistory();
@@ -157,6 +158,7 @@ class AppBrain with ChangeNotifier {
 
       //Scroll display if cursor is not visible
       _handleScroll(lidx);
+      print("${getTextDisplaySentence()}, $_numTChars, ${_getSelectionRange()}");
       _updateTextHistory();
 
       // print('Stats: ${lidx} ___ ${textDisplayController.selection.baseOffset} ${textDisplayController.selection.extentOffset} ${_numTChars}');
@@ -179,31 +181,45 @@ class AppBrain with ChangeNotifier {
   }
 
   void _updateTextHistory(){
-    //Check if the text state has changed at all
-    bool isModified = true;
-    if (_textHistory.length > 0){
-      var prevState = _textHistory.last;
-      isModified = prevState[0] == getTextDisplaySentence() &&
-        ListEquality().equals(prevState[1],_numTChars);
+    //Set the original rest state if _textHistory is empty.
+    print('OLD STATE:  $_textHistory');
+    if (_textHistory.length == 0){
+      _textHistory.add(["",<int>[],[0,0]]);
     }
+    //checks if lists have identical values
+    Function isListsEqual = ListEquality().equals;
+    //First, check if the text state has changed at all.
+    var prevState = _textHistory.last;
+    bool isModified = prevState[0] != getTextDisplaySentence() ||
+      !isListsEqual(prevState[1],_numTChars) ||
+      !isListsEqual(_getSelectionRange(),prevState[2]);
+
     //If the state was changed:
     if (isModified){
-      _textHistory.add([getTextDisplaySentence(),[..._numTChars]]);
+      _textHistory.add( [
+        getTextDisplaySentence(),
+        <int>[..._numTChars],
+        _getSelectionRange()
+      ]);
       if (_maxTextHistoryLength < _textHistory.length){
         _textHistory.removeFirst();
       }
     }
+    print("NEW STATE: $_textHistory");
   }
 
 
   void undo(){//Undo last change to TextDisplay
-    if (_textHistory.length > 0){
+    if (_textHistory.length > 1){
       _textHistory.removeLast();
       textDisplayController.text = _textHistory.last[0];
       _numTChars = _textHistory.last[1];
+      List offsets = _textHistory.last[2];
+      textDisplayController.selection =
+          TextSelection(baseOffset : offsets[0], extentOffset: offsets[1]);
+      _handleScroll(offsets[0]);
       notifyListeners();
     }
-
   }
 
 

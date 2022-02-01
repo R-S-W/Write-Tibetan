@@ -76,7 +76,7 @@ class _TextDisplayState extends State<TextDisplay> {
                     onPressed: (){
                       AppBrain appBrain = Provider.of<AppBrain>(context, listen: false);
                       FlutterClipboard.paste().then(
-                              (pasteText) => appBrain.addWord(pasteText)
+                        (pasteText) => appBrain.addWord(pasteText)
                       );
                     }
                 ),
@@ -101,6 +101,15 @@ class _TextDisplayState extends State<TextDisplay> {
                     ]
                   )
 
+                ),
+
+
+                TextDisplayButton.center(
+                  label: 'Undo',
+                  onPressed: (){
+                    AppBrain appBrain = Provider.of<AppBrain>(context, listen: false);
+                    appBrain.undo();
+                  }
                 ),
 
 
