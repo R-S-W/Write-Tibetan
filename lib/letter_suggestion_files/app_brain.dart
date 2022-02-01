@@ -1,7 +1,7 @@
-import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import 'package:tibetan_handwriting_app_0_1/styling_files/constants.dart';
+import 'package:tibetan_handwriting_app_0_1/support_files/linked_list.dart';
 import 'tibetan_letter_finder.dart';
 import '../letter_files/letter_encyclopedia.dart';
 
@@ -51,7 +51,7 @@ class AppBrain with ChangeNotifier {
     value represents the current state of the text in TextDisplay.
   */
   int _maxTextHistoryLength = 50;
-  Queue _textHistory = Queue();
+  LinkedList _textHistory = LinkedList();
 
 
 
@@ -183,7 +183,7 @@ class AppBrain with ChangeNotifier {
   void _updateTextHistory(){
     //Set the original rest state if _textHistory is empty.
     if (_textHistory.length == 0){
-      _textHistory.add(["",<int>[],[0,0]]);
+      _textHistory.addLast(["",<int>[],[0,0]]);
     }
     //checks if lists have identical values
     Function isListsEqual = ListEquality().equals;
@@ -195,7 +195,7 @@ class AppBrain with ChangeNotifier {
 
     //If the state was changed:
     if (isModified){
-      _textHistory.add( [
+      _textHistory.addLast( [
         getTextDisplaySentence(),
         <int>[..._numTChars],
         _getSelectionRange()
