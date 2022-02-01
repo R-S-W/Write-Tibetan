@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 import '../styling_files/constants.dart';
 
 class TextDisplayButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final String label;
+  BorderRadiusGeometry borderRadius;
+
   TextDisplayButton({
     key,
-    @required onPressed,
-    @required label,
+    @required this.onPressed,
+    @required this.label,
     borderRadius
   }) : super(key: key){
-    this.onPressed = onPressed;
-    this.label = label;
-
     if (borderRadius == null){
       this.borderRadius = BorderRadius.vertical(
           top: Radius.circular(1.5 * kRoundedButtonRadius)
@@ -44,9 +45,7 @@ class TextDisplayButton extends StatelessWidget {
   TextDisplayButton.center({Key key, @required onPressed,@required label}) :
     this(key: key, onPressed: onPressed, label: label);
 
-  VoidCallback onPressed;
-  String label;
-  BorderRadiusGeometry borderRadius;
+
 
 
   @override
