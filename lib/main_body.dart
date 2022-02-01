@@ -1,4 +1,3 @@
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'letter_suggestion_files/app_brain.dart';
@@ -20,20 +19,7 @@ class _MainBodyState extends State<MainBody> {
     return   Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children : <Widget>[
-        TextDisplay(
-          clearSentenceCallback:(){
-            var appBrain =Provider.of<AppBrain>(context, listen:false);
-            appBrain.clearSentence();
-          },
-          deleteWordCallback: (){
-            var appBrain = Provider.of<AppBrain>(context, listen:false);
-            appBrain.deleteWord();
-          },
-          copyTextCallback: (){
-            var appBrain = Provider.of<AppBrain>(context, listen:false);
-            FlutterClipboard.copy(appBrain.getTextDisplaySentence());
-          },
-        ),
+        TextDisplay(),
 
         SizedBox(
           height: 3.5,

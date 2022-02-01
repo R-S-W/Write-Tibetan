@@ -1,18 +1,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:clipboard/clipboard.dart';
+import 'package:tibetan_handwriting_app_0_1/app_body_files/text_display_button.dart';
 import '../letter_suggestion_files/app_brain.dart';
 import '../styling_files/constants.dart';
 
 
 class TextDisplay extends StatefulWidget {
-  TextDisplay({Key key, @required this.deleteWordCallback,
-    @required this.clearSentenceCallback,
-    @required this.copyTextCallback}):super(key: key);
+  TextDisplay({Key key}):super(key: key);
 
-  final VoidCallback deleteWordCallback;
-  final VoidCallback clearSentenceCallback;
-  final VoidCallback copyTextCallback;
   @override
   _TextDisplayState createState() => _TextDisplayState();
 }
@@ -66,32 +63,14 @@ class _TextDisplayState extends State<TextDisplay> {
             child: Row(//Copy, Delete Buttons
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Container(
-                  width: 80,
-                  height: 60,
-                  child: ElevatedButton(
-                    child:Text(
-                      "Copy\nAll",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontFamily: kShipporiAntiqueB1,
-                        fontSize: 18,
-                        color: kButtonTextColor,
-                        letterSpacing: -.5,
-                        height:1.2,
-                      )
-                    ),
-                    onPressed: widget.copyTextCallback,
-                    style:ElevatedButton.styleFrom(
-                      primary: kCopyButtonColor,
-                      shape:RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(1.5*kRoundedButtonRadius)),
-                      )
-                    )
-                  )
+                TextDisplayButton.left(
+                  label: 'Copy\nAll',
+                  onPressed: (){
+                    AppBrain appBrain = Provider.of<AppBrain>(context, listen:false);
+                    FlutterClipboard.copy(appBrain.getTextDisplaySentence());
+                  },
                 ),
-
+                
 
                 Expanded(
                   child: Stack(
@@ -114,30 +93,30 @@ class _TextDisplayState extends State<TextDisplay> {
                   )
 
                 ),
+
+
                 Container( //DeleteButton
                   width: 80,
                   height: 60,
                   child: ElevatedButton(
                     child: Text(
                       "Delete",
-                      style: TextStyle(
-                        fontFamily: kShipporiAntiqueB1,
-                        fontSize: 17.5,
-                        color: kButtonTextColor,
-                        letterSpacing: -.5,
-                      ),
+                      style: kTextDisplayButtonTextStyle,
                       softWrap: false,
                       overflow:TextOverflow.visible,
                     ),
-                    onPressed: widget.deleteWordCallback,
-                    onLongPress: widget.deleteWordCallback,
-                    style: ElevatedButton.styleFrom(
+                    onPressed: (){
+                      AppBrain appBrain = Provider.of<AppBrain>(context, listen:false);
+                      appBrain.deleteWord();
+                    },
+                    style:  ElevatedButton.styleFrom(
                       primary: kCopyButtonColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(1.5*kRoundedButtonRadius)),
+                      shape:RoundedRectangleBorder(
+                        borderRadius:  BorderRadius.only(
+                          topLeft: Radius.circular(1.5 * kRoundedButtonRadius)
+                        ),
                       )
-                    ),
+                    )
                   ),
                 ),
               ]

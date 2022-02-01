@@ -46,6 +46,14 @@ const Color  kCopyButtonColor = kTRed;
 const Color kDeleteButtonColor = kCopyButtonColor;
 
 
+const TextStyle kTextDisplayButtonTextStyle = TextStyle(
+  fontFamily: kShipporiAntiqueB1,
+  fontSize: 17.5,
+  color: kButtonTextColor,
+  letterSpacing: -.5,
+  height:1.2
+);
+
 
 //Suggestion Bar----------------------------------------------------------------
 const double kSuggestionBarHeight = 70;
