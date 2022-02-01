@@ -70,7 +70,16 @@ class _TextDisplayState extends State<TextDisplay> {
                     FlutterClipboard.copy(appBrain.getTextDisplaySentence());
                   },
                 ),
-                
+
+                TextDisplayButton.center(
+                    label: 'Paste',
+                    onPressed: (){
+                      AppBrain appBrain = Provider.of<AppBrain>(context, listen: false);
+                      FlutterClipboard.paste().then(
+                              (pasteText) => appBrain.addWord(pasteText)
+                      );
+                    }
+                ),
 
                 Expanded(
                   child: Stack(
