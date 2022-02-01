@@ -32,7 +32,7 @@ class _TextDisplayState extends State<TextDisplay> {
             child: Container(//Background Container
               color: kAppBarBackgroundColor,
               child: Container(
-                padding: EdgeInsets.only(left: kTextMargin),
+                padding: EdgeInsets.only(left: kTextMargin, top: kTextMargin),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft:Radius.elliptical(17,20),
