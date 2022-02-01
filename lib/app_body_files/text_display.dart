@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:tibetan_handwriting_app_0_1/app_body_files/text_display_button.dart';
-import '../letter_suggestion_files/app_brain.dart';
+import '../app_logic/app_brain.dart';
 import '../styling_files/constants.dart';
 
 
@@ -71,6 +71,7 @@ class _TextDisplayState extends State<TextDisplay> {
                   },
                 ),
 
+
                 TextDisplayButton(
                     label: 'Paste',
                     onPressed: (){
@@ -80,6 +81,7 @@ class _TextDisplayState extends State<TextDisplay> {
                       );
                     }
                 ),
+
 
                 Expanded(
                   child: Stack(
@@ -100,7 +102,6 @@ class _TextDisplayState extends State<TextDisplay> {
                       )
                     ]
                   )
-
                 ),
 
 

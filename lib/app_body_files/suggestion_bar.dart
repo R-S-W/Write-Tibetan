@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../letter_suggestion_files/app_brain.dart';
+import '../app_logic/app_brain.dart';
 import '../styling_files/constants.dart';
 
 
