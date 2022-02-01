@@ -182,7 +182,6 @@ class AppBrain with ChangeNotifier {
 
   void _updateTextHistory(){
     //Set the original rest state if _textHistory is empty.
-    print('OLD STATE:  $_textHistory');
     if (_textHistory.length == 0){
       _textHistory.add(["",<int>[],[0,0]]);
     }
@@ -205,7 +204,6 @@ class AppBrain with ChangeNotifier {
         _textHistory.removeFirst();
       }
     }
-    print("NEW STATE: $_textHistory");
   }
 
 
@@ -213,8 +211,8 @@ class AppBrain with ChangeNotifier {
     if (_textHistory.length > 1){
       _textHistory.removeLast();
       textDisplayController.text = _textHistory.last[0];
-      _numTChars = _textHistory.last[1];
-      List offsets = _textHistory.last[2];
+      _numTChars = <int>[..._textHistory.last[1]];
+      List offsets = [..._textHistory.last[2]];
       textDisplayController.selection =
           TextSelection(baseOffset : offsets[0], extentOffset: offsets[1]);
       _handleScroll(offsets[0]);
