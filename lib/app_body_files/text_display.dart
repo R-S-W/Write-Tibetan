@@ -71,7 +71,7 @@ class _TextDisplayState extends State<TextDisplay> {
                   },
                 ),
 
-                TextDisplayButton.center(
+                TextDisplayButton(
                     label: 'Paste',
                     onPressed: (){
                       AppBrain appBrain = Provider.of<AppBrain>(context, listen: false);
@@ -104,7 +104,7 @@ class _TextDisplayState extends State<TextDisplay> {
                 ),
 
 
-                TextDisplayButton.center(
+                TextDisplayButton(
                   label: 'Undo',
                   onPressed: (){
                     AppBrain appBrain = Provider.of<AppBrain>(context, listen: false);
