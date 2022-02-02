@@ -48,7 +48,7 @@ class ButtonRowBackgroundPainter extends CustomPainter {
       ..color = kTextDisplayButtonRowBackgroundColor ;
     final paintSettings2 = Paint()
       ..blendMode = BlendMode.clear;
-    // ..color = Colors.white;
+
     Rect canvasRectangle = Rect.fromLTRB(0, 0, size.width, size.height);
     double h = size.height*1.3;
     Rect ovalRectangle = Rect.fromCenter(

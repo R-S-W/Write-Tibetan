@@ -11,7 +11,7 @@ class AppBrain with ChangeNotifier {
   /* Communicates between stroke pad, suggestion bar, text display, and buttons.
   Contains the strokeList, suggestion list, and textDisplay sentence.  Is a
   change notifier.
-   */
+  */
 
   //-----MEMBER VARIABLES-----
   List<List<Offset>> _strokeList = [];
