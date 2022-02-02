@@ -214,22 +214,35 @@ class AppBrain with ChangeNotifier {
 
 
   void undo(){//Undo last change to TextDisplay
-    if (_textHistory.length > 1){
-      _textHistory.removeLast();
-      textDisplayController.text = _textHistory.last[0];
-      _numTChars = <int>[..._textHistory.last[1]];
-      List offsets = [..._textHistory.last[2]];
-      textDisplayController.selection =
-          TextSelection(baseOffset : offsets[0], extentOffset: offsets[1]);
-      _handleScroll(offsets[0]);
+    if (!_textHistoryItr.isAtStart){
+      _textHistoryItr.retreat(); //Point to previous state.
+      var prevState = _textHistoryItr.currentValue;
+      setTextState(prevState);  //Set the current state to the previous state.
+      _handleScroll(prevState[2][0]);
       notifyListeners();
     }
   }
 
 
   void redo(){//Redo the last change to TextDisplay
+    if (!_textHistoryItr.isAtEnd){
+      _textHistoryItr.advance();
+      var nextState = _textHistoryItr.currentValue;
+      setTextState(nextState);
+      _handleScroll(nextState[2][0]);
+      notifyListeners();
+    }
+  }
 
-
+  
+  //Change the text and cursor selection in DisplayText as well as _numTChars.
+  //newState is a list of this form:  [ String, <int>[], [int,int]  ].
+  //Helper function to undo and redo.
+  void setTextState(List newState){
+    textDisplayController.text = newState[0];
+    _numTChars = <int>[...newState[1]];
+    textDisplayController.selection =
+      TextSelection(baseOffset: newState[2][0], extentOffset: newState[2][1]);
   }
 
 

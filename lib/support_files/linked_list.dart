@@ -100,6 +100,10 @@ class LinkedListIterator<E>{
 
   bool get isEmpty => this.listHead == this.listTail;
 
+  bool get isAtStart => !this.isEmpty && this.listHead.next == this.current;
+
+  bool get isAtEnd => !this.isEmpty && this.current == this.listTail.prev;
+
 
   bool goToStart(){
     if (!isEmpty){
