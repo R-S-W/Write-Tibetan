@@ -63,7 +63,7 @@ class _TextDisplayState extends State<TextDisplay> {
             child: Row(//Copy, Delete Buttons
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                TextDisplayButton.left(
+                TextDisplayButton.left(//COPY BUTTON
                   label: 'Copy\nAll',
                   onPressed: (){
                     AppBrain appBrain = Provider.of<AppBrain>(context, listen:false);
@@ -72,7 +72,7 @@ class _TextDisplayState extends State<TextDisplay> {
                 ),
 
 
-                TextDisplayButton(
+                TextDisplayButton(//PASTE BUTTON
                     label: 'Paste',
                     onPressed: (){
                       AppBrain appBrain = Provider.of<AppBrain>(context, listen: false);
@@ -83,7 +83,7 @@ class _TextDisplayState extends State<TextDisplay> {
                 ),
 
 
-                Expanded(
+                Expanded(//Spacer
                   child: Stack(
                     children: <Widget>[
                       Container(
@@ -105,7 +105,7 @@ class _TextDisplayState extends State<TextDisplay> {
                 ),
 
 
-                TextDisplayButton(
+                TextDisplayButton(//UNDO BUTTON
                   label: 'Undo',
                   onPressed: (){
                     AppBrain appBrain = Provider.of<AppBrain>(context, listen: false);
@@ -113,8 +113,16 @@ class _TextDisplayState extends State<TextDisplay> {
                   }
                 ),
 
+                TextDisplayButton(//REDO BUTTON
+                    label: 'Redo',
+                    onPressed: (){
+                      AppBrain appBrain = Provider.of<AppBrain>(context, listen: false);
+                      appBrain.redo();
+                    }
+                ),
 
-                Container( //DeleteButton
+
+                Container( //DELETE BUTTON
                   width: 80,
                   height: 60,
                   child: ElevatedButton(

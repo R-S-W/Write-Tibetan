@@ -200,12 +200,13 @@ class AppBrain with ChangeNotifier {
     if (isModified){
       //Clear the text states after the prevState
       _textHistoryItr.removeAfterCurrent();
-      //Add the current state
+      //Add the current state to _textHistory
       _textHistory.addLast( [
         getTextDisplaySentence(),
         <int>[..._numTChars],
         _getSelectionRange()
       ]);
+      _textHistoryItr.advance();//Move _textHistoryItr to the latest state
       if (_maxTextHistoryLength < _textHistory.length){
         _textHistory.removeFirst();
       }
@@ -234,7 +235,7 @@ class AppBrain with ChangeNotifier {
     }
   }
 
-  
+
   //Change the text and cursor selection in DisplayText as well as _numTChars.
   //newState is a list of this form:  [ String, <int>[], [int,int]  ].
   //Helper function to undo and redo.
