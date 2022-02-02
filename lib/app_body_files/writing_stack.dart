@@ -1,13 +1,13 @@
 
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'dart:math' as m;
+import '../app_logic/app_brain.dart';
 import 'bottom_right_buttons.dart';
 import 'bottom_button.dart';
-
-import 'package:provider/provider.dart';
-import '../app_logic/app_brain.dart';
 import '../styling_files/constants.dart';
-import 'dart:math' as m;
+import '../styling_files/custom_painters.dart';
 
 
 class WritingStack extends StatefulWidget {
@@ -162,37 +162,5 @@ class _WritingStackState extends State<WritingStack>{
     );
   }
 }
-
-
-
-
-class WordPainter extends CustomPainter{
-  WordPainter({this.strokeList});
-  List<List<Offset>> strokeList;
-  List<Offset> offsetPoints= [];
-  @override
-  void paint(Canvas canvas, Size size){
-    final paintSettings = Paint()
-      ..color= Colors.black
-      ..isAntiAlias = true
-      ..strokeWidth = 3.0
-      ..strokeCap = StrokeCap.round;
-
-    for (int i=0; i< strokeList.length; i++){
-      for (int j=0; j< strokeList[i].length-1; j++){
-        //draw endpoints
-        canvas.drawPoints(
-            PointMode.points,
-            [strokeList[i].first, strokeList[i].last],
-            paintSettings );
-        //draw rest of stroke
-        canvas.drawLine(strokeList[i][j], strokeList[i][j+1],paintSettings);
-      }
-    }
-  }
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
-}
-
 
 

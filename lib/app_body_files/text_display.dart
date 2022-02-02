@@ -5,6 +5,7 @@ import 'package:clipboard/clipboard.dart';
 import 'package:tibetan_handwriting_app_0_1/app_body_files/text_display_button.dart';
 import '../app_logic/app_brain.dart';
 import '../styling_files/constants.dart';
+import '../styling_files/custom_painters.dart';
 
 
 class TextDisplay extends StatefulWidget {
@@ -59,7 +60,7 @@ class _TextDisplayState extends State<TextDisplay> {
               ),
             ),
           ),
-          ClipRect(
+          ClipRect(//BUTTON ROW
             child: CustomPaint(
               painter: ButtonRowBackgroundPainter(),
               child: Container(
@@ -136,31 +137,4 @@ class _TextDisplayState extends State<TextDisplay> {
       ),
     );
   }
-}
-
-
-
-class ButtonRowBackgroundPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size){
-    final paintSettings1 = Paint()
-      ..color = kCopyButtonColor ;
-    final paintSettings2 = Paint()
-      ..blendMode = BlendMode.clear;
-      // ..color = Colors.white;
-    Rect canvasRectangle = Rect.fromLTRB(0, 0, size.width, size.height);
-    double h = size.height*1.3;
-    Rect ovalRectangle = Rect.fromCenter(
-        center: Offset(size.width/2,0),
-        width: size.width,
-        height: h);
-    canvas.saveLayer(canvasRectangle, Paint());
-    canvas.drawRect(canvasRectangle, paintSettings1);
-    canvas.drawOval(ovalRectangle, paintSettings2);
-    canvas.restore();
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
-
 }

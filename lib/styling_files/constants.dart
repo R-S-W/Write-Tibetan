@@ -42,6 +42,7 @@ const Color kTextDisplayColor = kTWhite;
 const double kTextFontSize =45.0;
 const double cLineHeight = 54.0; // Pixel height of line of text at font size of 45
 
+const Color kTextDisplayButtonRowBackgroundColor = Color(0xff802222);
 const Color  kCopyButtonColor = kTRed;
 const Color kDeleteButtonColor = kCopyButtonColor;
 
