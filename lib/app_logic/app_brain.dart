@@ -266,7 +266,6 @@ class AppBrain with ChangeNotifier {
     /*If suggestion bar is tapped, this will clear strokes.  This is also used
     in the undoslide button's onSlid function.*/
     _strokeList.clear();
-
     notifyListeners();
   }
 
@@ -287,12 +286,6 @@ class AppBrain with ChangeNotifier {
 
     if (_strokeList.length >= 2) {
       tibetanLetterFinder(_strokeList, _suggestions, _encyclopedia );
-
-      // print("suggestLetter Strokelist: ${StrokeList.length} ");
-      // Suggestions.shuffle();
-      // Suggestions = Suggestions.reversed;
-      // print("! $Suggestions !");
-
     }else{
       _suggestions.clear();
     }
@@ -315,9 +308,6 @@ class AppBrain with ChangeNotifier {
     double topScrollOffset = textDisplayScrollController.offset;
     double bottomScrollOffset = topScrollOffset + kTextDisplayHeight;
 
-    // print('cursorcharindex: $cursorCharIndex');
-    // print('calc:  $numNewlinesBeforeCursor ||   Offsets: $topScrollOffset, $topCursorOffset, $bottomCursorOffset, $bottomScrollOffset');
-
     //If cursor is not on screen, scroll so it is shown.
     if (  !(topScrollOffset < topCursorOffset) ||
         !(bottomCursorOffset < bottomScrollOffset)){
@@ -327,7 +317,6 @@ class AppBrain with ChangeNotifier {
           -(topDiff ~/ cLineHeight + 1) :  bottomDiff ~/ cLineHeight +1 ;
       //Offset where top of display will scroll to.
       double newScrollOffset = topScrollOffset + cLineHeight*numLinesAdded;
-      // print('>>numLines added:   $numLinesAdded, newoffset: $newScrollOffset');
 
       //Scroll to newScrollOffset
       textDisplayScrollController.animateTo(
