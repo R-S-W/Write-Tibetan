@@ -95,9 +95,11 @@ class LinkedListIterator<E>{
   }
 
 
-  bool get isEmpty{
-    return this.listHead == this.listTail;
-  }
+  E get currentValue => (this.current != null) ? this.current.value : null;
+
+
+  bool get isEmpty => this.listHead == this.listTail;
+
 
   bool goToStart(){
     if (!isEmpty){

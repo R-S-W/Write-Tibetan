@@ -52,6 +52,13 @@ class AppBrain with ChangeNotifier {
   */
   int _maxTextHistoryLength = 50;
   LinkedList _textHistory = LinkedList();
+  LinkedListIterator _textHistoryItr;
+
+
+  AppBrain() : super(){
+    _textHistory.addLast(["",<int>[],[0,0]]);//Set initial state of _textHistory
+    _textHistoryItr = LinkedListIterator(_textHistory);
+  }
 
 
 
@@ -181,20 +188,19 @@ class AppBrain with ChangeNotifier {
   }
 
   void _updateTextHistory(){
-    //Set the original rest state if _textHistory is empty.
-    if (_textHistory.length == 0){
-      _textHistory.addLast(["",<int>[],[0,0]]);
-    }
     //checks if lists have identical values
     Function isListsEqual = ListEquality().equals;
     //First, check if the text state has changed at all.
-    var prevState = _textHistory.last;
+    var prevState = _textHistoryItr.currentValue;
     bool isModified = prevState[0] != getTextDisplaySentence() ||
       !isListsEqual(prevState[1],_numTChars) ||
       !isListsEqual(_getSelectionRange(),prevState[2]);
 
     //If the state was changed:
     if (isModified){
+      //Clear the text states after the prevState
+      _textHistoryItr.removeAfterCurrent();
+      //Add the current state
       _textHistory.addLast( [
         getTextDisplaySentence(),
         <int>[..._numTChars],
@@ -218,6 +224,12 @@ class AppBrain with ChangeNotifier {
       _handleScroll(offsets[0]);
       notifyListeners();
     }
+  }
+
+
+  void redo(){//Redo the last change to TextDisplay
+
+
   }
 
 
