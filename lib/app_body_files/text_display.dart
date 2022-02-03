@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:tibetan_handwriting_app_0_1/app_body_files/text_display_button.dart';
@@ -52,6 +53,7 @@ class _TextDisplayState extends State<TextDisplay> {
                     maxLines: null,
                     decoration: null, //InputDecoration(),
                     cursorColor: Colors.red,
+                    cursorHeight: .9*cLineHeight,
                     style: TextStyle(
                       fontSize: kTextFontSize,
                     )
