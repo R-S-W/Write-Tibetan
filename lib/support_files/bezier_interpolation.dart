@@ -2,13 +2,13 @@ import 'dart:ui';
 
 
 
-class BezierInterpolation2D {
+class BezierInterpolationND{
   List<List<double>> dataPoints;
   int n;
   int dim;
   List<List<double>> splitVarr;
 
-  BezierInterpolation2D(this.dataPoints){
+  BezierInterpolationND(this.dataPoints){
     this.n = this.dataPoints.length-1;
     if (this.n == 0){
       this.dim = 0;
@@ -28,21 +28,26 @@ class BezierInterpolation2D {
 
 
 
-  List<List<double>> computeControlPointsND(){
-
-    for (int d =0; d<this.dim; d++){
-
+  List<List<Offset>> computeControlPointsND(){
+    List<List<Offset>> temparr = [];
+    List<List<Offset>> controlPointsByPoint = []; //transpose of temparr
+    for (int d =0; d< this.dim; d++){
+      temparr.add(computeControlPoints1D(this.splitVarr[d]);
     }
 
-
-
+    for (int i = 0; i< this.n; i++){
+      List<Offset> controlPointPairs = [];
+      for (int d =0; d<this.dim; d++){
+        controlPointPairs.add(temparr[d][i]);
+      }
+      controlPointsByPoint.add(controlPointPairs);
+    }
+    return controlPointsByPoint;
   }
 
+
   List<Offset> computeControlPoints1D(List<double> varr){
-
-    List<double> constVec = generateConstantVector(varr);//length n+1
-
-    //a_n-1
+    List<double> constVec = _generateConstantVector(varr);//length n+1
 
     List<Offset> p1table = [];  // holds a 2 member list, first element is how many a_n-1 there are, second being a constant.
     for (int a = 0; a< this.n; a++){
@@ -85,7 +90,7 @@ class BezierInterpolation2D {
   // }
 
 
-  List<double> generateConstantVector(List<double> varr){
+  List<double> _generateConstantVector(List<double> varr){
     List<double> constVec = [varr[0]+2*varr[1]];
     for (int i=1; i< this.n-1; i++){
       constVec.add(2*(2*varr[i]+varr[i+1]));
@@ -95,8 +100,5 @@ class BezierInterpolation2D {
   }
 
 
-  List<double> controlPoints(){
-    this.dataPoints
 
-  }
-  }
+}
