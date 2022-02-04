@@ -40,7 +40,7 @@ class _WritingStackState extends State<WritingStack>{
         GestureDetector(
           child:ClipRect(
             child: CustomPaint(
-              foregroundPainter: WordPainter(
+              foregroundPainter: StrokePainter(
                 strokeList: widget.strokeList
               ),
                 child: Container(

@@ -7,11 +7,11 @@ import 'constants.dart';
 
 
 //Used in writing_stack for the GestureDetector
-class WordPainter extends CustomPainter{
+class StrokePainter extends CustomPainter{
   List<List<Offset>> strokeList;
   List<Offset> offsetPoints= [];
 
-  WordPainter({this.strokeList});
+  StrokePainter({this.strokeList});
 
   @override
   void paint(Canvas canvas, Size size){
@@ -29,7 +29,8 @@ class WordPainter extends CustomPainter{
             [strokeList[i].first, strokeList[i].last],
             paintSettings );
         //draw rest of stroke
-        canvas.drawLine(strokeList[i][j], strokeList[i][j+1],paintSettings);
+        // canvas.drawLine(strokeList[i][j], strokeList[i][j+1],paintSettings);
+        // canvas.drawPath(path, paint)
       }
     }
   }
