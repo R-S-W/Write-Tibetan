@@ -6,21 +6,22 @@ class BezierInterpolationND{
   List<List<double>> dataPoints;
   int n;
   int dim;
-  List<List<double>> splitVarr;
+  List<List<double>> dpTranspose;
 
   BezierInterpolationND(this.dataPoints){
     this.n = this.dataPoints.length-1;
+    // print('Bez   dp n:${this.dataPoints.length}, ${this.n}');
     if (this.n == 0){
       this.dim = 0;
     }else{
       this.dim = this.dataPoints[0].length;
 
-      this.splitVarr = [];
+      this.dpTranspose = [];
 
       for (int i =0; i< this.dim; i++){
-        this.splitVarr.add([]);
-        for (int j = 0; j< this.n; j++){
-          this.splitVarr[i].add(this.dataPoints[j][i]);
+        this.dpTranspose.add([]);
+        for (int j = 0; j< this.n+1; j++){
+          this.dpTranspose[i].add(this.dataPoints[j][i]);
         }
       }
     }
@@ -32,7 +33,7 @@ class BezierInterpolationND{
     List<List<Offset>> temparr = [];
     List<List<Offset>> controlPointsByPoint = []; //transpose of temparr
     for (int d =0; d< this.dim; d++){
-      temparr.add(computeControlPoints1D(this.splitVarr[d]);
+      temparr.add(computeControlPoints1D(this.dpTranspose[d]));
     }
 
     for (int i = 0; i< this.n; i++){
@@ -71,7 +72,7 @@ class BezierInterpolationND{
 
 
     List<double> p2vals = [];
-    for (int j = 0; j< this.n; j++){
+    for (int j = 0; j< this.n-1; j++){
       p2vals.add(2*varr[j+1] - p1vals[j+1]);
     }
     p2vals.add((p1vals[this.n-1]+varr[this.n])/2);
@@ -90,12 +91,12 @@ class BezierInterpolationND{
   // }
 
 
-  List<double> _generateConstantVector(List<double> varr){
-    List<double> constVec = [varr[0]+2*varr[1]];
+  List<double> _generateConstantVector(List<double> dpoints){
+    List<double> constVec = [dpoints[0]+2*dpoints[1]];
     for (int i=1; i< this.n-1; i++){
-      constVec.add(2*(2*varr[i]+varr[i+1]));
+      constVec.add(2*(2*dpoints[i]+dpoints[i+1]));
     }
-    constVec.add(8*varr[this.n-1]+varr[this.n]);
+    constVec.add(8*dpoints[this.n-1]+dpoints[this.n]);
     return constVec;
   }
 
