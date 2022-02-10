@@ -1,6 +1,7 @@
 //CustomPainters
 
 
+import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:tibetan_handwriting_app_0_1/support_files/bezier_interpolation.dart';
@@ -11,6 +12,8 @@ import 'constants.dart';
 class StrokePainter extends CustomPainter{
   List<List<Offset>> strokeList;
   List<Offset> offsetPoints= [];
+  int maxBezPoints = 20; //Maximum number of points to interpolate with
+  //BezierInterpolation class
 
   StrokePainter({this.strokeList});
 
@@ -27,58 +30,54 @@ class StrokePainter extends CustomPainter{
       ..style = PaintingStyle.stroke
       ..strokeWidth = 3.0;
 
-    for (int i=0; i< strokeList.length; i++) {
-
-      if (strokeList[i].length <= 2) {
-        for (int j = 0; j < strokeList[i].length - 1; j++) {
-          canvas.drawLine(strokeList[i][j], strokeList[i][j + 1], paintSettings);
-        }
-      }else{
-        Path strokePath = Path();
-        strokePath.moveTo(strokeList[i].first.dx, strokeList[i].first.dy);
-        List<List<double>> dataPoints = [];
-        for (int jj = 0; jj < strokeList[i].length; jj++) {
-          dataPoints.add([strokeList[i][jj].dx, strokeList[i][jj].dy]);
-        }
-
-        // print('datapoints: $dataPoints');
-        BezierInterpolationND bezier = BezierInterpolationND(dataPoints);
-        List<List<Offset>> controlPoints = bezier.computeControlPointsND();
-
-        // for(int a=0; a< strokeList[i].length; a++){
-        //   print('Pos: ${strokeList[i][a]} | Control: ${controlPoints[i][0]} , ${controlPoints[i][1]}');
-        // }
-        // print('\n\n');
 
 
-        //draw endpoints
-        canvas.drawPoints(
-            PointMode.points,
-            [strokeList[i].first, strokeList[i].last],
-            paintSettings);
-
-        for (int j = 0; j < strokeList[i].length - 1; j++) {
-
-          //draw rest of stroke
-          // canvas.drawLine(strokeList[i][j], strokeList[i][j+1],paintSettings);
-
-          strokePath.cubicTo(
-              controlPoints[j][0].dx, controlPoints[j][1].dx,
-              controlPoints[j][0].dy, controlPoints[j][1].dy,
-              strokeList[i][j + 1].dx, strokeList[i][j + 1].dy
-          );
-          canvas.drawPoints(
-              PointMode.points,
-              [strokeList[i][j], strokeList[i][j+1]],
-              paintSettings);
-
-          // strokePath.lineTo(strokeList[i][j+1].dx, strokeList[i][j+1].dy);
-
-        }
-
-        canvas.drawPath(strokePath, paintSettings2);
+    for (int i=0; i< strokeList.length; i++) {//For every stroke in strokeList,
+      for (int j =0; j< strokeList[i].length-1; j++){
+        canvas.drawLine(strokeList[i][j], strokeList[i][j+1], paintSettings);
       }
 
+
+      // Path strokePath = Path(); //Stroke data
+      // strokePath.moveTo(strokeList[i].first.dx, strokeList[i].first.dy);
+      // int numInterpolations = (strokeList[i].length/maxBezPoints).ceil();
+      //
+      // //draw endpoints
+      // canvas.drawPoints(
+      //     PointMode.points,
+      //     [strokeList[i].first, strokeList[i].last],
+      //     paintSettings);
+      //
+      // // Break stroke into sections, interpolate each section with
+      // // BezierInterpolation, and add the cubic interpolation function of that
+      // // section to the strokePath.
+      // for (int a= 1; a<=numInterpolations; a++){
+      //   List<List<double>> strokeSlice = []; //Small portion of strokeList
+      //   int sliceStart = (a-1)*maxBezPoints;
+      //   int sliceEnd = min(sliceStart + maxBezPoints, strokeList.length);
+      //   for (int jj = sliceStart; jj < sliceEnd; jj++) {
+      //     strokeSlice.add([strokeList[i][jj].dx, strokeList[i][jj].dy]);
+      //   }
+      //   print('a: $a,  strokeSlice: ${strokeSlice.length}, $strokeSlice,   $numInterpolations,  #strokelist: ${strokeList.length}');
+      //   if (strokeSlice.length < 3){// If portion too small for interpolation,
+      //     for (int j=0; j< strokeSlice.length-1; j++){//Connect the points
+      //       strokePath.lineTo(strokeList[i][j+1].dx,strokeList[i][j+1].dy);
+      //     }
+      //   }else{
+      //     //interpolate strokeSlice
+      //     BezierInterpolationND bezier = BezierInterpolationND(strokeSlice);
+      //     List<List<Offset>> controlPoints = bezier.computeControlPointsND();
+      //     // add interpolation to StrokePath
+      //     for (int j = 0; j<strokeSlice.length; j++){
+      //       strokePath.cubicTo(
+      //           controlPoints[j][0].dx, controlPoints[j][1].dx,
+      //           controlPoints[j][0].dy, controlPoints[j][1].dy,
+      //           strokeList[i][j + 1].dx, strokeList[i][j + 1].dy
+      //       );
+      //     }
+      //   }
+      // }
+      // canvas.drawPath(strokePath, paintSettings2);
     }
   }
 
