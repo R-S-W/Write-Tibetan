@@ -51,7 +51,7 @@ class _MainBodyState extends State<MainBody> {
         Consumer<AppBrain>(
           builder: (context,appBrain, child)=>
               WritingStack(
-                strokeList: appBrain.getStrokeList(),
+                strokeList: appBrain.strokeList,
           ),
         ),
 

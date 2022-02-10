@@ -26,7 +26,7 @@ class _SuggestionBarState extends State<SuggestionBar> {
       child:  Consumer<AppBrain>(
         builder: (context,appBrain, child)=> ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: appBrain.getSuggestionsLength(),
+          itemCount: appBrain.suggestions.length,
           itemBuilder: (BuildContext context, int index){
             return Container(
               width: kSuggestionListViewWidgetDim.dx,
@@ -37,7 +37,7 @@ class _SuggestionBarState extends State<SuggestionBar> {
               child: ListTile(
                 title: Stack(
                   children: <Widget>[
-                    Text(appBrain.getSuggestionAt(index),
+                    Text(appBrain.suggestions[index],
                       style: kSuggestionTextStyle.copyWith(
                         foreground: Paint()
                           ..style = PaintingStyle.stroke
@@ -46,7 +46,7 @@ class _SuggestionBarState extends State<SuggestionBar> {
                       )
                     ),
 
-                    Text(appBrain.getSuggestionAt(index),
+                    Text(appBrain.suggestions[index],
                       style: kSuggestionTextStyle.copyWith(
                       ),
                     ),
@@ -54,7 +54,7 @@ class _SuggestionBarState extends State<SuggestionBar> {
                 ),
 
                 onTap: () {
-                  widget.tappedLetterCallback( appBrain.getSuggestionAt(index),);
+                  widget.tappedLetterCallback( appBrain.suggestions[index],);
                 }
               ),
             );

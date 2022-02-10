@@ -14,8 +14,8 @@ class AppBrain with ChangeNotifier {
   */
 
   //-----MEMBER VARIABLES-----
-  List<List<Offset>> _strokeList = [];
-  List<String> _suggestions = [];
+  List<List<Offset>> strokeList = [];
+  List<String> suggestions = [];
   final LetterEncyclopedia _encyclopedia = LetterEncyclopedia();
 
   /*Since tibetan sentences are stacked, multiple adjacent UTF-16 characters are
@@ -65,10 +65,6 @@ class AppBrain with ChangeNotifier {
   //================================METHODS=====================================
 
   //-------------------------------ACCESSORS-----------------------------------
-  List<List<Offset>> getStrokeList() => _strokeList;
-  List<String> getSuggestions()=> _suggestions;
-  String getSuggestionAt(int index) => _suggestions[index];
-  int getSuggestionsLength() => _suggestions.length;
   String getTextDisplaySentence() => textDisplayController.text;
 
 
@@ -248,24 +244,24 @@ class AppBrain with ChangeNotifier {
 
 
   void addStroke(List<Offset> aStroke) {
-    _strokeList.add(aStroke);
+    strokeList.add(aStroke);
     suggestLetters();
   }
 
 
   void deleteStroke() {
-    if (_strokeList.length>0) {
-      _strokeList.removeLast();
+    if (strokeList.length>0) {
+      strokeList.removeLast();
       suggestLetters();
     }
   }
 
 
   void clearAllStrokesAndSuggestions() {
-    _suggestions.clear();
+    suggestions.clear();
     /*If suggestion bar is tapped, this will clear strokes.  This is also used
     in the undoslide button's onSlid function.*/
-    _strokeList.clear();
+    strokeList.clear();
     notifyListeners();
   }
 
@@ -273,9 +269,9 @@ class AppBrain with ChangeNotifier {
   void _clearVerySmallStrokes(){
     /*remove the 1 or 2 point strokes from the strokeList, as they usually are
     errors.  Helper function in suggestLetters. */
-    for (int i = _strokeList.length-1 ; i>=0; i--){
-      if (_strokeList[i].length <3){
-        _strokeList.removeAt(i);
+    for (int i = strokeList.length-1 ; i>=0; i--){
+      if (strokeList[i].length <3){
+        strokeList.removeAt(i);
       }
     }
   }
@@ -284,10 +280,10 @@ class AppBrain with ChangeNotifier {
   void suggestLetters() {
     _clearVerySmallStrokes();
 
-    if (_strokeList.length >= 2) {
-      tibetanLetterFinder(_strokeList, _suggestions, _encyclopedia );
+    if (strokeList.length >= 2) {
+      tibetanLetterFinder(strokeList, suggestions, _encyclopedia );
     }else{
-      _suggestions.clear();
+      suggestions.clear();
     }
     notifyListeners();
   }
@@ -329,7 +325,7 @@ class AppBrain with ChangeNotifier {
 
 
   void printPathListString(){
-    print(formatPathListToStr( strokeListToPathList(_strokeList)));
+    print(formatPathListToStr( strokeListToPathList(strokeList)));
   }
 
 }
