@@ -7,10 +7,6 @@ import '../styling_files/constants.dart';
 
 
 class SuggestionBar extends StatefulWidget {
-  SuggestionBar({ @required this.tappedLetterCallback});
-  final List<String> suggestions= [];
-  final Function(String)  tappedLetterCallback; // no final on this voidcallback
-
   @override
   _SuggestionBarState createState() => _SuggestionBarState();
 }
@@ -54,7 +50,10 @@ class _SuggestionBarState extends State<SuggestionBar> {
                 ),
 
                 onTap: () {
-                  widget.tappedLetterCallback( appBrain.suggestions[index],);
+                  appBrain.addWord(appBrain.suggestions[index]);
+                  //Clear the strokes+suggestions
+                  appBrain.printPathListString();/////PRINT
+                  appBrain.clearAllStrokesAndSuggestions();
                 }
               ),
             );
