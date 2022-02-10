@@ -11,8 +11,6 @@ import '../styling_files/custom_painters.dart';
 
 
 class WritingStack extends StatefulWidget {
-  WritingStack({@required this.strokeList, });
-  final List<List<Offset>> strokeList;   //this is ok
 
   @override
   _WritingStackState createState() => _WritingStackState();
@@ -20,13 +18,12 @@ class WritingStack extends StatefulWidget {
 class _WritingStackState extends State<WritingStack>{
 
 
-  List<Offset> points = [];
+  List<Offset> newStroke = [];
   /*isInBounds used to make sure a stroke that goes out of bounds has only the
   in-bounds position data saved. */
   bool isInBounds = false;
 
   @override
-
   Widget build(BuildContext context){
     return  Stack(
       alignment: Alignment.bottomRight,
@@ -37,49 +34,56 @@ class _WritingStackState extends State<WritingStack>{
         ),
 
 
-        GestureDetector(
-          child:ClipRect(
-            child: CustomPaint(
-              foregroundPainter: StrokePainter(
-                strokeList: widget.strokeList
-              ),
-                child: Container(
-                  height: kWritingStackDim.dy,
-                  width: kWritingStackDim.dx,
-                  color: kWritingPadColor,
+        Consumer<AppBrain>(
+          builder: (context, appBrain,child)=>
+            GestureDetector(
+              child:ClipRect(
+                child: CustomPaint(
+                  foregroundPainter: StrokePainter(
+                    strokeList: appBrain.strokeList
+                  ),
+                    child: Container(
+                      height: kWritingStackDim.dy,
+                      width: kWritingStackDim.dx,
+                      color: kWritingPadColor,
+                    )
                 )
-            )
+            ),
+
+            onPanDown: (details) {
+              setState(() {
+                RenderBox renderBox = context.findRenderObject();
+                newStroke =<Offset>[];
+                //add first point,
+                newStroke.add(renderBox.globalToLocal(details.globalPosition));
+
+                appBrain.strokeList.add(newStroke);
+                isInBounds = true;
+              });
+            },
+
+            onPanUpdate: (details){
+              setState(() {
+                RenderBox renderBox = context.findRenderObject();
+                Offset tempPoint =renderBox.globalToLocal(details.globalPosition);
+                //if not in bounds
+                if (!(Offset.zero<=tempPoint && tempPoint<=kWritingStackDim)){
+                  //isInBounds is False, and any subsequent points of onPanUpdates
+                  //will not be added.  This prevents re-entrant, disconnected
+                  // strokes (where you draw out of the canvas and then come
+                  // back in)
+                  isInBounds=  false;
+                }
+                if (isInBounds){
+                  newStroke.add(tempPoint);
+                }
+              });
+            },
+
+            onPanEnd: (details){
+              setState( appBrain.suggestLetters );
+            }
           ),
-
-          onPanDown: (details) {
-            setState(() {
-              RenderBox renderBox = context.findRenderObject();
-              points =<Offset>[renderBox.globalToLocal(details.globalPosition)];
-              //add first point,
-              points.add(renderBox.globalToLocal(details.globalPosition));
-              widget.strokeList.add(points);
-              isInBounds = true;
-            });
-          },
-
-          onPanUpdate: (details){
-            setState(() {
-              RenderBox renderBox = context.findRenderObject();
-              Offset tempPoint =renderBox.globalToLocal(details.globalPosition);
-              //if not in bounds
-              if (!(Offset.zero<=tempPoint && tempPoint<=kWritingStackDim)){
-                isInBounds=  false;
-              }
-              if (isInBounds){
-                points.add(tempPoint);
-              }
-            });
-          },
-
-          onPanEnd: (details){setState((){
-            var appBrain = Provider.of<AppBrain>(context, listen:false);
-            appBrain.suggestLetters();
-          });}
         ),
 
 
@@ -97,9 +101,9 @@ class _WritingStackState extends State<WritingStack>{
                 var appBrain = Provider.of<AppBrain>(context, listen:false) ;
 
                 //Display the tseg.
-                if (appBrain.getSuggestionsLength()>0){
+                if (appBrain.suggestions.length>0){
                   //if there's suggestions, add 1st suggested letter first.
-                  appBrain.addWord(appBrain.getSuggestionAt(0));
+                  appBrain.addWord(appBrain.suggestions[0]);
                 }
                 appBrain.addWord('་');
                 //Clear the strokes+suggestions

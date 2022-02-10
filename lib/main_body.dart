@@ -48,12 +48,8 @@ class _MainBodyState extends State<MainBody> {
         ),
 
 
-        Consumer<AppBrain>(
-          builder: (context,appBrain, child)=>
-              WritingStack(
-                strokeList: appBrain.strokeList,
-          ),
-        ),
+        WritingStack(),
+
 
         Expanded(
           child: Container(
