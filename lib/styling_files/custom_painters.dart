@@ -19,46 +19,32 @@ class StrokePainter extends CustomPainter{
 
   @override
   void paint(Canvas canvas, Size size){
-    final paintSettings = Paint()
-      ..color= Colors.red
+    final endpointPaintSettings = Paint()
+      ..color= Colors.black
       ..isAntiAlias = true
-      ..strokeWidth = 6.0
+      ..strokeWidth = 3.0
       ..strokeCap = StrokeCap.round;
 
-    final paintSettings2 = Paint()
+    final curvePaintSettings = Paint()
       ..color = Colors.black
       ..style = PaintingStyle.stroke
       ..strokeWidth = 3.0;
 
 
-    // Path characterPath = Path();
-    print('strokeList len:  ${strokeList.length}');
     for (int i=0; i< strokeList.length; i++) {//For every stroke in strokeList,
-      print('iteration $i');
-      for (int j =0; j< strokeList[i].length-1; j++){
-        // canvas.drawLine(strokeList[i][j], strokeList[i][j+1], paintSettings);
-      }
-      // canvas.drawPoints(PointMode.points, strokeList[i], paintSettings);
-
-      if (strokeList[i].length==0){
-        print('c');
-        continue;
-      }
-
-
-      Path strokePath = Path(); //Stroke data
+      Path strokePath = Path(); //Class used to paint canvas
       strokePath.moveTo(strokeList[i].first.dx, strokeList[i].first.dy);
       int numInterpolations = (strokeList[i].length/maxBezPoints).ceil();
 
       //draw endpoints
       canvas.drawPoints(
-          PointMode.points,
-          [strokeList[i].first, strokeList[i].last],
-          paintSettings);
+        PointMode.points,
+        [strokeList[i].first, strokeList[i].last],
+        endpointPaintSettings);
 
-      // Break stroke into sections, interpolate each section with
-      // BezierInterpolation, and add the cubic interpolation function of that
-      // section to the strokePath.
+      // Break stroke into sections,
+      // interpolate each section with BezierInterpolation, and
+      // add the cubic interpolation function of that section to the strokePath.
       for (int a= 1; a<=numInterpolations; a++){
         List<List<double>> strokeSlice = []; //Small portion of strokeList
         int sliceStart = (a-1)*maxBezPoints;
@@ -66,17 +52,14 @@ class StrokePainter extends CustomPainter{
         for (int jj = sliceStart; jj < sliceEnd; jj++) {
           strokeSlice.add([strokeList[i][jj].dx, strokeList[i][jj].dy]);
         }
-        print('a: $a,  strokeSlice: ${strokeSlice.length}, ,   $numInterpolations,  #strokelist: ${strokeList.length}');
-        print('        sliceStart: $sliceStart, sliceEnd: $sliceEnd');
 
-        if (a>1){ //If the full stroke is segmented,
-          //draw a line from previous stroke slice to current stroke slice
+        if (a>1){ //If the full stroke is segmented into multiple slices,
+          // draw a line from previous stroke slice to current stroke slice
           strokePath.lineTo(strokeSlice.first[0], strokeSlice.first[1]);
         }
 
         if (strokeSlice.length < 3){// If portion too small for interpolation,
           for (int j=1; j< strokeSlice.length; j++){//Connect the points
-            print('lineto');
             strokePath.lineTo(strokeSlice[j][0],strokeSlice[j][1]);
           }
         }else{
@@ -93,10 +76,8 @@ class StrokePainter extends CustomPainter{
           }
         }
       }
-      // characterPath.addPath(strokePath, strokeList[i].first);
-      canvas.drawPath(strokePath, paintSettings2);
+      canvas.drawPath(strokePath, curvePaintSettings);
     }
-    // canvas.drawPath(characterPath, paintSettings2);
   }
 
   @override
