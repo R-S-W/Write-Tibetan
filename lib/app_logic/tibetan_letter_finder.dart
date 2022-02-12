@@ -316,13 +316,13 @@ Map<String, double>  makeSuggestionMap(
   // print("INputpathnumstrokes:::${inputPath.numStrokes}");
 
   //Check if the numStrokes of inputPath is too large.
-  int maxNumStrokes = 10;
+  int maxNumStrokes = 9;
 
   List sameLenLetterPaths = [];
-  if (encyclopedia.letterPathsByStrokeCount.length <= maxNumStrokes){
+  if (inputPath.numStrokes <= maxNumStrokes){
     sameLenLetterPaths =
       encyclopedia.letterPathsByStrokeCount[inputPath.numStrokes];
-  }else if (encyclopedia.letterPathsByStrokeCount.length == maxNumStrokes + 1){
+  }else{
     sameLenLetterPaths = encyclopedia.letterPathsByStrokeCount[maxNumStrokes];
   }
 
