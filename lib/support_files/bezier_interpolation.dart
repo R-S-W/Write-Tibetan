@@ -1,21 +1,38 @@
-import 'dart:ui';
+/*
+BezierInterpolationND is a class that takes a list of n-dimensional points
+and can be used to return the control points of a bezier cubic spline function.
 
+Process:
+The input data is split into n lists for each dimension, acting as a function
+parametrized by the index of the list.  For each of these functions, a 1D
+bezier function can be run to determine the nontrivial control points that can
+generate the cubic spline functions.**  The nontrivial control points are then
+grouped together into a list of n-dimensional vectors that are the n-dimensional
+control points.  This list is returned to generate the bezier splines.
+
+** For every pair of points A and B in any of the n functions, there are 4 scalar
+control points.  The first and last are A and B respectively.  There exist two
+more control points between A and B that are computed by this class.
+
+As a reminder, the first and last control points are not added into the final
+result, as they already are available in the input data.
+ */
+
+import 'dart:ui';
 
 
 class BezierInterpolationND{
   List<List<double>> dataPoints;
   int n;
   int dim;
-  List<List<double>> dpTranspose;
+  List<List<double>> dpTranspose; //Matrix transpose of dataPoints
 
   BezierInterpolationND(this.dataPoints){
     this.n = this.dataPoints.length-1;
-    // print('Bez   dp n:${this.dataPoints.length}, ${this.n}');
     if (this.n == 0){
       this.dim = 0;
     }else{
       this.dim = this.dataPoints[0].length;
-
       this.dpTranspose = [];
 
       for (int i =0; i< this.dim; i++){
@@ -48,9 +65,11 @@ class BezierInterpolationND{
 
 
   List<Offset> computeControlPoints1D(List<double> varr){
+    //Compute the nontrivial control points of the input list.
+    //Implementation of Thomas Algorithm for tridiagonal matrices
     List<double> constVec = _generateConstantVector(varr);//length n+1
-
-    List<Offset> p1table = [];  // holds a 2 member list, first element is how many a_n-1 there are, second being a constant.
+    //holds a 2 member list, first element is how many a_n-1 there are, second being a constant.
+    List<Offset> p1table = [];
     for (int a = 0; a< this.n; a++){
       p1table.add(Offset.zero);
     }
@@ -82,13 +101,7 @@ class BezierInterpolationND{
       ansarr.add(Offset(p1vals[j],p2vals[j]));
     }
     return ansarr;
-
   }
-
-
-  // Offset calcVar(int rowIdx, List<Offset> table, List<double> constVector){
-  //   return ;
-  // }
 
 
   List<double> _generateConstantVector(List<double> dpoints){
