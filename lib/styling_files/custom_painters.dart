@@ -20,15 +20,15 @@ class StrokePainter extends CustomPainter{
   @override
   void paint(Canvas canvas, Size size){
     final endpointPaintSettings = Paint()
-      ..color= Colors.black
+      ..color= kBrushColor
       ..isAntiAlias = true
-      ..strokeWidth = 3.0
+      ..strokeWidth = kBrushSize
       ..strokeCap = StrokeCap.round;
 
     final curvePaintSettings = Paint()
-      ..color = Colors.black
+      ..color = kBrushColor
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 3.0;
+      ..strokeWidth = kBrushSize;
 
 
     for (int i=0; i< strokeList.length; i++) {//For every stroke in strokeList,

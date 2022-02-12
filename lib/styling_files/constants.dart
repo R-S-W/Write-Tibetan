@@ -79,6 +79,9 @@ const Offset kWritingStackDim = Offset(414.0, 310.0);
 const Color kWritingPadColor = Color(0xff2f6b7e);
 const double kBottomButtonsHeight = 50;
 
+const double kBrushSize = 3.7;
+const Color kBrushColor = kTWhite;
+
 
 //BottomRight Buttons-----------------------------------------------------------
 
