@@ -315,11 +315,21 @@ Map<String, double>  makeSuggestionMap(
   // print("INPUTPATH pathstring:::${inputPath.pathString}:::");
   // print("INputpathnumstrokes:::${inputPath.numStrokes}");
 
-  var sameLenLetterPaths =
-  encyclopedia.letterPathsByStrokeCount[inputPath.numStrokes];
+  //Check if the numStrokes of inputPath is too large.
+  int maxNumStrokes = 10;
+
+  List sameLenLetterPaths = [];
+  if (encyclopedia.letterPathsByStrokeCount.length <= maxNumStrokes){
+    sameLenLetterPaths =
+      encyclopedia.letterPathsByStrokeCount[inputPath.numStrokes];
+  }else if (encyclopedia.letterPathsByStrokeCount.length == maxNumStrokes + 1){
+    sameLenLetterPaths = encyclopedia.letterPathsByStrokeCount[maxNumStrokes];
+  }
+
   for (int i=0; i<  sameLenLetterPaths.length; i++){
     LetterPath iLetterPath = sameLenLetterPaths[i];
     String iLetterKey = iLetterPath.tibetanLetter;
+
 
     // print("Current checked Letter:  ::::$iLetterKey::::");
 
