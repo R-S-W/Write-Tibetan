@@ -67,8 +67,8 @@ void tibetanLetterFinder(List<List<Offset>> inputStrokeList,
       // the last stroke.
       //We will compare them to see if the inputRectangle grew above or below.
       List<Offset> prevInputRectangleData =
-      smallestBoundingRectangle(
-          inputStrokeList.sublist(0, inputLength - vowelLen));
+        smallestBoundingRectangle(
+        inputStrokeList.sublist(0, inputLength - vowelLen));
 
       //Take the last vowelLen strokes and see if they match the vowels to
       // a certain tolerance: vowelDiffRatingtolerance.

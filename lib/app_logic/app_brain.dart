@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import 'package:tibetan_handwriting_app_0_1/styling_files/constants.dart';
@@ -64,35 +66,12 @@ class AppBrain with ChangeNotifier {
 
   //================================METHODS=====================================
 
-  //-------------------------------ACCESSORS-----------------------------------
+
+  //_______________TEXT DISPLAY METHODS__________________
+
   String getTextDisplaySentence() => textDisplayController.text;
 
 
-
-  List<int> _getSelectionRange(){//get range of highlighted text in TextDisplay
-    //helper function of addWord and deleteWord
-    int leftIndex = textDisplayController.selection.baseOffset;
-    int rightIndex = textDisplayController.selection.extentOffset;
-    leftIndex = leftIndex!=-1 ? leftIndex : 0;
-    rightIndex = rightIndex!=-1 ? rightIndex : 0;
-    return [leftIndex,rightIndex];
-  }
-
-  int _getCursorDisplayIndex(int cursorCharIndex){
-    //using the index position of a character in TextDisplay text, get the
-    // corresponding index of _numTChars.
-    //helper function for addWord and deleteWord
-    int s = 0;
-    int i = 0;
-    for ( ; s< cursorCharIndex && i< _numTChars.length ; i++ ){
-      s+= _numTChars[i];
-    }
-    return i;
-  }
-
-
-
-  //---------------------------------MODIFIERS---------------------------------
   void addWord (String aWord){//Inserts/replaces word into text of TextDisplay
     String displayText = textDisplayController.text;
     List<int> selectionRange = _getSelectionRange();
@@ -183,6 +162,70 @@ class AppBrain with ChangeNotifier {
     }
   }
 
+
+
+  List<int> _getSelectionRange(){//get range of highlighted text in TextDisplay
+    //helper function of addWord and deleteWord
+    int leftIndex = textDisplayController.selection.baseOffset;
+    int rightIndex = textDisplayController.selection.extentOffset;
+    leftIndex = leftIndex!=-1 ? leftIndex : 0;
+    rightIndex = rightIndex!=-1 ? rightIndex : 0;
+    return [leftIndex,rightIndex];
+  }
+
+
+  int _getCursorDisplayIndex(int cursorCharIndex){
+    //using the index position of a character in TextDisplay text, get the
+    // corresponding index of _numTChars.
+    //helper function for addWord and deleteWord
+    int s = 0;
+    int i = 0;
+    for ( ; s< cursorCharIndex && i< _numTChars.length ; i++ ){
+      s+= _numTChars[i];
+    }
+    return i;
+  }
+
+
+  //Scrolls TextDisplay to keep cursor visible.
+  void _handleScroll( int cursorCharIndex){
+    int numNewlinesBeforeCursor =
+        textDisplayController.text.substring(0,cursorCharIndex).split('\n').length;
+    //Estimated vertical pixel positions of text cursor in TextField.
+    double bottomCursorOffset = _calcCursorOffset(numNewlinesBeforeCursor);
+    double topCursorOffset = bottomCursorOffset - cLineHeight;
+    //Scroll offsets for top and bottom of screen
+    double topScrollOffset = textDisplayScrollController.offset;
+    double bottomScrollOffset = topScrollOffset + kTextDisplayHeight;
+
+    //If cursor is not on screen, scroll so it is shown.
+    if (  !(topScrollOffset < topCursorOffset) ||
+        !(bottomCursorOffset < bottomScrollOffset)){
+      double topDiff = topCursorOffset - topScrollOffset;
+      double bottomDiff = bottomCursorOffset - bottomScrollOffset;
+      int numLinesAdded =  (topDiff<0) ?
+        -(topDiff ~/ cLineHeight + 1) :  bottomDiff ~/ cLineHeight +1 ;
+      //Offset where top of display will scroll to.
+      double newScrollOffset = topScrollOffset + cLineHeight*numLinesAdded;
+
+      //Scroll to newScrollOffset
+      textDisplayScrollController.animateTo(
+          newScrollOffset,
+          duration: Duration(milliseconds: 200),
+          curve: Curves.easeInOut
+      );
+    }
+  }
+
+
+  //Helper function for _handleScroll
+  double _calcCursorOffset(int numNewlines) => (numNewlines)*cLineHeight + 34;
+
+
+
+
+  //____________________________TEXT HISTORY METHODS______________________________
+
   void _updateTextHistory(){
     //checks if lists have identical values
     Function isListsEqual = ListEquality().equals;
@@ -214,7 +257,7 @@ class AppBrain with ChangeNotifier {
     if (!_textHistoryItr.isAtStart){
       _textHistoryItr.retreat(); //Point to previous state.
       var prevState = _textHistoryItr.currentValue;
-      setTextState(prevState);  //Set the current state to the previous state.
+      _setTextState(prevState);  //Set the current state to the previous state.
       _handleScroll(prevState[2][0]);
       notifyListeners();
     }
@@ -225,7 +268,7 @@ class AppBrain with ChangeNotifier {
     if (!_textHistoryItr.isAtEnd){
       _textHistoryItr.advance();
       var nextState = _textHistoryItr.currentValue;
-      setTextState(nextState);
+      _setTextState(nextState);
       _handleScroll(nextState[2][0]);
       notifyListeners();
     }
@@ -235,13 +278,17 @@ class AppBrain with ChangeNotifier {
   //Change the text and cursor selection in DisplayText as well as _numTChars.
   //newState is a list of this form:  [ String, <int>[], [int,int]  ].
   //Helper function to undo and redo.
-  void setTextState(List newState){
+  void _setTextState(List newState){
     textDisplayController.text = newState[0];
     _numTChars = <int>[...newState[1]];
     textDisplayController.selection =
       TextSelection(baseOffset: newState[2][0], extentOffset: newState[2][1]);
   }
 
+
+
+
+  //_________________________WRITING PAD METHODS____________________________
 
   void addStroke(List<Offset> aStroke) {
     strokeList.add(aStroke);
@@ -277,55 +324,64 @@ class AppBrain with ChangeNotifier {
   }
 
 
+
+
+
+  //________________________SUGGESTION BAR METHODS_____________________________
+
   void suggestLetters() {
     _clearVerySmallStrokes();
 
     if (strokeList.length >= 2) {
       tibetanLetterFinder(strokeList, suggestions, _encyclopedia );
+      _putWasursBehind(); //Any characters with a wa
     }else{
       suggestions.clear();
     }
     notifyListeners();
   }
 
+  /*  For every some characters, there is a corresponding character that has
+    a wasur, a wa at the bottom of the character.  (Ex. ར and རྭྭ )  This function
+    checks the "suggestions" list and makes sure the wasur version of the
+    character is behind the original.  This is done via swapping positions.
+    Helper method of suggestLetters.
+   */
+  void _putWasursBehind(){
+    String wa = "\u0f5d";
+    //List of suggestion characters that end in wa
+    Map<String,List<int>> wasurToIndexPairs = Map();
 
-  //Helper function for _handleScroll
-  double _calcCursorOffset(int numNewlines) => (numNewlines)*cLineHeight + 34;
-
-
-  //Scrolls TextDisplay to keep cursor visible.
-  void _handleScroll( int cursorCharIndex){
-    int numNewlinesBeforeCursor =
-        textDisplayController.text.substring(0,cursorCharIndex).split('\n').length;
-    //Estimated vertical pixel positions of text cursor in TextField.
-    double bottomCursorOffset = _calcCursorOffset(numNewlinesBeforeCursor);
-    double topCursorOffset = bottomCursorOffset - cLineHeight;
-    //Scroll offsets for top and bottom of screen
-    double topScrollOffset = textDisplayScrollController.offset;
-    double bottomScrollOffset = topScrollOffset + kTextDisplayHeight;
-
-    //If cursor is not on screen, scroll so it is shown.
-    if (  !(topScrollOffset < topCursorOffset) ||
-        !(bottomCursorOffset < bottomScrollOffset)){
-      double topDiff = topCursorOffset - topScrollOffset;
-      double bottomDiff = bottomCursorOffset - bottomScrollOffset;
-      int numLinesAdded =  (topDiff<0) ?
-          -(topDiff ~/ cLineHeight + 1) :  bottomDiff ~/ cLineHeight +1 ;
-      //Offset where top of display will scroll to.
-      double newScrollOffset = topScrollOffset + cLineHeight*numLinesAdded;
-
-      //Scroll to newScrollOffset
-      textDisplayScrollController.animateTo(
-          newScrollOffset,
-          duration: Duration(milliseconds: 200),
-          curve: Curves.easeInOut
-      );
+    //Find wasur characters, add to wasurToIndexPairs
+    for (int i = 0; i< suggestions.length; i++){
+      String s = suggestions[i];
+      if ( s != wa && s[s.length-1] == wa ){//If this character ends with a wa:
+        wasurToIndexPairs[s] = [i];
+      }
     }
+    //Find indices of the complement to the wasur characters
+    for (int i =0; i< suggestions.length; i++){
+      String sw = suggestions[i]+wa;
+      if (wasurToIndexPairs.containsKey(sw)){
+        wasurToIndexPairs[sw] = wasurToIndexPairs[sw]+[i];
+      }
+    }
+
+    //Swap character pairs in suggestions
+    wasurToIndexPairs.forEach((char, idxPairs) {
+      String temp = suggestions[idxPairs[0]];
+      suggestions[idxPairs[0]] = suggestions[idxPairs[1]];
+      suggestions[idxPairs[1]] = temp;
+    });
+
   }
 
+
+  //_____________________MISCELLANEOUS________________________________
 
   void printPathListString(){
     print(formatPathListToStr( strokeListToPathList(strokeList)));
   }
+
 
 }
