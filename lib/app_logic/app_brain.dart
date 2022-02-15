@@ -341,39 +341,49 @@ class AppBrain with ChangeNotifier {
     notifyListeners();
   }
 
-  /*  For every some characters, there is a corresponding character that has
+  /*  For some characters, there is a corresponding character that has
     a wasur, a wa at the bottom of the character.  (Ex. ར and རྭྭ )  This function
     checks the "suggestions" list and makes sure the wasur version of the
     character is behind the original.  This is done via swapping positions.
     Helper method of suggestLetters.
+
+    (Unimportant Technical Note)  The only Wasur pairs that are completely
+    found and swapped will only be ones that have the same number of strokes.
+    tshwa and tsha will not be considered because the wasur is added on the
+    fifth stroke of tshwa, while tsha takes 4 strokes.  rwa and ra will be
+    detected, since the wasur is added on the third stroke of rwa and ra has 3
+    strokes.
    */
   void _putWasursBehind(){
-    String wa = "\u0f5d";
-    //List of suggestion characters that end in wa
+    String wasur = "\u0fad";
+    //Map where the key, a wasur character, and a value, a list with two
+    //indices of the wasur character and its possible counterpart.
     Map<String,List<int>> wasurToIndexPairs = Map();
 
     //Find wasur characters, add to wasurToIndexPairs
     for (int i = 0; i< suggestions.length; i++){
       String s = suggestions[i];
-      if ( s != wa && s[s.length-1] == wa ){//If this character ends with a wa:
+      print(s);
+      //If this character ends with a wa:
+      if ( s != wasur && s[s.length-1] == wasur ){
         wasurToIndexPairs[s] = [i];
       }
     }
     //Find indices of the complement to the wasur characters
     for (int i =0; i< suggestions.length; i++){
-      String sw = suggestions[i]+wa;
+      String sw = suggestions[i]+wasur;
       if (wasurToIndexPairs.containsKey(sw)){
         wasurToIndexPairs[sw] = wasurToIndexPairs[sw]+[i];
       }
     }
-
-    //Swap character pairs in suggestions
+    //Swap character pairs in suggestions if wasur version is in front
     wasurToIndexPairs.forEach((char, idxPairs) {
-      String temp = suggestions[idxPairs[0]];
-      suggestions[idxPairs[0]] = suggestions[idxPairs[1]];
-      suggestions[idxPairs[1]] = temp;
+      if (idxPairs.length ==2 && idxPairs[0] < idxPairs[1]){
+        String temp = suggestions[idxPairs[0]];
+        suggestions[idxPairs[0]] = suggestions[idxPairs[1]];
+        suggestions[idxPairs[1]] = temp;
+      }
     });
-
   }
 
 
