@@ -37,6 +37,7 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size screenDimensions = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -68,7 +69,9 @@ class MainPage extends StatelessWidget {
       ),
       body: MultiProvider(
           providers: [
-            ChangeNotifierProvider(create:(context) => AppBrain(context)),
+            ChangeNotifierProvider(
+              create:(context) => AppBrain(screenDims: screenDimensions)
+            ),
           ],
           child:MainBody()
       )

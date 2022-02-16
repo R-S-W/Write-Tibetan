@@ -52,13 +52,13 @@ class AppBrain with ChangeNotifier {
   int _maxTextHistoryLength = 50;
   LinkedList _textHistory = LinkedList();
   LinkedListIterator _textHistoryItr;
-  Size screenDim;
+  Size screenDims;
 
 
-  AppBrain(@required context) : super(){
+  AppBrain({this.screenDims}) : super(){
     _textHistory.addLast(["",<int>[],[0,0]]);//Set initial state of _textHistory
     _textHistoryItr = LinkedListIterator(_textHistory);
-    this.screenDim =  MediaQuery.of(context).size;
+    // this.screenDim =  MediaQuery.of(context).size;
   }
 
 
