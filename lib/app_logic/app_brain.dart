@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import 'package:tibetan_handwriting_app_0_1/styling_files/constants.dart';
@@ -25,7 +23,6 @@ class AppBrain with ChangeNotifier {
    unicode to properly delete an entire letter with deleteWord.
   */
   List<int> _numTChars = [];  // number of textdisplay characters
-
   /* TextEditingController controls the TextField in the TextDisplay
     widget.
     * textDisplayController.text  = text of TextDisplay
@@ -55,11 +52,13 @@ class AppBrain with ChangeNotifier {
   int _maxTextHistoryLength = 50;
   LinkedList _textHistory = LinkedList();
   LinkedListIterator _textHistoryItr;
+  Size screenDim;
 
 
-  AppBrain() : super(){
+  AppBrain(@required context) : super(){
     _textHistory.addLast(["",<int>[],[0,0]]);//Set initial state of _textHistory
     _textHistoryItr = LinkedListIterator(_textHistory);
+    this.screenDim =  MediaQuery.of(context).size;
   }
 
 

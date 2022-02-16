@@ -68,7 +68,7 @@ class MainPage extends StatelessWidget {
       ),
       body: MultiProvider(
           providers: [
-            ChangeNotifierProvider(create:(context) => AppBrain()),
+            ChangeNotifierProvider(create:(context) => AppBrain(context)),
           ],
           child:MainBody()
       )
