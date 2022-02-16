@@ -58,7 +58,6 @@ class AppBrain with ChangeNotifier {
   AppBrain({this.screenDims}) : super(){
     _textHistory.addLast(["",<int>[],[0,0]]);//Set initial state of _textHistory
     _textHistoryItr = LinkedListIterator(_textHistory);
-    // this.screenDim =  MediaQuery.of(context).size;
   }
 
 

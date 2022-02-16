@@ -15,7 +15,7 @@ class StrokePainter extends CustomPainter{
   int maxBezPoints = 20; //Maximum number of points to interpolate with
   //BezierInterpolation class
 
-  StrokePainter({this.strokeList});
+  StrokePainter({@required this.strokeList});
 
   @override
   void paint(Canvas canvas, Size size){

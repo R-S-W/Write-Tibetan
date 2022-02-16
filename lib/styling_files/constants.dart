@@ -2,6 +2,11 @@
 import 'package:flutter/material.dart';
 
 
+//All measurements are not the actual pixel size of the objects on the app.
+//These are measurements on a screen of width 414 logical pixels.
+
+//Used to scale the app for different screen resolutions.
+const double kDevScreenWidth = 414.0;
 
 //Basic Colors______________________________________________________
 const Color kTRed = Color(0xff982929);
@@ -58,7 +63,9 @@ const TextStyle kTextDisplayButtonTextStyle = TextStyle(
 
 //Suggestion Bar----------------------------------------------------------------
 const double kSuggestionBarHeight = 70;
+const double kSuggestionBarHeightP = .169;
 const Offset kSuggestionListViewWidgetDim = Offset(55,65);
+const Offset kSuggestionListViewWidgetDimP = Offset(.133,.157);
 
 const Color kSuggestionBarColor = kCopyButtonColor;
 const kSuggestionTextColor = Color(0xffc8900a);

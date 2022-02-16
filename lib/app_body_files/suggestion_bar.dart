@@ -14,8 +14,12 @@ class SuggestionBar extends StatefulWidget {
 class _SuggestionBarState extends State<SuggestionBar> {
   @override
   Widget build(BuildContext context){
+    Size screenDims = MediaQuery.of(context).size;
+    //sdm = Screen Dimensions Multiplier
+    double sdm = screenDims.width/kDevScreenWidth;
+
     return Container(
-      height: kSuggestionBarHeight,
+      height: kSuggestionBarHeight * sdm,
       decoration: BoxDecoration(
         color: kSuggestionBarColor,
       ),
@@ -25,11 +29,11 @@ class _SuggestionBarState extends State<SuggestionBar> {
           itemCount: appBrain.suggestions.length,
           itemBuilder: (BuildContext context, int index){
             return Container(
-              width: kSuggestionListViewWidgetDim.dx,
-              height: kSuggestionListViewWidgetDim.dy,
+              width: kSuggestionListViewWidgetDim.dx * sdm,
+              height: kSuggestionListViewWidgetDim.dy * sdm,
               color: kSuggestionBarColor,
 
-              padding: const EdgeInsets.all(5.0) ,
+              padding: EdgeInsets.all(5.0 * sdm) ,
               child: ListTile(
                 title: Stack(
                   children: <Widget>[
@@ -37,14 +41,13 @@ class _SuggestionBarState extends State<SuggestionBar> {
                       style: kSuggestionTextStyle.copyWith(
                         foreground: Paint()
                           ..style = PaintingStyle.stroke
-                          ..strokeWidth = 1.9
+                          ..strokeWidth = 1.9*sdm
                           ..color = Color(0xa0000000)
                       )
                     ),
 
                     Text(appBrain.suggestions[index],
-                      style: kSuggestionTextStyle.copyWith(
-                      ),
+                      style: kSuggestionTextStyle,
                     ),
                   ]
                 ),

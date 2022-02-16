@@ -38,17 +38,20 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size screenDimensions = MediaQuery.of(context).size;
+    //Screen dimensions multiplier
+    double sdm = screenDimensions.width / kDevScreenWidth;
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
         backgroundColor: kAppBarBackgroundColor,
         title: Center(
-            child: const Text(
+            child: Text(
               'Tibetan Handwritten Input Method',
               style: TextStyle(
                 fontFamily:kMohave,
-                fontSize:26,
+                fontSize:26 * sdm,
               ),
             ),
         ),

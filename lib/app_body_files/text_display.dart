@@ -19,9 +19,12 @@ class TextDisplay extends StatefulWidget {
 class _TextDisplayState extends State<TextDisplay> {
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double sdm = screenWidth/kDevScreenWidth;
+
     return Container(
-      width: kScreenDim.dx,
-      height: kTextDisplayHeight,
+      width: screenWidth,
+      height: kTextDisplayHeight*sdm,
       color: kTextDisplayColor,
       child: Stack(
         alignment: Alignment.bottomCenter,
@@ -30,15 +33,15 @@ class _TextDisplayState extends State<TextDisplay> {
             top:0,
             left:0,
             width:kScreenDim.dx,
-            height:290,
+            height:290*sdm,
             child: Container(//Background Container
               color: kAppBarBackgroundColor,
               child: Container(
                 padding: EdgeInsets.only(left: kTextMargin, top: kTextMargin),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
-                    topLeft:Radius.elliptical(17,20),
-                    topRight: Radius.elliptical(17,20)
+                    topLeft:Radius.elliptical(17*sdm,20*sdm),
+                    topRight: Radius.elliptical(17*sdm,20*sdm)
                   ),
                   color:kTextDisplayColor
                 ),
@@ -53,7 +56,7 @@ class _TextDisplayState extends State<TextDisplay> {
                     maxLines: null,
                     decoration: null, //InputDecoration(),
                     cursorColor: Colors.red,
-                    cursorHeight: .9*cLineHeight,
+                    cursorHeight: .9*cLineHeight*sdm,
                     style: TextStyle(
                       fontSize: kTextFontSize,
                     )
@@ -107,8 +110,8 @@ class _TextDisplayState extends State<TextDisplay> {
 
 
                     Container( //DELETE BUTTON
-                      width: 80,
-                      height: 60,
+                      width: 80*sdm,
+                      height: 60*sdm,
                       child: ElevatedButton(
                         child: Text(
                           "Delete",
@@ -124,7 +127,7 @@ class _TextDisplayState extends State<TextDisplay> {
                           primary: kCopyButtonColor,
                           shape:RoundedRectangleBorder(
                             borderRadius:  BorderRadius.only(
-                              topLeft: Radius.circular(1.5 * kRoundedButtonRadius)
+                              topLeft: Radius.circular(1.5 * kRoundedButtonRadius*sdm)
                             ),
                           )
                         )

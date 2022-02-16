@@ -25,12 +25,14 @@ class _WritingStackState extends State<WritingStack>{
 
   @override
   Widget build(BuildContext context){
+    double sdm = MediaQuery.of(context).size.width/kDevScreenWidth;
+
     return  Stack(
       alignment: Alignment.bottomRight,
       children: <Widget>[
         Container(// redundant, the size of the pad
-          width: kWritingStackDim.dx,
-          height: kWritingStackDim.dy,
+          width: kWritingStackDim.dx*sdm,
+          height: kWritingStackDim.dy*sdm,
         ),
 
 
@@ -43,8 +45,8 @@ class _WritingStackState extends State<WritingStack>{
                     strokeList: appBrain.strokeList
                   ),
                     child: Container(
-                      height: kWritingStackDim.dy,
-                      width: kWritingStackDim.dx,
+                      height: kWritingStackDim.dy*sdm,
+                      width: kWritingStackDim.dx*sdm,
                       color: kWritingPadColor,
                     )
                 )
@@ -90,8 +92,8 @@ class _WritingStackState extends State<WritingStack>{
         Container(//Rightmost Buttons
           padding: const EdgeInsets.only(right: kMargin, bottom: kMargin),
           alignment: Alignment.centerRight,
-          width: kRightmostButtonsDim.dx,
-          height: kWritingStackDim.dy,
+          width: kRightmostButtonsDim.dx*sdm,
+          height: kWritingStackDim.dy*sdm,
           child:  Column(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -120,7 +122,7 @@ class _WritingStackState extends State<WritingStack>{
               }
             ),
 
-            SizedBox(height: kMargin + 15.0 - m.max(0,80- kTsegSheButtonDim.dy)/2 ),
+            SizedBox(height: ( kMargin + 15.0 - m.max(0,80- kTsegSheButtonDim.dy)/2 )*sdm ),
 
             DeleteUndo(
               onPressed: (){//Delete latest stroke
