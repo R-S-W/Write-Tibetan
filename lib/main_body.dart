@@ -18,43 +18,47 @@ class _MainBodyState extends State<MainBody> {
 
     screenDims*= sdm;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children : <Widget>[
-        TextDisplay(),
+    return Container(
+      width: screenDims.width,
+      height: screenDims.height,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children : <Widget>[
+          TextDisplay(),
 
 
-        SizedBox(
-          height: 3.5*sdm,
-          width: screenDims.width,
-          child: Container(
-            color: kSuggestionBarBorderlineColor1,
-          )
-        ),
+          SizedBox(
+            height: 3.5*sdm,
+            width: screenDims.width,
+            child: Container(
+              color: kSuggestionBarBorderlineColor1,
+            )
+          ),
 
 
-        SuggestionBar(),
+          SuggestionBar(),
 
 
-        SizedBox(
-          height: 3.5*sdm,
-          width: screenDims.width,
-          child: Container(
-            color: kSuggestionBarBorderlineColor2,
-          )
-        ),
+          SizedBox(
+            height: 3.5*sdm,
+            width: screenDims.width,
+            child: Container(
+              color: kSuggestionBarBorderlineColor2,
+            )
+          ),
 
 
-        WritingStack(),
+          WritingStack(),
 
 
-        Expanded(
-          child: Container(
-            color: kBottomBarColor,
-          )
-        ),
+          Expanded(
+            child: Container(
+              color: kBottomBarColor,
+            )
+          ),
 
-      ],
+        ],
+      ),
     );
   }
 }
