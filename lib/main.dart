@@ -38,46 +38,54 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size screenDimensions = MediaQuery.of(context).size;
+
     //Screen dimensions multiplier
     double sdm = screenDimensions.width / kDevScreenWidth;
+    screenDimensions*=sdm;
 
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: kAppBarBackgroundColor,
-        title: Center(
-            child: Text(
-              'Tibetan Handwritten Input Method',
-              style: TextStyle(
-                fontFamily:kMohave,
-                fontSize:26 * sdm,
-              ),
-            ),
-        ),
-
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.info_outline,
-            ),
-            onPressed: (){
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context)=> InfoPage())
-              );
-            }
-          ),
-        ]
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: screenDimensions.width,
+        maxHeight: screenDimensions.height,
       ),
-      body: MultiProvider(
-          providers: [
-            ChangeNotifierProvider(
-              create:(context) => AppBrain(screenDims: screenDimensions)
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          elevation: 0,
+          backgroundColor: kAppBarBackgroundColor,
+          title: Center(
+              child: Text(
+                'Tibetan Handwritten Input Method',
+                style: TextStyle(
+                  fontFamily:kMohave,
+                  fontSize:26 * sdm,
+                ),
+              ),
+          ),
+
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.info_outline,
+              ),
+              onPressed: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context)=> InfoPage())
+                );
+              }
             ),
-          ],
-          child:MainBody()
-      )
+          ]
+        ),
+        body: MultiProvider(
+            providers: [
+              ChangeNotifierProvider(
+                create:(context) => AppBrain(screenDims: screenDimensions)
+              ),
+            ],
+            child:MainBody()
+        )
+      ),
     );
   }
 }

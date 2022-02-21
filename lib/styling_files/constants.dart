@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 //These are measurements on a screen of width 414 logical pixels.
 
 //Used to scale the app for different screen resolutions.
-const double kDevScreenWidth = 414.0;
+const double kDevScreenWidth = 414.0*  1/ .5;
 
 //Basic Colors______________________________________________________
 const Color kTRed = Color(0xff982929);

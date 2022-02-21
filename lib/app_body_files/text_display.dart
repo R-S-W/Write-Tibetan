@@ -22,6 +22,8 @@ class _TextDisplayState extends State<TextDisplay> {
     double screenWidth = MediaQuery.of(context).size.width;
     double sdm = screenWidth/kDevScreenWidth;
 
+    screenWidth*=sdm;
+
     return Container(
       width: screenWidth,
       height: kTextDisplayHeight*sdm,
@@ -32,7 +34,7 @@ class _TextDisplayState extends State<TextDisplay> {
           Positioned(//Text Display
             top:0,
             left:0,
-            width:kScreenDim.dx,
+            width:kScreenDim.dx * sdm,
             height:290*sdm,
             child: Container(//Background Container
               color: kAppBarBackgroundColor,

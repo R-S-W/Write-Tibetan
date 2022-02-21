@@ -13,7 +13,11 @@ class MainBody extends StatefulWidget {
 class _MainBodyState extends State<MainBody> {
   @override
   Widget build(BuildContext context) {
-    double sdm = MediaQuery.of(context).size.width / kDevScreenWidth;
+    Size screenDims = MediaQuery.of(context).size;
+    double sdm = screenDims.width / kDevScreenWidth;
+
+    screenDims*= sdm;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children : <Widget>[
@@ -22,6 +26,7 @@ class _MainBodyState extends State<MainBody> {
 
         SizedBox(
           height: 3.5*sdm,
+          width: screenDims.width,
           child: Container(
             color: kSuggestionBarBorderlineColor1,
           )
@@ -33,6 +38,7 @@ class _MainBodyState extends State<MainBody> {
 
         SizedBox(
           height: 3.5*sdm,
+          width: screenDims.width,
           child: Container(
             color: kSuggestionBarBorderlineColor2,
           )
