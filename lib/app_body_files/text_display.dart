@@ -122,7 +122,9 @@ class _TextDisplayState extends State<TextDisplay> {
                           "Delete",
                           style: kTextDisplayButtonTextStyle,
                           softWrap: false,
-                          overflow:TextOverflow.visible,
+                          // overflow:TextOverflow.visible,
+                          textAlign: TextAlign.center,
+                          textScaleFactor: sdm,
                         ),
                         onPressed: (){
                           AppBrain appBrain = Provider.of<AppBrain>(context, listen:false);
@@ -134,7 +136,8 @@ class _TextDisplayState extends State<TextDisplay> {
                             borderRadius:  BorderRadius.only(
                               topLeft: Radius.circular(1.5 * kRoundedButtonRadius*sdm)
                             ),
-                          )
+                          ),
+                          padding: EdgeInsets.all(10*sdm)
                         )
                       ),
                     ),
