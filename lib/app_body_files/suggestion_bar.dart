@@ -35,32 +35,40 @@ class _SuggestionBarState extends State<SuggestionBar> {
               width: kSuggestionListViewWidgetDim.dx * sdm,
               height: kSuggestionListViewWidgetDim.dy * sdm,
               color: kSuggestionBarColor,
-
-              padding: EdgeInsets.all(5.0 * sdm) ,
-              child: ListTile(
-                title: Stack(
+              child: TextButton(
+                child: Stack(
                   children: <Widget>[
-                    Text(appBrain.suggestions[index],
-                      style: kSuggestionTextStyle.copyWith(
-                        foreground: Paint()
+                    Positioned.fill(
+                      child: Text(appBrain.suggestions[index],
+                        style: kSuggestionTextStyle.copyWith(
+                          foreground: Paint()
                           ..style = PaintingStyle.stroke
                           ..strokeWidth = 1.9*sdm
                           ..color = Color(0xa0000000)
-                      )
+                        ),
+                        textScaleFactor: sdm,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
 
-                    Text(appBrain.suggestions[index],
-                      style: kSuggestionTextStyle,
+                    Positioned.fill(
+                      child: Text(appBrain.suggestions[index],
+                        style: kSuggestionTextStyle,
+                        textScaleFactor: sdm,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                  ]
+                  ],
                 ),
-
-                onTap: () {
+                onPressed: () {
                   appBrain.addWord(appBrain.suggestions[index]);
                   //Clear the strokes+suggestions
                   appBrain.printPathListString();/////PRINT
                   appBrain.clearAllStrokesAndSuggestions();
-                }
+                },
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.all(9*sdm),
+                )
               ),
             );
           }
