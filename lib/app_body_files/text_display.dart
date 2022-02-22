@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:tibetan_handwriting_app_0_1/app_body_files/text_display_button.dart';
@@ -80,17 +79,19 @@ class _TextDisplayState extends State<TextDisplay> {
                         AppBrain appBrain = Provider.of<AppBrain>(context, listen:false);
                         FlutterClipboard.copy(appBrain.getTextDisplaySentence());
                       },
+                      scaleFactor: sdm
                     ),
 
 
                     TextDisplayButton(//PASTE BUTTON
-                        label: 'Paste',
-                        onPressed: (){
-                          AppBrain appBrain = Provider.of<AppBrain>(context, listen: false);
-                          FlutterClipboard.paste().then(
-                            (pasteText) => appBrain.addWord(pasteText)
-                          );
-                        }
+                      label: 'Paste',
+                      onPressed: (){
+                        AppBrain appBrain = Provider.of<AppBrain>(context, listen: false);
+                        FlutterClipboard.paste().then(
+                          (pasteText) => appBrain.addWord(pasteText)
+                        );
+                      },
+                      scaleFactor: sdm
                     ),
 
 
@@ -99,15 +100,17 @@ class _TextDisplayState extends State<TextDisplay> {
                       onPressed: (){
                         AppBrain appBrain = Provider.of<AppBrain>(context, listen: false);
                         appBrain.undo();
-                      }
+                      },
+                      scaleFactor: sdm
                     ),
 
                     TextDisplayButton(//REDO BUTTON
-                        label: 'Redo',
-                        onPressed: (){
-                          AppBrain appBrain = Provider.of<AppBrain>(context, listen: false);
-                          appBrain.redo();
-                        }
+                      label: 'Redo',
+                      onPressed: (){
+                        AppBrain appBrain = Provider.of<AppBrain>(context, listen: false);
+                        appBrain.redo();
+                      },
+                      scaleFactor: sdm
                     ),
 
 

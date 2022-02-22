@@ -35,7 +35,7 @@ final ThemeData kMyAppThemeData = ThemeData(
 );
 const Color kAppBarBackgroundColor = Color(0xff1d6596);
 
-const double kRoundedButtonRadius = 11;
+const double kRoundedButtonRadius = 16.5;
 
 
 

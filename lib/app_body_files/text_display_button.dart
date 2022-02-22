@@ -5,36 +5,53 @@ import '../styling_files/constants.dart';
 class TextDisplayButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String label;
+  final double scaleFactor;
   //Used to determine the shape of the top of the buttons
-  final List<BorderRadiusGeometry> borderList = [
-    BorderRadius.only( topRight: Radius.circular(1.5 * kRoundedButtonRadius) ),
-    BorderRadius.vertical( top: Radius.circular(1.5 * kRoundedButtonRadius) ),
-    BorderRadius.only( topLeft: Radius.circular(1.5 * kRoundedButtonRadius) )
-  ];
+  List<BorderRadiusGeometry> borderList;
   final int borderRadiusIdx;
 
   TextDisplayButton({
     key,
     @required this.onPressed,
     @required this.label,
+    @required this.scaleFactor,
     this.borderRadiusIdx = 1
-  }) : super(key: key);
+  }){
+    this.borderList = [
+      BorderRadius.only( topRight: Radius.circular(this.scaleFactor*kRoundedButtonRadius) ),
+      BorderRadius.vertical( top: Radius.circular(this.scaleFactor*kRoundedButtonRadius) ),
+      BorderRadius.only( topLeft: Radius.circular(this.scaleFactor*kRoundedButtonRadius) )
+    ];
+  }
+
 
   //Used as a style for leftmost button on the row of TextDisplayButtons
-  TextDisplayButton.left({Key key, @required onPressed,@required label}) :
+  TextDisplayButton.left({
+    Key key,
+    @required onPressed,
+    @required label,
+    @required scaleFactor
+  }) :
     this(
       key: key,
       onPressed: onPressed,
       label: label,
+      scaleFactor: scaleFactor,
       borderRadiusIdx: 0
     );
 
   //Used as a style for rightmost button on the row of buttons in TextDisplay
-  TextDisplayButton.right({Key key, @required onPressed,@required label}) :
+  TextDisplayButton.right({
+    Key key,
+    @required onPressed,
+    @required label,
+    @required scaleFactor
+  }) :
     this(
       key: key,
       onPressed: onPressed,
       label: label,
+      scaleFactor: scaleFactor,
       borderRadiusIdx: 2
     );
 
@@ -43,13 +60,14 @@ class TextDisplayButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 80,
-      height: 60,
+      width: 80*this.scaleFactor,
+      height: 60*this.scaleFactor,
       child: ElevatedButton(
         child:Text(
           label,
           textAlign: TextAlign.center,
-          style: kTextDisplayButtonTextStyle
+          style: kTextDisplayButtonTextStyle,
+          textScaleFactor: this.scaleFactor,
         ),
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -60,7 +78,8 @@ class TextDisplayButton extends StatelessWidget {
               this.borderRadiusIdx :
               1
             ],
-          )
+          ),
+          padding: EdgeInsets.all(10*this.scaleFactor)
         )
       )
     );
