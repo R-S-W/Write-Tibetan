@@ -134,6 +134,7 @@ class _WritingStackState extends State<WritingStack>{
                 /* Remember: widget.StrokeList.clear();  Not needed because
                   consumer handles this. Use if not using changenotifier.  */
               },
+              scaleFactor: sdm
             ),
 
             SizedBox(height: kMargin),

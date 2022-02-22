@@ -92,13 +92,18 @@ class DeleteUndo extends StatelessWidget {
 
   final VoidCallback onPressed;
   final VoidCallback onLongPress;
-  DeleteUndo({@required this.onPressed,@required this.onLongPress});
+  final double scaleFactor;
+  DeleteUndo({
+    @required this.onPressed,
+    @required this.onLongPress,
+    @required this.scaleFactor
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: kDeleteUndoButtonDim.dx,
-      height: kDeleteUndoButtonDim.dy,
+      width: kDeleteUndoButtonDim.dx * this.scaleFactor,
+      height: kDeleteUndoButtonDim.dy * this.scaleFactor,
       child: ElevatedButton(
         child: Text(
           "\u21BA",
@@ -106,17 +111,21 @@ class DeleteUndo extends StatelessWidget {
             fontSize: 25,
             fontWeight: FontWeight.w700,
             color: kDeleteUndoTextColor,
-          )
+          ),
+          textScaleFactor: this.scaleFactor,
+          textAlign: TextAlign.center,
         ),
         onPressed: onPressed,
         onLongPress:onLongPress,
         style: ElevatedButton.styleFrom(
           primary:kDeleteUndoButtonColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(kRoundedButtonRadius)),
+            borderRadius: BorderRadius.all(
+              Radius.circular(kRoundedButtonRadius*this.scaleFactor)
+            ),
             side:BorderSide(
               color: kBottomRightButtonsBorderColor,
-              width:kBottomRightButtonsBorderWidth
+              width:kBottomRightButtonsBorderWidth * this.scaleFactor
             )
           )
         ),
