@@ -145,6 +145,7 @@ class _WritingStackState extends State<WritingStack>{
                 var appBrain = Provider.of<AppBrain>(context, listen:false);
                 appBrain.addWord('\n');
               },
+              scaleFactor: sdm
             )
 
           ]
@@ -161,6 +162,7 @@ class _WritingStackState extends State<WritingStack>{
               var appBrain = Provider.of<AppBrain>(context, listen: false);
               appBrain.addWord(' ');
             },
+            scaleFactor: sdm
           )
         )
       ],
