@@ -118,7 +118,8 @@ class _WritingStackState extends State<WritingStack>{
                 appBrain.addWord('།');
                 //Clear the strokes+suggestions
                 appBrain.clearAllStrokesAndSuggestions();
-              }
+              },
+              scaleFactor: sdm
             ),
 
             SizedBox(height: ( kMargin + 15.0 - m.max(0,80- kTsegSheButtonDim.dy)/2 )*sdm ),

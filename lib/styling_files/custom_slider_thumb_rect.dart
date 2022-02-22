@@ -9,31 +9,25 @@ class CustomSliderThumbRect extends SliderComponentShape {
   double thumbWidth;
   int min;
   int max;
-  String text;
+  // String text;
   ui.Image image;
+  double scaleFactor;
 
   CustomSliderThumbRect({
-        double thumbRadius,
-        double thumbHeight,
-        double thumbWidth,
-        int min,
-        int max,
-        String text,
-        ui.Image image
-      }){
-    this.thumbRadius = thumbRadius;
-    this.thumbHeight = thumbHeight;
-    this.thumbWidth = thumbWidth;
-    this.min = min;
-    this.max = max;
-    this.text  = text;
-    this.image = image;
-  }
+    @required double this.thumbRadius,
+    @required double this.thumbHeight,
+    @required double this.thumbWidth,
+    @required int this.min,
+    @required int this.max,
+    // @required String this.text,
+    @required ui.Image this.image,
+    @required double this.scaleFactor
+  });
 
 
   @override
   Size getPreferredSize(bool isEnabled, bool isDiscrete) {
-    return Size.fromRadius(thumbRadius);
+    return Size.fromRadius(thumbRadius * this.scaleFactor);
   }
 
   @override
@@ -54,22 +48,25 @@ class CustomSliderThumbRect extends SliderComponentShape {
     final Canvas canvas = context.canvas;
 
 
-    final imageWidth = image?.width ?? 10;
-    final imageHeight = image?.height ?? 10;
+    double imageWidth = image?.width.toDouble() ?? 10.0;
+    double imageHeight = image?.height.toDouble() ?? 10.0;
     Offset imageOffset = Offset(
       center.dx - (imageWidth / 2),
-      center.dy - (imageHeight / 2),
-    );
+      center.dy - (imageHeight / 2)
+    ) * this.scaleFactor;
+
+    imageWidth*=this.scaleFactor;
+    imageHeight*= this.scaleFactor;
 
 
 
     final rRect = RRect.fromRectAndRadius(
       Rect.fromCenter(
         center: center,
-        width: thumbHeight ,
-        height: thumbWidth
+        width: thumbHeight*this.scaleFactor ,
+        height: thumbWidth*this.scaleFactor
       ),
-      Radius.circular(thumbRadius),
+      Radius.circular(thumbRadius*this.scaleFactor),
     );
 
 
@@ -81,54 +78,52 @@ class CustomSliderThumbRect extends SliderComponentShape {
 
     final borderPaint = Paint()
       ..color = kBottomRightButtonsBorderColor
-      ..strokeWidth = kBottomRightButtonsBorderWidth
+      ..strokeWidth = kBottomRightButtonsBorderWidth*this.scaleFactor
       ..style = PaintingStyle.stroke;
-
-    TextSpan span = new TextSpan(
-        style: new TextStyle(         
-            fontSize: thumbHeight * .3,
-            fontWeight: FontWeight.w700,
-            color: sliderTheme.thumbColor,
-            height: 1),
-        text: '${getValue(value)}');
-    TextPainter tp = new TextPainter(
-        text: span,
-        textAlign: TextAlign.left,
-        textDirection: TextDirection.ltr);
-    tp.layout();
-    Offset textCenter =
-      Offset(center.dx - (tp.width / 2), center.dy - (tp.height / 2));
+    //
+    // TextSpan span = new TextSpan(
+    //   style: new TextStyle(
+    //       fontSize: thumbHeight * .3,
+    //       fontWeight: FontWeight.w700,
+    //       color: sliderTheme.thumbColor,
+    //       height: 1),
+    //   text: '${getValue(value)}');
+    // TextPainter tp = new TextPainter(
+    //     text: span,
+    //     textAlign: TextAlign.left,
+    //     textDirection: TextDirection.ltr);
+    // tp.layout();
+    // Offset textCenter =
+    //   Offset(center.dx - (tp.width / 2), center.dy - (tp.height / 2));
 
     canvas.drawRRect(rRect, paint);
     canvas.drawRRect(rRect,borderPaint);
-    tp.paint(canvas, textCenter);
+    // tp.paint(canvas, textCenter);
 
 
 
 
 
     // Draw the text:=----------------------
-    final textStyle = TextStyle(
-      // color: kTsegSheTextColor,
-      fontSize:25,
-    );
-    final textSpan = TextSpan(
-      text: this.text ,
-      style: textStyle,
-    );
-    final textPainter = TextPainter(
-      text: textSpan,
-      textDirection: TextDirection.ltr,
-    );
-    textPainter.layout(
-        minWidth: 0,
-        maxWidth: tp.width,// ../////////
-    );
+    // final textStyle = TextStyle(
+    //   // color: kTsegSheTextColor,
+    //   fontSize:25,
+    // );
+    // final textSpan = TextSpan(
+    //   text: this.text ,
+    //   style: textStyle,
+    // );
+    // final textPainter = TextPainter(
+    //   text: textSpan,
+    //   textDirection: TextDirection.ltr,
+    // );
+    // textPainter.layout(
+    //     minWidth: 0,
+    //     maxWidth: tp.width,// ../////////
+    // );
 
     //Draw the image:_________________________________
-    if (image != null) {
-      canvas.drawImage(image, imageOffset, paint);
-    }
+    canvas.drawImage(image, imageOffset, paint);
   }
 
   String getValue(double value) {

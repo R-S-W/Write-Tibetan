@@ -9,13 +9,17 @@ import '../styling_files/custom_slider_thumb_rect.dart';
 
 
 class TsegShe extends StatefulWidget {
-  TsegShe({Key key, 
-    @required this.onPressed, 
-    @required this.onSlid})
-      :super(key: key);
 
   final VoidCallback onPressed;
   final VoidCallback onSlid;
+  final double scaleFactor;
+
+  TsegShe({Key key,
+    @required this.onPressed, 
+    @required this.onSlid,
+    @required this.scaleFactor
+  })
+    :super(key: key);
   @override
   _TsegSheState createState() => _TsegSheState();
 }
@@ -31,7 +35,11 @@ class _TsegSheState extends State<TsegShe> {
   _loadImage() async{
     ByteData bd = await rootBundle.load("assets/images/TsegSheWhitePic.png");
     final Uint8List bytes = Uint8List.view(bd.buffer);
-    final ui.Codec codec = await ui.instantiateImageCodec(bytes);
+    final ui.Codec codec = await ui.instantiateImageCodec(
+      bytes,
+      targetHeight: (36*widget.scaleFactor).toInt(),
+      targetWidth: (68*widget.scaleFactor).toInt()
+    );
     final ui.Image image=(await codec.getNextFrame()).image;
     setState(()=> _image=image);
   }
@@ -51,9 +59,10 @@ class _TsegSheState extends State<TsegShe> {
               min:0,
               max:1,
               thumbRadius: kRoundedButtonRadius,
-              thumbHeight: kTsegSheButtonDim.dy ,
+              thumbHeight: kTsegSheButtonDim.dy,
               thumbWidth:  kTsegSheButtonDim.dx,
               image: _image,
+              scaleFactor: widget.scaleFactor
             ),
             thumbColor: kTsegSheButtonColor,
             inactiveTrackColor: Color(0x00),
