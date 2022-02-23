@@ -19,7 +19,6 @@ class CustomSliderThumbRect extends SliderComponentShape {
     @required double this.thumbWidth,
     @required int this.min,
     @required int this.max,
-    // @required String this.text,
     @required ui.Image this.image,
     @required double this.scaleFactor
   });
@@ -47,16 +46,21 @@ class CustomSliderThumbRect extends SliderComponentShape {
       }) {
     final Canvas canvas = context.canvas;
 
+    //image is already scaled by scalefactor in TsegShe
+    // double imageWidth = image.width.toDouble();
+    // double imageHeight = image.height.toDouble();
+    // center*=this.scaleFactor;
+    // center = Offset(center.dy, center.dx);
 
-    double imageWidth = image?.width.toDouble() ?? 10.0;
-    double imageHeight = image?.height.toDouble() ?? 10.0;
-    Offset imageOffset = Offset(
-      center.dx - (imageWidth / 2),
-      center.dy - (imageHeight / 2)
-    ) * this.scaleFactor;
+    Offset imageDims = Offset(image.width.toDouble(), image.height.toDouble());
+    Offset imageOffset = center - imageDims/2;
+    //     Offset(
+    //   center.dx - (imageWidth / 2),
+    //   center.dy - (imageHeight / 2)
+    // ) * this.scaleFactor;
 
-    imageWidth*=this.scaleFactor;
-    imageHeight*= this.scaleFactor;
+    // imageWidth*=this.scaleFactor;
+    // imageHeight*= this.scaleFactor;
 
 
 
@@ -126,7 +130,7 @@ class CustomSliderThumbRect extends SliderComponentShape {
     canvas.drawImage(image, imageOffset, paint);
   }
 
-  String getValue(double value) {
-    return (min+(max-min)*value).round().toString();
-  }
+  // String getValue(double value) {
+  //   return (min+(max-min)*value).round().toString();
+  // }
 }

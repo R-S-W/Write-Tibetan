@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../styling_files/constants.dart';
 import '../styling_files/custom_slider_thumb_rect.dart';
+import '../styling_files/tseg_she_slider_track.dart';
 
 
 
@@ -51,8 +52,8 @@ class _TsegSheState extends State<TsegShe> {
       quarterTurns: 3,
       child: Container(
         //Width and height are switched because the widget is rotated.
-        height: kTsegSheContainerDim.dx,//Width
-        width: kTsegSheContainerDim.dy,//Height
+        height: kTsegSheContainerDim.dx*widget.scaleFactor,//Width
+        width: kTsegSheContainerDim.dy * widget.scaleFactor,//Height
         child: SliderTheme(
           data: SliderThemeData(
             thumbShape: CustomSliderThumbRect(
@@ -64,6 +65,7 @@ class _TsegSheState extends State<TsegShe> {
               image: _image,
               scaleFactor: widget.scaleFactor
             ),
+            trackShape: TsegSheSliderTrack() ,
             thumbColor: kTsegSheButtonColor,
             inactiveTrackColor: Color(0x00),
             activeTrackColor: Color(0x00),
