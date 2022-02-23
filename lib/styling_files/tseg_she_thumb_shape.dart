@@ -46,7 +46,9 @@ class TsegSheThumbShape extends SliderComponentShape {
     final Canvas canvas = context.canvas;
     //image and center are already scaled by scalefactor in TsegShe, they do not
     // need to be modified.
-    Offset imageDims = Offset(image.width.toDouble(), image.height.toDouble());
+    final imageWidth = image?.width ?? 10;
+    final imageHeight = image?.height ?? 10;
+    Offset imageDims = Offset(imageWidth.toDouble(), imageHeight.toDouble());
     Offset imageOffset = center - imageDims/2;
 
     final rRect = RRect.fromRectAndRadius(
@@ -71,6 +73,8 @@ class TsegSheThumbShape extends SliderComponentShape {
 
     canvas.drawRRect(rRect, paint);
     canvas.drawRRect(rRect,borderPaint);
-    canvas.drawImage(image, imageOffset, paint);
+    if (image != null){
+      canvas.drawImage(image, imageOffset, paint);
+    }
   }
 }
