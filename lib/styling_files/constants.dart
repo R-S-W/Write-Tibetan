@@ -123,4 +123,4 @@ final Color kSpacebarColor = Color(0xff4f86c1);
 
 //Bottom Bar ---------------------------------------------------------------
 //  (this is not BottomButton)
-const Color kBottomBarColor = Color(0xff280000);
+const Color kBottomBarColor = Color(0xff000000);

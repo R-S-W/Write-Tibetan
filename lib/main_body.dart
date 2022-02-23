@@ -17,7 +17,7 @@ class _MainBodyState extends State<MainBody> {
   Widget build(BuildContext context) {
     Size screenDims = MediaQuery.of(context).size;
     double sdm = screenDims.width / kDevScreenWidth;
-    screenDims*= sdm;
+    // screenDims*= sdm;
 
     var appBar = Provider.of<AppBrain>(context, listen:false);
     Size safeScreenDims = appBar.safeScreenDims;
@@ -55,11 +55,12 @@ class _MainBodyState extends State<MainBody> {
           WritingStack(),
 
 
-          Expanded(
-            child: Container(
-              color: kBottomBarColor,
-            )
-          ),
+          // Expanded(
+          //   // flex: 1,
+          //   child: Container(
+          //     color: kBottomBarColor,
+          //   )
+          // ),
 
         ],
       ),

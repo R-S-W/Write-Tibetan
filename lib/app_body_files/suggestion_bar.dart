@@ -18,7 +18,6 @@ class _SuggestionBarState extends State<SuggestionBar> {
     //sdm = Screen Dimensions Multiplier
     double sdm = screenDims.width/kDevScreenWidth;
 
-    screenDims*=sdm;
 
     return Container(
       height: kSuggestionBarHeight * sdm,
