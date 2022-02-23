@@ -121,7 +121,7 @@ class _WritingStackState extends State<WritingStack>{
               scaleFactor: sdm
             ),
 
-            // SizedBox(height: ( kMargin + 15.0 - m.max(0,80- kTsegSheButtonDim.dy)/2 )*sdm ),
+            SizedBox(height: 4*sdm),
 
             DeleteUndo(
               onPressed: (){//Delete latest stroke

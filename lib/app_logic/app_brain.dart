@@ -52,10 +52,16 @@ class AppBrain with ChangeNotifier {
   int _maxTextHistoryLength = 50;
   LinkedList _textHistory = LinkedList();
   LinkedListIterator _textHistoryItr;
-  Size screenDims;
+  Size _screenDims;
+  Size _safeScreenDims;
+  EdgeInsets _safePadding;
 
 
-  AppBrain({this.screenDims}) : super(){
+
+  AppBrain({screenDims, safeScreenDims, safePadding}) : super(){
+    _screenDims = screenDims;
+    _safeScreenDims = safeScreenDims;
+    _safePadding = safePadding;
     _textHistory.addLast(["",<int>[],[0,0]]);//Set initial state of _textHistory
     _textHistoryItr = LinkedListIterator(_textHistory);
   }
@@ -64,6 +70,9 @@ class AppBrain with ChangeNotifier {
 
   //================================METHODS=====================================
 
+  //_______________GETTERS__________________
+  Size get safeScreenDims => _safeScreenDims;
+  EdgeInsets get safePadding => _safePadding;
 
   //_______________TEXT DISPLAY METHODS__________________
 
