@@ -53,7 +53,7 @@ class MainPage extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [kAppBarBackgroundColor, Colors.black],
+            colors: [kAppBarBackgroundColor, kBottomBarColor],
             stops: [0.5, 0.5],
           ),
         ),
