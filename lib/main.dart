@@ -66,7 +66,7 @@ class MainPage extends StatelessWidget {
               children: <Widget>[
                 Container(//Top bar
                   color: kAppBarBackgroundColor,
-                  width: safeScreenWidth*sdm,
+                  width: safeScreenWidth,
                   height: kTopBarHeight*sdm,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
