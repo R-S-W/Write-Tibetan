@@ -27,14 +27,14 @@ class _TextDisplayState extends State<TextDisplay> {
       width: screenWidth,
       height: kTextDisplayHeight*sdm,
       color: kTextDisplayColor,
-      child: Stack(
-        alignment: Alignment.bottomCenter,
+      child: Column(
+        // alignment: Alignment.bottomCenter,
         children: <Widget>[
-          Positioned(//Text Display
-            top:0,
-            left:0,
-            width:kScreenDim.dx * sdm,
-            height:290*sdm,
+          Expanded(//Text Display
+            // top:0,
+            // left:0,
+            // width:kScreenDim.dx * sdm,
+            // height:290*sdm,
             child: Container(//Background Container
               color: kAppBarBackgroundColor,
               child: Container(
