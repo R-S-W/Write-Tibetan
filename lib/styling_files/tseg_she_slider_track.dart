@@ -10,12 +10,11 @@ class TsegSheSliderTrack extends RoundedRectSliderTrackShape {
     bool isDiscrete = false,
   }) {
     double pWidth = parentBox.size.width;
-    double ptRatio = .5;
-    double leftBuffer= pWidth*(1-ptRatio);
     final double trackHeight = sliderTheme.trackHeight;
-    final double trackLeft = offset.dx - kTsegSheButtonDim.dx/2;
+    final double bwidth =  kTsegSheButtonDim.dx+2*kRoundedButtonRadius;
+    final double trackLeft = offset.dx + (bwidth)/2;
     final double trackTop = offset.dy + (parentBox.size.height - trackHeight) / 2;
-    // return Rect.fromLTWH(0,0, pWidth/2, trackHeight);
-    return Rect.fromLTWH(trackLeft,trackTop, pWidth, trackHeight);
+    final double trackWidth = pWidth - bwidth;
+    return Rect.fromLTWH(trackLeft,trackTop, trackWidth, trackHeight);
   }
 }

@@ -97,7 +97,7 @@ const Color kBrushColor = kTWhite;
 
 const Offset kRightmostButtonsDim = Offset(100.0, 200.0);
 
-const Offset kTsegSheContainerDim = Offset(50.0,110);
+const Offset kTsegSheContainerDim = Offset(50.0,115);
 const Offset kTsegSheButtonDim = Offset(50.0,80);
 const Color kTsegSheButtonColor = Color(0xff364962);
 
