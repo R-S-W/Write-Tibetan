@@ -65,7 +65,7 @@ class _TsegSheState extends State<TsegShe> {
               image: _image,
               scaleFactor: widget.scaleFactor
             ),
-            trackShape: TsegSheSliderTrack() ,
+            trackShape: TsegSheSliderTrack(scaleFactor: widget.scaleFactor) ,
             thumbColor: kTsegSheButtonColor,
             inactiveTrackColor: Color(0x00),
             activeTrackColor: Color(0x00),

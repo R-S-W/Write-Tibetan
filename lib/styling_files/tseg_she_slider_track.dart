@@ -2,19 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:tibetan_handwriting_app_0_1/styling_files/constants.dart';
 
 class TsegSheSliderTrack extends RoundedRectSliderTrackShape {
+  double scaleFactor;
+
+  TsegSheSliderTrack({@required double this.scaleFactor}):super();
+
   Rect getPreferredRect({
+    @required SliderThemeData sliderTheme,
     @required RenderBox parentBox,
     Offset offset = Offset.zero,
-    @required SliderThemeData sliderTheme,
     bool isEnabled = false,
     bool isDiscrete = false,
   }) {
-    double pWidth = parentBox.size.width;
-    final double trackHeight = sliderTheme.trackHeight;
-    final double bwidth =  kTsegSheButtonDim.dx+2*kRoundedButtonRadius;
-    final double trackLeft = offset.dx + (bwidth)/2;
-    final double trackTop = offset.dy + (parentBox.size.height - trackHeight) / 2;
-    final double trackWidth = pWidth - bwidth;
-    return Rect.fromLTWH(trackLeft,trackTop, trackWidth, trackHeight);
+    print("${parentBox.size},  $offset");
+    return Rect.fromLTWH(
+      offset.dx + (kTsegSheButtonDim.dx / 2 + kRoundedButtonRadius) * this.scaleFactor,
+      parentBox.size.height/2 + offset.dy - (sliderTheme.trackHeight / 2) * this.scaleFactor,
+      parentBox.size.width - (kTsegSheButtonDim.dx + 2 * kRoundedButtonRadius) * this.scaleFactor,
+      sliderTheme.trackHeight //*this.scaleFactor
+    );
   }
+
 }
