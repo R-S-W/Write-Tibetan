@@ -69,6 +69,7 @@ class _TsegSheState extends State<TsegShe> {
             thumbColor: kTsegSheButtonColor,
             inactiveTrackColor: Color(0x00),
             activeTrackColor: Color(0x00),
+            overlayColor: Colors.transparent
           ),
           child: Slider(
             value: restValue,
