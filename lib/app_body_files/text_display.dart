@@ -59,7 +59,7 @@ class _TextDisplayState extends State<TextDisplay> {
                     cursorColor: Colors.red,
                     cursorHeight: .9*cLineHeight*sdm,
                     style: TextStyle(
-                      fontSize: kTextFontSize,
+                      fontSize: kTextFontSize*sdm,
                     )
                   ),
                 ),

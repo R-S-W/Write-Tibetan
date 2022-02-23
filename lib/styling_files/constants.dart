@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 //These are measurements on a screen of width 414 logical pixels.
 
 //Used to scale the app for different screen resolutions.
-const double kDevScreenWidth = 414.0*  1/ .5;
+const double kDevScreenWidth = 414.0*  1/ 1;
 
 //Basic Colors______________________________________________________
 const Color kTRed = Color(0xff982929);
@@ -34,7 +34,7 @@ final ThemeData kMyAppThemeData = ThemeData(
   primarySwatch: Colors.blue,
 );
 const Color kAppBarBackgroundColor = Color(0xff1d6596);
-
+const double kTopBarHeight = 40;
 const double kRoundedButtonRadius = 16.5;
 
 
