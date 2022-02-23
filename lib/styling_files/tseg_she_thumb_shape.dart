@@ -3,24 +3,23 @@ import 'dart:ui' as ui;//for image thumbslider
 import 'package:flutter/material.dart';
 import '../styling_files/constants.dart';
 
-class CustomSliderThumbRect extends SliderComponentShape {
+class TsegSheThumbShape extends SliderComponentShape {
   double thumbRadius;
   double thumbHeight;
   double thumbWidth;
   int min;
   int max;
-  // String text;
   ui.Image image;
   double scaleFactor;
 
-  CustomSliderThumbRect({
-    @required double this.thumbRadius,
-    @required double this.thumbHeight,
-    @required double this.thumbWidth,
-    @required int this.min,
-    @required int this.max,
-    @required ui.Image this.image,
-    @required double this.scaleFactor
+  TsegSheThumbShape({
+    @required this.thumbRadius,
+    @required this.thumbHeight,
+    @required this.thumbWidth,
+    @required this.min,
+    @required this.max,
+    @required this.image,
+    @required this.scaleFactor
   });
 
 
@@ -45,12 +44,9 @@ class CustomSliderThumbRect extends SliderComponentShape {
         Size sizeWithOverflow,
       }) {
     final Canvas canvas = context.canvas;
-
-    print('center orig ::: $center');
-
-    //image is already scaled by scalefactor in TsegShe
+    //image and center are already scaled by scalefactor in TsegShe, they do not
+    // need to be modified.
     Offset imageDims = Offset(image.width.toDouble(), image.height.toDouble());
-
     Offset imageOffset = center - imageDims/2;
 
     final rRect = RRect.fromRectAndRadius(
@@ -61,7 +57,6 @@ class CustomSliderThumbRect extends SliderComponentShape {
       ),
       Radius.circular(thumbRadius*this.scaleFactor),
     );
-
 
 
     final paint = Paint()
@@ -76,8 +71,6 @@ class CustomSliderThumbRect extends SliderComponentShape {
 
     canvas.drawRRect(rRect, paint);
     canvas.drawRRect(rRect,borderPaint);
-
-    //Draw the image:_________________________________
     canvas.drawImage(image, imageOffset, paint);
   }
 }

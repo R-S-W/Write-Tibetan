@@ -4,8 +4,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../styling_files/constants.dart';
-import '../styling_files/custom_slider_thumb_rect.dart';
-import '../styling_files/tseg_she_slider_track.dart';
+import '../styling_files/tseg_she_thumb_shape.dart';
+import '../styling_files/tseg_she_slider_track_shape.dart';
 
 
 
@@ -56,7 +56,7 @@ class _TsegSheState extends State<TsegShe> {
         width: kTsegSheContainerDim.dy * widget.scaleFactor,//Height
         child: SliderTheme(
           data: SliderThemeData(
-            thumbShape: CustomSliderThumbRect(
+            thumbShape: TsegSheThumbShape(
               min:0,
               max:1,
               thumbRadius: kRoundedButtonRadius,
@@ -65,7 +65,7 @@ class _TsegSheState extends State<TsegShe> {
               image: _image,
               scaleFactor: widget.scaleFactor
             ),
-            trackShape: TsegSheSliderTrack(scaleFactor: widget.scaleFactor) ,
+            trackShape: TsegSheSliderTrackShape(scaleFactor:widget.scaleFactor),
             thumbColor: kTsegSheButtonColor,
             inactiveTrackColor: Color(0x00),
             activeTrackColor: Color(0x00),

@@ -93,7 +93,7 @@ const Color kBrushColor = kTWhite;
 //BottomRight Buttons-----------------------------------------------------------
 
 //TsegShe and  Delete Undo Constants are in the bottom_right_buttons.dart
-// and custom_slider_thumb_rect.dart.
+// and tseg_she_thumb_shape.dart.
 
 const Offset kRightmostButtonsDim = Offset(100.0, 200.0);
 
