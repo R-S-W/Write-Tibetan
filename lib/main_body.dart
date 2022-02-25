@@ -17,8 +17,6 @@ class _MainBodyState extends State<MainBody> {
   Widget build(BuildContext context) {
     Size screenDims = MediaQuery.of(context).size;
     double sdm = screenDims.width / kDevScreenWidth;
-    // screenDims*= sdm;
-
     var appBar = Provider.of<AppBrain>(context, listen:false);
     Size safeScreenDims = appBar.safeScreenDims;
 
