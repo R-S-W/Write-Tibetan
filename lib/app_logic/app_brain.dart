@@ -55,6 +55,7 @@ class AppBrain with ChangeNotifier {
   Size _screenDims;
   Size _safeScreenDims;
   EdgeInsets _safePadding;
+  bool _isInfoScreenVisible = false;
 
 
 
@@ -73,6 +74,13 @@ class AppBrain with ChangeNotifier {
   //_______________GETTERS__________________
   Size get safeScreenDims => _safeScreenDims;
   EdgeInsets get safePadding => _safePadding;
+  bool get isInfoScreenVisible => _isInfoScreenVisible;
+
+  //________________SETTER_________________
+  void  toggleInfoScreen(){
+    _isInfoScreenVisible = !_isInfoScreenVisible;
+    notifyListeners();
+  }
 
   //_______________TEXT DISPLAY METHODS__________________
 

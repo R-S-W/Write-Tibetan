@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 
 import 'app_logic/app_brain.dart';
 import 'main_body.dart';
-import 'info_page.dart';
 import 'styling_files/constants.dart';
 
 
@@ -61,61 +60,14 @@ class MainPage extends StatelessWidget {
           child: Container(
             width: safeScreenWidth,
             height: safeScreenHeight,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(//Top bar
-                  color: kAppBarBackgroundColor,
-                  width: safeScreenWidth,
-                  height: kTopBarHeight*sdm,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children:[
-                      Text(
-                        'Tibetan Handwritten Input Method',
-                        style: TextStyle(
-                          fontFamily:kMohave,
-                          fontSize:26 * sdm,
-                          color: kTWhite
-                        ),
-                      ),
+            child: ChangeNotifierProvider(
+              create:(context) => AppBrain(
+                  screenDims: screenDimensions,
+                  safeScreenDims: Size(safeScreenWidth, safeScreenHeight),
+                  safePadding: padding
+              ),
 
-                      SizedBox(width: 12*sdm), //Spacer
-
-                      Container(
-                        width: 25*sdm,
-                        height: 25*sdm,
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.info_outline,
-                            size: 24*sdm,
-                            color: kTWhite
-                          ),
-                          onPressed: (){
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context)=> InfoPage())
-                            );
-                          },
-                          padding: EdgeInsets.zero
-                        ),
-                      ),
-                    ]
-                  ),
-                ),
-                MultiProvider(
-                  providers: [
-                    ChangeNotifierProvider(
-                      create:(context) => AppBrain(
-                        screenDims: screenDimensions,
-                        safeScreenDims: Size(safeScreenWidth, safeScreenHeight),
-                        safePadding: padding
-                      )
-                    ),
-                  ],
-                  child:MainBody()
-                ),
-              ],
+              child: MainBody()
             ),
           ),
         ),
