@@ -72,6 +72,7 @@ class AppBrain with ChangeNotifier {
   //================================METHODS=====================================
 
   //_______________GETTERS__________________
+  Size get screenDims => _screenDims;
   Size get safeScreenDims => _safeScreenDims;
   EdgeInsets get safePadding => _safePadding;
   bool get isInfoScreenVisible => _isInfoScreenVisible;

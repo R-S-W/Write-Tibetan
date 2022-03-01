@@ -116,7 +116,9 @@ class _MainBodyState extends State<MainBody> {
           builder: (context,appBrain,child) =>
             InfoScreen(
               isVisible: appBrain.isInfoScreenVisible,
-              toggleVisibility: appBrain.toggleInfoScreen
+              toggleVisibility: appBrain.toggleInfoScreen,
+              screenDims: appBrain.screenDims,
+              safeScreenDims: appBrain.safeScreenDims
             )
         )
       ],
