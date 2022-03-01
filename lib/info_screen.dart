@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import './styling_files/constants.dart';
 
 
-
 class InfoScreen extends StatelessWidget {
   final bool isVisible;
   final VoidCallback toggleVisibility;
@@ -15,11 +14,12 @@ class InfoScreen extends StatelessWidget {
       return TextButton(
         onPressed: this.toggleVisibility,
         child: Container(
-            // color: Colors.blue
         ),
         style:TextButton.styleFrom(
           padding:EdgeInsets.zero,
-          backgroundColor: Color(0x3B000000)
+          backgroundColor: kInfoScreenBackgroundColor,
+          primary: Colors.transparent,
+          splashFactory: NoSplash.splashFactory
         )
       );
     }else{
