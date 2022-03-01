@@ -40,8 +40,8 @@ class MainPage extends StatelessWidget {
     EdgeInsets padding = MediaQuery.of(context).padding;
 
     //Screen dimensions multiplier
-    double safeScreenHeight= screenDimensions.height-padding.top-padding.bottom;
     double safeScreenWidth = screenDimensions.width-padding.left -padding.right;
+    double safeScreenHeight= screenDimensions.height-padding.top-padding.bottom;
     double sdm = safeScreenWidth / kDevScreenWidth;
     screenDimensions*=sdm;
 
@@ -56,10 +56,12 @@ class MainPage extends StatelessWidget {
             stops: [0.5, 0.5],
           ),
         ),
-        child: SafeArea(
+        // child: SafeArea(
           child: Container(
-            width: safeScreenWidth,
-            height: safeScreenHeight,
+            // width: screenDimensions.width,
+            // height: screenDimensions.height,
+            // width: safeScreenWidth,
+            // height: safeScreenHeight,
             child: ChangeNotifierProvider(
               create:(context) => AppBrain(
                   screenDims: screenDimensions,
@@ -71,7 +73,7 @@ class MainPage extends StatelessWidget {
             ),
           ),
         ),
-      )
-    );
+      );
+    // );
   }
 }
