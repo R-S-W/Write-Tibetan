@@ -70,7 +70,6 @@ class AppBrain with ChangeNotifier {
       [0.0,.65,'Draw letters here']
     ],
     [
-      []
       [-0.3,.485,'Tap to add tseg (dot)  →'],
       [-0.3,.585,'Slide down for she (line)'],
       [-0.8,.75,'Tap to erase last stroke.'],
