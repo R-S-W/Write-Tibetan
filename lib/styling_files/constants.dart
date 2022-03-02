@@ -37,7 +37,13 @@ const Color kAppBarBackgroundColor = Color(0xff1d6596);
 const double kTopBarHeight = 40;
 const double kRoundedButtonRadius = 16.5;
 
+
 const Color kInfoScreenBackgroundColor = Color(0x3B000000);
+const TextStyle kInfoScreenTextStyle = TextStyle(
+  color: kTWhite,
+  fontSize: 25,
+
+);
 
 
 

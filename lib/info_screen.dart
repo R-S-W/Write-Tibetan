@@ -24,14 +24,47 @@ class InfoScreen extends StatelessWidget {
           width: this.screenDims.width,
           height: this.screenDims.height,
           color: kInfoScreenBackgroundColor,
-          
+
           child: SafeArea(
             child: Container(
               width: this.safeScreenDims.width,
               height: this.safeScreenDims.height,
-              // color: Colors.red
-              child: Column(children: <Widget>[
-                Container(width: 50, height: 50, color: Colors.red)]
+              child: Stack(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment(0,-.5),
+                    child: Text(
+                      'Select and copy text here',
+                      textAlign: TextAlign.center,
+                      style: kInfoScreenTextStyle
+                    )
+                  ),
+                  Align(
+                    child: Text(
+                      'Choose suggested characters here',
+                      textAlign: TextAlign.center,
+                      style: kInfoScreenTextStyle
+                    ),
+                    alignment: Alignment(0,.15)
+
+                  ),
+                  Align(
+                    child: Text(
+                      'Draw letters here',
+                      textAlign: TextAlign.center,
+                      style: kInfoScreenTextStyle
+                    ),
+                    alignment: Alignment(0,.65),
+                  ),
+                  // Align(
+                  //   alignment: Alignment(0,.95),
+                  //   child: Text(
+                  //     '888',
+                  //     textAlign: TextAlign.center,
+                  //     style: kInfoScreenTextStyle
+                  //   ),
+                  // )
+                ]
               )
             )
           )
