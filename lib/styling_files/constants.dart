@@ -45,11 +45,12 @@ const TextStyle kInfoScreenTextStyle = TextStyle(
 
 );
 
+const double kTrimHeight = 3.5;
 
 
 //Text Display---------------------------------------------------------------
 const double kTextMargin  = 10.0;
-const double kTextDisplayHeight = 350.0;
+// const double kTextDisplayHeight = 350.0;
 const Color kTextDisplayColor = kTWhite;
 
 const double kTextFontSize =45.0;
@@ -67,6 +68,9 @@ const TextStyle kTextDisplayButtonTextStyle = TextStyle(
   letterSpacing: -.5,
   height:1.2
 );
+
+const Size kTextDisplayButtonSize = Size(80,60);
+
 
 
 //Suggestion Bar----------------------------------------------------------------

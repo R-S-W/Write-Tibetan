@@ -36,6 +36,8 @@ class AppBrain with ChangeNotifier {
   */
   TextEditingController textDisplayController = TextEditingController();
   ScrollController textDisplayScrollController = ScrollController();
+  //Height of textDisplay.  Is variable for different screen sizes
+  double _textDisplayHeight;
 
 
   /* The textHistory contains the history of  string values of TextDisplay.
@@ -85,6 +87,14 @@ class AppBrain with ChangeNotifier {
     _safePadding = safePadding;
     _textHistory.addLast(["",<int>[],[0,0]]);//Set initial state of _textHistory
     _textHistoryItr = LinkedListIterator(_textHistory);
+
+    double sdm = _screenDims.width/kDevScreenWidth;
+    _textDisplayHeight = _safeScreenDims.height - sdm*(
+      kTopBarHeight + kTextMargin
+      + kTextDisplayButtonSize.height
+      + kTrimHeight + kSuggestionBarHeight + kTrimHeight
+      + kWritingStackDim.dy
+    );
   }
 
 
@@ -241,7 +251,7 @@ class AppBrain with ChangeNotifier {
     double topCursorOffset = bottomCursorOffset - cLineHeight;
     //Scroll offsets for top and bottom of screen
     double topScrollOffset = textDisplayScrollController.offset;
-    double bottomScrollOffset = topScrollOffset + kTextDisplayHeight;
+    double bottomScrollOffset = topScrollOffset + _textDisplayHeight;
 
     //If cursor is not on screen, scroll so it is shown.
     if (  !(topScrollOffset < topCursorOffset) ||

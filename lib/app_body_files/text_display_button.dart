@@ -60,8 +60,8 @@ class TextDisplayButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 80*this.scaleFactor,
-      height: 60*this.scaleFactor,
+      width: kTextDisplayButtonSize.width*this.scaleFactor,
+      height: kTextDisplayButtonSize.height*this.scaleFactor,
       child: ElevatedButton(
         child:Text(
           label,
