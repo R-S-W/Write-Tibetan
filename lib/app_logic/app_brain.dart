@@ -56,7 +56,11 @@ class AppBrain with ChangeNotifier {
   Size _safeScreenDims;
   EdgeInsets _safePadding;
 
-  bool _isInfoScreenVisible = false;
+
+  /* The info screen has the directions and tips for the app, shown in the
+    InfoScreen widget.  The InfoScreen has multiple pages, whose data is
+    written below.
+   */
   int _infoScreenPageNum = 0;
   List _infoScreenPageContents = [
     null,
@@ -66,7 +70,12 @@ class AppBrain with ChangeNotifier {
       [0.0,.65,'Draw letters here']
     ],
     [
-      [0.0,.65,'lol']
+      []
+      [-0.3,.485,'Tap to add tseg (dot)  →'],
+      [-0.3,.585,'Slide down for she (line)'],
+      [-0.8,.75,'Tap to erase last stroke.'],
+      [-0.8,.85,'Hold to erase everything'],
+      [.57,.8,'→']
     ]
   ];
 
@@ -83,27 +92,31 @@ class AppBrain with ChangeNotifier {
 
   //================================METHODS=====================================
 
-  //_______________GETTERS__________________
+
+  //_______________MISC ACCESSORS__________________
+
   Size get screenDims => _screenDims;
   Size get safeScreenDims => _safeScreenDims;
   EdgeInsets get safePadding => _safePadding;
-  get currentInfoScreenPage => _infoScreenPageContents[_infoScreenPageNum];
 
-  //________________SETTER_________________
-  // void  toggleInfoScreen(){
-  //   _isInfoScreenVisible = !_isInfoScreenVisible;
-  //   notifyListeners();
-  // }
+
+
+
+  //_________________INFO SCREEN METHODS_________________
+
+  get currentInfoScreenPage => _infoScreenPageContents[_infoScreenPageNum];
 
   void turnInfoScreenPage(){
     _infoScreenPageNum = (_infoScreenPageNum + 1) % (_infoScreenPageContents.length);
     notifyListeners();
   }
 
+
+
+
   //_______________TEXT DISPLAY METHODS__________________
 
   String getTextDisplaySentence() => textDisplayController.text;
-
 
   void addWord (String aWord){//Inserts/replaces word into text of TextDisplay
     String displayText = textDisplayController.text;
