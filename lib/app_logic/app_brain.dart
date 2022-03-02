@@ -55,8 +55,20 @@ class AppBrain with ChangeNotifier {
   Size _screenDims;
   Size _safeScreenDims;
   EdgeInsets _safePadding;
-  bool _isInfoScreenVisible = false;
 
+  bool _isInfoScreenVisible = false;
+  int _infoScreenPageNum = 0;
+  List _infoScreenPageContents = [
+    null,
+    [
+      [0.0,-.5,'Select and copy text here'],
+      [0.0,.15,'Choose suggested characters here'],
+      [0.0,.65,'Draw letters here']
+    ],
+    [
+      [0.0,.65,'lol']
+    ]
+  ];
 
 
   AppBrain({screenDims, safeScreenDims, safePadding}) : super(){
@@ -75,11 +87,16 @@ class AppBrain with ChangeNotifier {
   Size get screenDims => _screenDims;
   Size get safeScreenDims => _safeScreenDims;
   EdgeInsets get safePadding => _safePadding;
-  bool get isInfoScreenVisible => _isInfoScreenVisible;
+  get currentInfoScreenPage => _infoScreenPageContents[_infoScreenPageNum];
 
   //________________SETTER_________________
-  void  toggleInfoScreen(){
-    _isInfoScreenVisible = !_isInfoScreenVisible;
+  // void  toggleInfoScreen(){
+  //   _isInfoScreenVisible = !_isInfoScreenVisible;
+  //   notifyListeners();
+  // }
+
+  void turnInfoScreenPage(){
+    _infoScreenPageNum = (_infoScreenPageNum + 1) % (_infoScreenPageContents.length);
     notifyListeners();
   }
 

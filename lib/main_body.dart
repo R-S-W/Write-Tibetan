@@ -64,7 +64,7 @@ class _MainBodyState extends State<MainBody> {
                               onPressed: (){
                                 AppBrain appBrain =
                                 Provider.of<AppBrain>(context,listen:false);
-                                appBrain.toggleInfoScreen();
+                                appBrain.turnInfoScreenPage();
                               },
                               padding: EdgeInsets.zero
                           ),
@@ -115,10 +115,11 @@ class _MainBodyState extends State<MainBody> {
         Consumer<AppBrain>(
           builder: (context,appBrain,child) =>
             InfoScreen(
-              isVisible: appBrain.isInfoScreenVisible,
-              toggleVisibility: appBrain.toggleInfoScreen,
+              pageContents: appBrain.currentInfoScreenPage,
+              onPressed: appBrain.turnInfoScreenPage,
               screenDims: appBrain.screenDims,
-              safeScreenDims: appBrain.safeScreenDims
+              safeScreenDims: appBrain.safeScreenDims,
+              scaleFactor: sdm
             )
         )
       ],

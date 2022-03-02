@@ -3,23 +3,42 @@ import './styling_files/constants.dart';
 
 
 class InfoScreen extends StatelessWidget {
-  final bool isVisible;
-  final VoidCallback toggleVisibility;
+  final List<List> pageContents;
+  final VoidCallback onPressed;
   final Size screenDims;
   final Size safeScreenDims;
+  final double scaleFactor;
 
   InfoScreen( {
-    @required this.isVisible,
-    @required this.toggleVisibility,
+    @required this.pageContents,
+    @required this.onPressed,
     @required this.screenDims,
-    @required this.safeScreenDims
+    @required this.safeScreenDims,
+    @required this.scaleFactor,
   } );
 
   @override
   Widget build(BuildContext context) {
-    if (this.isVisible) {
+
+    if (this.pageContents != null) {
+      //List with Align widgets that have the text info
+      List<Widget> pageTexts = <Widget>[];
+      for (int i = 0; i< this.pageContents.length; i++){
+        List contents = this.pageContents[i];
+        pageTexts.add(
+          Align(
+            alignment: Alignment(contents[0],contents[1]),
+            child: Text(
+              contents[2],
+              textAlign: TextAlign.center,
+              style: kInfoScreenTextStyle,
+              textScaleFactor: this.scaleFactor
+            )
+          ),
+        );
+      }
       return TextButton(
-        onPressed: this.toggleVisibility,
+        onPressed: this.onPressed,
         child: Container(
           width: this.screenDims.width,
           height: this.screenDims.height,
@@ -30,41 +49,7 @@ class InfoScreen extends StatelessWidget {
               width: this.safeScreenDims.width,
               height: this.safeScreenDims.height,
               child: Stack(
-                children: <Widget>[
-                  Align(
-                    alignment: Alignment(0,-.5),
-                    child: Text(
-                      'Select and copy text here',
-                      textAlign: TextAlign.center,
-                      style: kInfoScreenTextStyle
-                    )
-                  ),
-                  Align(
-                    child: Text(
-                      'Choose suggested characters here',
-                      textAlign: TextAlign.center,
-                      style: kInfoScreenTextStyle
-                    ),
-                    alignment: Alignment(0,.15)
-
-                  ),
-                  Align(
-                    child: Text(
-                      'Draw letters here',
-                      textAlign: TextAlign.center,
-                      style: kInfoScreenTextStyle
-                    ),
-                    alignment: Alignment(0,.65),
-                  ),
-                  // Align(
-                  //   alignment: Alignment(0,.95),
-                  //   child: Text(
-                  //     '888',
-                  //     textAlign: TextAlign.center,
-                  //     style: kInfoScreenTextStyle
-                  //   ),
-                  // )
-                ]
+                children: pageTexts
               )
             )
           )
