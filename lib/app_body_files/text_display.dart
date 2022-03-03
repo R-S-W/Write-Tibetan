@@ -55,7 +55,7 @@ class _TextDisplayState extends State<TextDisplay> {
                       maxLines: null,
                       decoration: null, //InputDecoration(),
                       cursorColor: Colors.red,
-                      cursorHeight: .9*cLineHeight*sdm,
+                      cursorHeight: kEstLineHeight*sdm,
                       style: TextStyle(
                         fontSize: kTextFontSize*sdm,
                       )

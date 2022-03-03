@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import 'package:tibetan_handwriting_app_0_1/styling_files/constants.dart';
@@ -54,10 +56,16 @@ class AppBrain with ChangeNotifier {
   int _maxTextHistoryLength = 50;
   LinkedList _textHistory = LinkedList();
   LinkedListIterator _textHistoryItr;
+
+  /* The variables below are the dimensions of the screen.  The screenDims =
+    safescreenDIms + padding. _sdm is the scaling factor needed to convert
+    length constants from the constants.dart file into the appropriate dimensions
+    for the screen.
+  */
   Size _screenDims;
   Size _safeScreenDims;
   EdgeInsets _safePadding;
-
+  double _sdm;
 
   /* The info screen has the directions and tips for the app, shown in the
     InfoScreen widget.  The InfoScreen has multiple pages, whose data is
@@ -87,9 +95,10 @@ class AppBrain with ChangeNotifier {
     _safePadding = safePadding;
     _textHistory.addLast(["",<int>[],[0,0]]);//Set initial state of _textHistory
     _textHistoryItr = LinkedListIterator(_textHistory);
+    _sdm = _screenDims.width/kDevScreenWidth;
 
-    double sdm = _screenDims.width/kDevScreenWidth;
-    _textDisplayHeight = _safeScreenDims.height - sdm*(
+
+    _textDisplayHeight = _safeScreenDims.height - _sdm*(
       kTopBarHeight + kTextMargin
       + kTextDisplayButtonSize.height
       + kTrimHeight + kSuggestionBarHeight + kTrimHeight
@@ -175,6 +184,7 @@ class AppBrain with ChangeNotifier {
   void deleteWord(){//Deletes words from TextDisplay.
     String displayText = textDisplayController.text;
     List<int> selectionRange = _getSelectionRange();
+    print('selectionRange: $selectionRange');
     int lidx = selectionRange[0];
     int ridx = selectionRange[1];
     //If text is nonempty and is a highlighted text selection or the cursor is
@@ -186,6 +196,8 @@ class AppBrain with ChangeNotifier {
         lidx-=_numTChars[lDisplayIndex-1];
         lDisplayIndex-=1;
       }
+      print('     numTchars:  $_numTChars');
+      print('     lridxs: $lidx, $ridx');
       textDisplayController.text =
           displayText.substring(0,lidx)+displayText.substring(ridx);
       _numTChars =
@@ -246,22 +258,30 @@ class AppBrain with ChangeNotifier {
   void _handleScroll( int cursorCharIndex){
     int numNewlinesBeforeCursor =
         textDisplayController.text.substring(0,cursorCharIndex).split('\n').length;
+    //Estimated height of a text line
+    double estLineHeight = kEstLineHeight*_sdm;
+
     //Estimated vertical pixel positions of text cursor in TextField.
     double bottomCursorOffset = _calcCursorOffset(numNewlinesBeforeCursor);
-    double topCursorOffset = bottomCursorOffset - cLineHeight;
+    print("::bottom cursor offset $bottomCursorOffset");
+    double topCursorOffset = bottomCursorOffset - estLineHeight*_sdm;
     //Scroll offsets for top and bottom of screen
     double topScrollOffset = textDisplayScrollController.offset;
     double bottomScrollOffset = topScrollOffset + _textDisplayHeight;
+    double tol = pow(10,-15);
 
     //If cursor is not on screen, scroll so it is shown.
-    if (  !(topScrollOffset < topCursorOffset) ||
-        !(bottomCursorOffset < bottomScrollOffset)){
+    if (  !(topScrollOffset < topCursorOffset + tol) ||
+        !(bottomCursorOffset < bottomScrollOffset + tol)){
       double topDiff = topCursorOffset - topScrollOffset;
       double bottomDiff = bottomCursorOffset - bottomScrollOffset;
+      print(';;; #$topDiff,   $bottomDiff');
       int numLinesAdded =  (topDiff<0) ?
-        -(topDiff ~/ cLineHeight + 1) :  bottomDiff ~/ cLineHeight +1 ;
+        -( topDiff.abs() / estLineHeight).ceil()  :
+        (bottomDiff / estLineHeight).ceil() ;
       //Offset where top of display will scroll to.
-      double newScrollOffset = topScrollOffset + cLineHeight*numLinesAdded;
+      print('::: ${[estLineHeight,numLinesAdded]}');
+      double newScrollOffset = topScrollOffset + estLineHeight*numLinesAdded;
 
       //Scroll to newScrollOffset
       textDisplayScrollController.animateTo(
@@ -274,7 +294,7 @@ class AppBrain with ChangeNotifier {
 
 
   //Helper function for _handleScroll
-  double _calcCursorOffset(int numNewlines) => (numNewlines)*cLineHeight + 34;
+  double _calcCursorOffset(int numNewlines)=>(numNewlines*kEstLineHeight)*_sdm;
 
 
 
@@ -418,7 +438,6 @@ class AppBrain with ChangeNotifier {
     //Find wasur characters, add to wasurToIndexPairs
     for (int i = 0; i< suggestions.length; i++){
       String s = suggestions[i];
-      print(s);
       //If this character ends with a wa:
       if ( s != wasur && s[s.length-1] == wasur ){
         wasurToIndexPairs[s] = [i];
