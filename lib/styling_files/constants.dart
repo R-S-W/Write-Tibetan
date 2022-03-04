@@ -20,6 +20,7 @@ const String kBigShouldersInlineText = 'BigShouldersInlineText';
 const String kKohSantepheap = 'KohSantepheap';
 const String kKoulen = 'Koulen';
 const String kMohave = 'Mohave';
+const String kSFPro = 'SF_Pro';
 
 
 //General Constants____________________________________________________
@@ -40,9 +41,9 @@ const double kRoundedButtonRadius = 16.5;
 
 const Color kInfoScreenBackgroundColor = Color(0x3B000000);
 const TextStyle kInfoScreenTextStyle = TextStyle(
-  color: kTWhite,
+  fontFamily: kSFPro,
   fontSize: 25,
-
+  color: kTWhite,
 );
 
 const double kTrimHeight = 3.5;

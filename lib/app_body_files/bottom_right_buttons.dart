@@ -120,6 +120,7 @@ class DeleteUndo extends StatelessWidget {
         child: Text(
           "\u21BA",
           style:TextStyle(
+            fontFamily: kSFPro,
             fontSize: 25,
             fontWeight: FontWeight.w700,
             color: kDeleteUndoTextColor,

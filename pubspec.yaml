@@ -56,6 +56,10 @@ flutter:
     - assets/images/TsegSheWhitePic.png
 
   fonts:
+    - family: SF_Pro
+      fonts:
+        - asset: assets/fonts/SF_Pro/SF-Pro.ttf
+
     - family: Saira_Condensed
       fonts:
         - asset: assets/fonts/Saira_Condensed/SairaCondensed-Regular.ttf
@@ -89,22 +93,6 @@ flutter:
       fonts:
         - asset: assets/fonts/Mohave/Mohave-Medium.ttf
           weight: 500
-
-
-#    - family: Merriweather
-#      fonts:
-#        - asset: assets/fonts/Merriweather/Merriweather-Regular.ttf
-#
-#    - family: Roboto
-#      fonts:
-#        - asset: assets/fonts/Roboto/Roboto-Regular.ttf
-#    - family: Basic
-#      fonts:
-#        - asset: assets/fonts/Basic/Basic-Regular.ttf
-#
-#    - family: Metrophobic
-#      fonts:
-#        - asset: assets/fonts/Metrophobic/Metrophobic-Regular.ttf
 
 
 
