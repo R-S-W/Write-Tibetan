@@ -40,8 +40,8 @@ class InfoScreen extends StatelessWidget {
       return TextButton(
         onPressed: this.onPressed,
         child: Container(
-          width: this.screenDims.width,
-          height: this.screenDims.height,
+          // width: this.screenDims.width,
+          // height: this.screenDims.height,
           color: kInfoScreenBackgroundColor,
 
           child: SafeArea(

@@ -21,6 +21,7 @@ class _MainBodyState extends State<MainBody> {
     double sdm = screenDims.width / kDevScreenWidth;
     var appBar = Provider.of<AppBrain>(context, listen:false);
     Size safeScreenDims = appBar.safeScreenDims;
+    print('|||| > $screenDims, $safeScreenDims, $padding, $sdm');
     double safeScreenHeight= screenDims.height-padding.top-padding.bottom;
     double safeScreenWidth = screenDims.width-padding.left -padding.right;
 
@@ -112,15 +113,19 @@ class _MainBodyState extends State<MainBody> {
           ),
         ),
 
-        Consumer<AppBrain>(
-          builder: (context,appBrain,child) =>
-            InfoScreen(
-              pageContents: appBrain.currentInfoScreenPage,
-              onPressed: appBrain.turnInfoScreenPage,
-              screenDims: appBrain.screenDims,
-              safeScreenDims: appBrain.safeScreenDims,
-              scaleFactor: sdm
-            )
+        Container(
+          width:screenDims.width,
+          height: screenDims.height,
+          child: Consumer<AppBrain>(
+            builder: (context,appBrain,child) =>
+              InfoScreen(
+                pageContents: appBrain.currentInfoScreenPage,
+                onPressed: appBrain.turnInfoScreenPage,
+                screenDims: appBrain.screenDims,
+                safeScreenDims: appBrain.safeScreenDims,
+                scaleFactor: sdm
+              )
+          ),
         )
       ],
     );
