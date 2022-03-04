@@ -137,47 +137,7 @@ class AppBrain with ChangeNotifier {
   String getTextDisplaySentence() => textDisplayController.text;
 
   void addWord (String aWord){//Inserts/replaces word into text of TextDisplay
-    String displayText = textDisplayController.text;
-    List<int> selectionRange = _getSelectionRange();
-    int cursorCharIndex = selectionRange[0]; //position in text
-    //position in _numTChars
-    int newCursorDisplayIndex = _getCursorDisplayIndex(cursorCharIndex);
-
-    //Update text and _numTChar.
-    //If there is a highlighted selection of text to be replaced,
-    if (selectionRange[0]!=selectionRange[1]){
-      int lidx = selectionRange[0];
-      int ridx = selectionRange[1];
-      int lDisplayIdx = _getCursorDisplayIndex(lidx);
-      int rDisplayIdx = _getCursorDisplayIndex(ridx);
-
-      textDisplayController.text = displayText.substring(0,lidx) + aWord;
-      if (ridx < displayText.length) {
-        textDisplayController.text += displayText.substring(ridx);
-      }
-      _numTChars[lDisplayIdx] = aWord.length;
-      _numTChars = _numTChars.sublist(0, lDisplayIdx+1) +
-          _numTChars.sublist(rDisplayIdx);
-    }else {//Insert character at the cursor
-      if (displayText.length == 0 || cursorCharIndex == displayText.length) {
-        textDisplayController.text += aWord;
-      } else {
-        textDisplayController.text = displayText.substring(0, cursorCharIndex) +
-            aWord + displayText.substring(cursorCharIndex);
-      }
-      _numTChars.insert(newCursorDisplayIndex, aWord.length);
-    }
-
-    //place the cursor in the correct position.
-    cursorCharIndex += aWord.length;
-    textDisplayController.selection = TextSelection(
-        baseOffset: cursorCharIndex, extentOffset: cursorCharIndex);
-    print("${getTextDisplaySentence()}, $_numTChars, ${_getSelectionRange()}");
-
-    _handleScroll(cursorCharIndex);  //Scroll display if cursor is not visible
-    _updateTextHistory();
-
-    notifyListeners();
+    addText(aWord, isSingleWord: true);
   }
 
 
@@ -214,6 +174,62 @@ class AppBrain with ChangeNotifier {
 
       notifyListeners();
     }
+  }
+
+
+  /* Pastes string into textDisplay.  Assumes each char is a unique character,
+  and not part of a compound tibetan character.
+ */
+  void paste(String pText){
+    addText(pText, isSingleWord: false);
+  }
+
+
+  /*
+    Adds text to the TextDisplay.  Used for adding individual words and pasting
+    text from the clipboard.  Used in addWord() and paste().  Is necessary
+    because addWord() and paste() modify _numTChars differently.
+  */
+  void addText(String aText, {@required bool isSingleWord}){
+    String displayText = textDisplayController.text;
+    List<int> selectionRange = _getSelectionRange();
+    int cursorCharIndex = selectionRange[0]; //position in text
+
+    //Update text on display
+    //If there is a highlighted selection of text to be replaced,
+    int lidx = selectionRange[0];
+    int ridx = selectionRange[1];
+    int lDisplayIdx = _getCursorDisplayIndex(lidx);
+    int rDisplayIdx = _getCursorDisplayIndex(ridx);
+    if (lidx!=ridx){
+      textDisplayController.text = displayText.substring(0,lidx) + aText;
+      if (ridx < displayText.length) {
+        textDisplayController.text += displayText.substring(ridx);
+      }
+    }else {//Insert character at the cursor
+      if (displayText.length == 0 || cursorCharIndex == displayText.length) {
+        textDisplayController.text += aText;
+      } else {
+        textDisplayController.text = displayText.substring(0, cursorCharIndex) +
+            aText + displayText.substring(cursorCharIndex);
+      }
+    }
+    //Update numTChars
+    List<int> aTextNumTChars = isSingleWord ?
+      [aText.length] : List.filled(aText.length,1);
+    _numTChars = _numTChars.sublist(0, lDisplayIdx) + aTextNumTChars +
+      _numTChars.sublist(rDisplayIdx);
+
+    //place the cursor in the correct position.
+    cursorCharIndex += aText.length;
+    textDisplayController.selection = TextSelection(
+      baseOffset: cursorCharIndex, extentOffset: cursorCharIndex);
+    print("${getTextDisplaySentence()}, $_numTChars, ${_getSelectionRange()}");
+
+    _handleScroll(cursorCharIndex);  //Scroll display if cursor is not visible
+    _updateTextHistory();
+
+    notifyListeners();
   }
 
 
