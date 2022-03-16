@@ -42,7 +42,7 @@ const double kRoundedButtonRadius = 16.5;
 const Color kInfoScreenBackgroundColor = Color(0x3B000000);
 const TextStyle kInfoScreenTextStyle = TextStyle(
   fontFamily: kSFPro,
-  fontSize: 25,
+  fontSize: 23,
   color: kTWhite,
 );
 

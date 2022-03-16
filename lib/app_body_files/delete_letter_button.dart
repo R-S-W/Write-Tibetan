@@ -27,7 +27,7 @@ class DeleteLetterButton extends StatefulWidget {
 
 class _DeleteLetterButtonState extends State<DeleteLetterButton> {
   Timer _longPressTimer;
-  final int _longPressDuration = 3;
+  final int _longPressDuration = 3000; //In milliseconds
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class _DeleteLetterButtonState extends State<DeleteLetterButton> {
       child: GestureDetector(
         onTapDown: (_){
           _longPressTimer =
-            Timer(Duration(seconds: _longPressDuration-1),widget.onLongPress);
+            Timer(Duration(milliseconds: _longPressDuration-500),widget.onLongPress);
           widget.onPressed();
         },
         onTapUp: (_)=>_longPressTimer.cancel(),
