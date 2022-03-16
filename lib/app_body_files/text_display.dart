@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:clipboard/clipboard.dart';
@@ -6,6 +8,7 @@ import 'package:tibetan_handwriting_app_0_1/app_body_files/text_display_button.d
 import '../app_logic/app_brain.dart';
 import '../styling_files/constants.dart';
 import '../styling_files/custom_painters.dart';
+import 'delete_letter_button.dart';
 
 
 class TextDisplay extends StatefulWidget {
@@ -112,32 +115,16 @@ class _TextDisplayState extends State<TextDisplay> {
                       ),
 
 
-                      Container( //DELETE BUTTON
-                        width: 80*sdm,
-                        height: 60*sdm,
-                        child: ElevatedButton(
-                          child: Text(
-                            "Delete",
-                            style: kTextDisplayButtonTextStyle,
-                            softWrap: false,
-                            // overflow:TextOverflow.visible,
-                            textAlign: TextAlign.center,
-                            textScaleFactor: sdm,
-                          ),
-                          onPressed: (){
+                      DeleteLetterButton(
+                        onPressed: (){
                             AppBrain appBrain = Provider.of<AppBrain>(context, listen:false);
                             appBrain.deleteWord();
                           },
-                          style:  ElevatedButton.styleFrom(
-                            primary: kCopyButtonColor,
-                            shape:RoundedRectangleBorder(
-                              borderRadius:  BorderRadius.only(
-                                topLeft: Radius.circular(1.5 * kRoundedButtonRadius*sdm)
-                              ),
-                            ),
-                            padding: EdgeInsets.all(10*sdm)
-                          )
-                        ),
+                        onLongPress:(){
+                            AppBrain appBrain = Provider.of<AppBrain>(context, listen:false);
+                            appBrain.clearSentence();
+                          },
+                        scaleFactor: sdm
                       ),
                     ]
                   ),
