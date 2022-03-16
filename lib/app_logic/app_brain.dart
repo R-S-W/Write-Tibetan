@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import 'package:tibetan_handwriting_app_0_1/styling_files/constants.dart';
 import 'package:tibetan_handwriting_app_0_1/support_files/linked_list.dart';
+import '../data_files/info_screen_content.dart';
 import 'tibetan_letter_finder.dart';
 import '../letter_files/letter_encyclopedia.dart';
 
@@ -72,28 +73,6 @@ class AppBrain with ChangeNotifier {
     written below.
    */
   int _infoScreenPageNum = 0;
-  List _infoScreenPageContents = [
-    null,
-    [
-      [0.0,-.5,'Select and copy text here'],
-      [0.0,.15,'Choose suggested characters here'],
-      [0.0,.65,'Draw letters here']
-    ],
-    [
-      [0.0,-.25,'These buttons change the text'],
-      [0.0,-.15, '↓'],
-    ],
-    [
-      [.1,.1,"Hold 'Delete' to erase all text ↑"]
-    ],
-    [
-      [-0.3,.485,'Tap to add tseg (dot)  →'],
-      [-0.3,.585,'Slide down for she (line)'],
-      [-0.8,.75,'Tap to erase last stroke.'],
-      [-0.8,.85,'Hold to erase everything'],
-      [.57,.8,'→']
-    ]
-  ];
 
 
   AppBrain({screenDims, safeScreenDims, safePadding}) : super(){
@@ -126,13 +105,12 @@ class AppBrain with ChangeNotifier {
 
 
 
-
   //_________________INFO SCREEN METHODS_________________
 
-  get currentInfoScreenPage => _infoScreenPageContents[_infoScreenPageNum];
+  get currentInfoScreenPage => infoScreenPageContents[_infoScreenPageNum];
 
   void turnInfoScreenPage(){
-    _infoScreenPageNum = (_infoScreenPageNum + 1) % (_infoScreenPageContents.length);
+    _infoScreenPageNum = (_infoScreenPageNum + 1) % (infoScreenPageContents.length);
     notifyListeners();
   }
 
@@ -286,7 +264,6 @@ class AppBrain with ChangeNotifier {
 
     //Estimated vertical pixel positions of text cursor in TextField.
     double bottomCursorOffset = _calcCursorOffset(numNewlinesBeforeCursor);
-    print("::bottom cursor offset $bottomCursorOffset");
     double topCursorOffset = bottomCursorOffset - estLineHeight*_sdm;
     //Scroll offsets for top and bottom of screen
     double topScrollOffset = textDisplayScrollController.offset;
@@ -298,12 +275,10 @@ class AppBrain with ChangeNotifier {
         !(bottomCursorOffset < bottomScrollOffset + tol)){
       double topDiff = topCursorOffset - topScrollOffset;
       double bottomDiff = bottomCursorOffset - bottomScrollOffset;
-      print(';;; #$topDiff,   $bottomDiff');
       int numLinesAdded =  (topDiff<0) ?
         -( topDiff.abs() / estLineHeight).ceil()  :
         (bottomDiff / estLineHeight).ceil() ;
       //Offset where top of display will scroll to.
-      print('::: ${[estLineHeight,numLinesAdded]}');
       double newScrollOffset = topScrollOffset + estLineHeight*numLinesAdded;
 
       //Scroll to newScrollOffset

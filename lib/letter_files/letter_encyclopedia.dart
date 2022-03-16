@@ -8,7 +8,7 @@ Currently max # strokes is 9.
  */
 import 'dart:core';
 import 'letter_classes.dart';
-import 'raw_letter_data.dart';
+import '../data_files/raw_letter_data.dart';
 
 class LetterEncyclopedia {
   String letterData = rawLetterData;   ///bleh
