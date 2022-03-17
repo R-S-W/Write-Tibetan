@@ -19,15 +19,20 @@ class InfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double bottomWidgetsHeightRatio = 2*(kTextDisplayButtonSize.height
+      + kSuggestionBarHeight + 2*kTrimHeight
+      + kWritingStackDim.dy) / this.screenDims.height;
+
 
     if (this.pageContents != null) {
       //List with Align widgets that have the text info
       List<Widget> pageTexts = <Widget>[];
+
       for (int i = 0; i< this.pageContents.length; i++){
         List contents = this.pageContents[i];
         pageTexts.add(
           Align(
-            alignment: Alignment(contents[0],contents[1]),
+            alignment: Alignment(contents[0],1-contents[1]*bottomWidgetsHeightRatio),
             child: Text(
               contents[2],
               textAlign: TextAlign.center,
