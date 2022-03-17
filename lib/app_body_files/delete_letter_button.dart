@@ -36,11 +36,14 @@ class _DeleteLetterButtonState extends State<DeleteLetterButton> {
       height: 60*widget.scaleFactor,
       child: GestureDetector(
         onTapDown: (_){
-          _longPressTimer =
-            Timer(Duration(milliseconds: _longPressDuration-500),widget.onLongPress);
-          widget.onPressed();
+          _longPressTimer = Timer(
+            Duration(milliseconds: _longPressDuration-500),
+            widget.onLongPress
+          );
         },
-        onTapUp: (_)=>_longPressTimer.cancel(),
+        onTapCancel: (){
+          _longPressTimer.cancel();
+        },
         child: ElevatedButton(
           child: Text(
             "Delete",
@@ -49,7 +52,7 @@ class _DeleteLetterButtonState extends State<DeleteLetterButton> {
             textAlign: TextAlign.center,
             textScaleFactor: widget.scaleFactor,
           ),
-          onPressed: (){},
+          onPressed: widget.onPressed,
           style:  ElevatedButton.styleFrom(
             primary: kCopyButtonColor,
             shape:RoundedRectangleBorder(

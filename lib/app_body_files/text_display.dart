@@ -21,13 +21,12 @@ class _TextDisplayState extends State<TextDisplay> {
     double screenWidth = MediaQuery.of(context).size.width;
     double sdm = screenWidth/kDevScreenWidth;
 
-    // screenWidth*=sdm;
+
 
     return Expanded(
       // flex: 100,
       child: Container(
         width: screenWidth,
-        // height: kTextDisplayHeight*sdm,
         color: kTextDisplayColor,
         child: Column(
           // alignment: Alignment.bottomCenter,
@@ -53,7 +52,7 @@ class _TextDisplayState extends State<TextDisplay> {
                       autofocus: true,
                       showCursor: true,
                       maxLines: null,
-                      decoration: null, //InputDecoration(),
+                      decoration: null,
                       cursorColor: Colors.red,
                       cursorHeight: kEstLineHeight*sdm,
                       style: TextStyle(

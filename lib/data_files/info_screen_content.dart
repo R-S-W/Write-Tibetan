@@ -10,6 +10,7 @@ final List infoScreenPageContents = [
       [0.0,-.15, '↓'],
     ],
     [
+      [0.0,-.15,"Tap 'Delete' to erase a character ↓"],
       [.1,.1,"Hold 'Delete' to erase all text ↑"]
     ],
     [
