@@ -21,7 +21,6 @@ class _MainBodyState extends State<MainBody> {
     double sdm = screenDims.width / kDevScreenWidth;
     var appBar = Provider.of<AppBrain>(context, listen:false);
     Size safeScreenDims = appBar.safeScreenDims;
-    print('|||| > $screenDims, $safeScreenDims, $padding, $sdm');
     double safeScreenHeight= screenDims.height-padding.top-padding.bottom;
     double safeScreenWidth = screenDims.width-padding.left -padding.right;
 

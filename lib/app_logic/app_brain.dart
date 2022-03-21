@@ -129,7 +129,6 @@ class AppBrain with ChangeNotifier {
   void deleteWord(){//Deletes words from TextDisplay.
     String displayText = textDisplayController.text;
     List<int> selectionRange = _getSelectionRange();
-    print('selectionRange: $selectionRange');
     int lidx = selectionRange[0];
     int ridx = selectionRange[1];
     //If text is nonempty and is a highlighted text selection or the cursor is
@@ -141,8 +140,6 @@ class AppBrain with ChangeNotifier {
         lidx-=_numTChars[lDisplayIndex-1];
         lDisplayIndex-=1;
       }
-      print('     numTchars:  $_numTChars');
-      print('     lridxs: $lidx, $ridx');
       textDisplayController.text =
           displayText.substring(0,lidx)+displayText.substring(ridx);
       _numTChars =
@@ -152,7 +149,7 @@ class AppBrain with ChangeNotifier {
 
       //Scroll display if cursor is not visible
       _handleScroll(lidx);
-      print("${getTextDisplaySentence()}, $_numTChars, ${_getSelectionRange()}");
+      // print("${getTextDisplaySentence()}, $_numTChars, ${_getSelectionRange()}");
       _updateTextHistory();
 
       // print('Stats: ${lidx} ___ ${textDisplayController.selection.baseOffset} ${textDisplayController.selection.extentOffset} ${_numTChars}');
@@ -209,7 +206,7 @@ class AppBrain with ChangeNotifier {
     cursorCharIndex += aText.length;
     textDisplayController.selection = TextSelection(
       baseOffset: cursorCharIndex, extentOffset: cursorCharIndex);
-    print("${getTextDisplaySentence()}, $_numTChars, ${_getSelectionRange()}");
+    // print("${getTextDisplaySentence()}, $_numTChars, ${_getSelectionRange()}");
 
     _handleScroll(cursorCharIndex);  //Scroll display if cursor is not visible
     _updateTextHistory();

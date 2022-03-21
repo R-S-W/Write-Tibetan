@@ -62,7 +62,7 @@ class _SuggestionBarState extends State<SuggestionBar> {
                 onPressed: () {
                   appBrain.addWord(appBrain.suggestions[index]);
                   //Clear the strokes+suggestions
-                  appBrain.printPathListString();/////PRINT
+                  // appBrain.printPathListString();/////PRINT
                   appBrain.clearAllStrokesAndSuggestions();
                 },
                 style: TextButton.styleFrom(
