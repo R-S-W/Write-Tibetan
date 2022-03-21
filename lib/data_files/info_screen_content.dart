@@ -1,9 +1,11 @@
 final List infoScreenPageContents = [
     null,
     [
-      [0.0,1.15,'Select and copy text here'],
+      [0.0,1.0,'Select and copy text here'],
       [0.0,0.73,'Choose suggested characters here'],
-      [0.0,0.34,'Draw letters here']
+      [0.0,0.34,'Draw letters here'],
+      [0.0,1.0, 'ttt'],
+      [0.0,-0.1,'aaa']
     ],
     [
       [0.0,1.05,'These buttons change the text'],

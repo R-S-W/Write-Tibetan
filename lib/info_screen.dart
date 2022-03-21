@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import './styling_files/constants.dart';
-
+/*
+  Displays the instructions to use the app.
+  Takes data from info_screen_content.dart and the pagenumber from appBrain to
+  build the correct info page.
+ */
 
 class InfoScreen extends StatelessWidget {
   final List<List> pageContents;
@@ -19,10 +23,19 @@ class InfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double bottomWidgetsHeightRatio = 2*(kTextDisplayButtonSize.height
+    //Variable used to align y position of Text.
+    double bottomWidgetsHeightRatio = (
+      kTextDisplayButtonSize.height
       + kSuggestionBarHeight + 2*kTrimHeight
-      + kWritingStackDim.dy) / this.screenDims.height;
-
+      + kWritingStackDim.dy
+      // + this.safePadding.bottom
+    ) / (this.safeScreenDims.height - kInfoScreenTextStyle.fontSize - 4*0);
+    // print(fixedWidgetsHeightRatio);
+    // print('safeheight: ${this.safeScreenDims.height}');
+    // print('fixx: ${fixedWidgetsHeightRatio*this.safeScreenDims.height}');
+    // print(kTextDisplayButtonSize.height
+    //     + kSuggestionBarHeight + 2*kTrimHeight
+    //     + kWritingStackDim.dy + kTopBarHeight + kTextMargin);
 
     if (this.pageContents != null) {
       //List with Align widgets that have the text info
@@ -32,7 +45,9 @@ class InfoScreen extends StatelessWidget {
         List contents = this.pageContents[i];
         pageTexts.add(
           Align(
-            alignment: Alignment(contents[0],1-contents[1]*bottomWidgetsHeightRatio),
+            alignment:
+            // FractionalOffset(contents[0], contents[1]),
+            Alignment(contents[0],1-2*contents[1]*bottomWidgetsHeightRatio),
             child: Text(
               contents[2],
               textAlign: TextAlign.center,
