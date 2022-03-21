@@ -24,19 +24,15 @@ class InfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Variable used to align y position of Text.
-    double bottomWidgetsHeightRatio = (
-      kTextDisplayButtonSize.height
-      + kSuggestionBarHeight + 2*kTrimHeight
-      + kWritingStackDim.dy
-      // + this.safePadding.bottom
-    ) / (this.safeScreenDims.height - kInfoScreenTextStyle.fontSize - 4*0);
-    // print(fixedWidgetsHeightRatio);
-    // print('safeheight: ${this.safeScreenDims.height}');
-    // print('fixx: ${fixedWidgetsHeightRatio*this.safeScreenDims.height}');
-    // print(kTextDisplayButtonSize.height
-    //     + kSuggestionBarHeight + 2*kTrimHeight
-    //     + kWritingStackDim.dy + kTopBarHeight + kTextMargin);
-
+    double bottomWidgetsHeightRatio = (kTextDisplayButtonSize.height +
+      kSuggestionBarHeight + 2*kTrimHeight + kWritingStackDim.dy)
+      / (this.safeScreenDims.height - kInfoScreenTextStyle.fontSize - 4*0);
+    /* Extra info:  the y position is aligned differently because the textDisplay
+      screen is of a variable height, so when Align() uses relative positions,
+      those positions will be incorrect for other screen dimensions.  The y
+      position now must be in terms of bottomWidgetsHeightRatio to make sure
+      the positions are accurate.
+     */
     if (this.pageContents != null) {
       //List with Align widgets that have the text info
       List<Widget> pageTexts = <Widget>[];
@@ -45,9 +41,7 @@ class InfoScreen extends StatelessWidget {
         List contents = this.pageContents[i];
         pageTexts.add(
           Align(
-            alignment:
-            // FractionalOffset(contents[0], contents[1]),
-            Alignment(contents[0],1-2*contents[1]*bottomWidgetsHeightRatio),
+            alignment:Alignment(contents[0],1-2*contents[1]*bottomWidgetsHeightRatio),
             child: Text(
               contents[2],
               textAlign: TextAlign.center,
@@ -60,8 +54,6 @@ class InfoScreen extends StatelessWidget {
       return TextButton(
         onPressed: this.onPressed,
         child: Container(
-          // width: this.screenDims.width,
-          // height: this.screenDims.height,
           color: kInfoScreenBackgroundColor,
 
           child: SafeArea(
