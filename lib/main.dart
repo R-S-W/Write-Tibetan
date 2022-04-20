@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
+import 'package:tibetan_handwriting_app_0_1/practice_mode.dart';
+import 'package:tibetan_handwriting_app_0_1/start_screen.dart';
+import 'package:tibetan_handwriting_app_0_1/writing_mode.dart';
 
 import 'app_logic/app_brain.dart';
+import 'frame.dart';
 import 'main_body.dart';
 import 'styling_files/constants.dart';
 
@@ -57,20 +61,14 @@ class MainPage extends StatelessWidget {
           ),
         ),
         // child: SafeArea(
-          child: Container(
-            // width: screenDimensions.width,
-            // height: screenDimensions.height,
-            // width: safeScreenWidth,
-            // height: safeScreenHeight,
-            child: ChangeNotifierProvider(
-              create:(context) => AppBrain(
-                  screenDims: screenDimensions,
-                  safeScreenDims: Size(safeScreenWidth, safeScreenHeight),
-                  safePadding: padding
-              ),
-
-              child: MainBody()
-            ),
+          child: MaterialApp(
+            title: 'Select Mode:',
+            initialRoute:'/',
+            routes:{
+              '/':(context) => Frame(child: StartScreen()),
+              '/writing' : (context) => Frame(child: WritingMode()),
+              '/practice' : (context) => Frame(child: PracticeMode()),
+            }
           ),
         ),
       );
