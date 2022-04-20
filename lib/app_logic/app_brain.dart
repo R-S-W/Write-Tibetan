@@ -360,11 +360,6 @@ class AppBrain with ChangeNotifier {
 
   //_________________________WRITING PAD METHODS____________________________
 
-  void addStroke(List<Offset> aStroke) {
-    strokeList.add(aStroke);
-    suggestLetters();
-  }
-
 
   void deleteStroke() {
     if (strokeList.length>0) {
