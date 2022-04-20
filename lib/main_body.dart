@@ -38,11 +38,28 @@ class _MainBodyState extends State<MainBody> {
                   color: kAppBarBackgroundColor,
                   width: safeScreenWidth,
                   height: kTopBarHeight*sdm,
+                  padding: EdgeInsets.symmetric(horizontal: 30*sdm),
                   child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                       children:[
+
+                        Container(//Back to StartScreen
+                          width: 25*sdm,
+                          height: 25*sdm,
+                          child: IconButton(
+                              icon: Icon(
+                                  Icons.arrow_back_ios_rounded,
+                                  size: 24*sdm,
+                                  color: kTWhite
+                              ),
+                              onPressed: ()=>Navigator.pop(context),
+                              padding: EdgeInsets.zero
+                          ),
+                        ),
+
                         Text(
-                          'Tibetan Handwritten Input Method',
+                          'Write Tibetan',
                           style: TextStyle(
                               fontFamily:kMohave,
                               fontSize:26 * sdm,
@@ -50,7 +67,7 @@ class _MainBodyState extends State<MainBody> {
                           ),
                         ),
 
-                        SizedBox(width: 12*sdm), //Spacer
+                        // SizedBox(width: 12*sdm), //Spacer
 
                         Container(
                           width: 25*sdm,
