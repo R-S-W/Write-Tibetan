@@ -19,12 +19,10 @@ class _PracticeLetterState extends State<PracticeCharacterButton> {
       child: TextButton(
         style: TextButton.styleFrom(
           backgroundColor: Colors.white,
-          // padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
           primary: Colors.black,
           onSurface: Colors.white
-
         ),
-        onPressed: ()=>{},
+        onPressed: ()=>Navigator.pushNamed(context, "/"+ widget.letter),
         child: Text(widget.letter)
       ),
     );
