@@ -18,10 +18,9 @@ class PracticeMode extends StatelessWidget {
     double safeScreenHeight= screenDims.height-padding.top-padding.bottom;
     double safeScreenWidth = screenDims.width-padding.left -padding.right;
 
-    String alphabet= "ཀཁགངཅཆཇཉཏཐདནཔཕབམཙཚཛཝཞཟཡའརལཤསཧཨ";
     List<Widget> alphabetList = <Widget>[];
-    for (int i =0; i<alphabet.length; i++){
-      alphabetList.add(PracticeLetterButton(alphabet[i]));
+    for (int i =0; i<kAlphabet.length; i++){
+      alphabetList.add(PracticeCharacterButton(kAlphabet[i]));
     }
 
 

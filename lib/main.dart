@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
+import 'package:tibetan_handwriting_app_0_1/practice_letter_page.dart';
 import 'package:tibetan_handwriting_app_0_1/practice_mode.dart';
 import 'package:tibetan_handwriting_app_0_1/start_screen.dart';
 import 'package:tibetan_handwriting_app_0_1/writing_mode.dart';
@@ -49,6 +50,21 @@ class MainPage extends StatelessWidget {
     double sdm = safeScreenWidth / kDevScreenWidth;
     screenDimensions*=sdm;
 
+    //Generate routes for different pages for navigator
+    Map navigatorRoutes = {
+      '/':(context) => Frame(child: StartScreen()),
+      '/writing' : (context) => Frame(child: WritingMode()),
+      '/practice' : (context) => Frame(child: PracticeMode()),
+    };
+    for (int i = 0; i< kAlphabet.length; i++){
+      navigatorRoutes.update(
+        '/'+kAlphabet[i],
+        (context) => Frame(child: PracticeCharacterPage(kAlphabet[i]))
+      );
+    }
+
+
+
     return Scaffold(
       backgroundColor: kAppBarBackgroundColor,
       body: Container(
@@ -64,11 +80,7 @@ class MainPage extends StatelessWidget {
           child: MaterialApp(
             title: 'Select Mode:',
             initialRoute:'/',
-            routes:{
-              '/':(context) => Frame(child: StartScreen()),
-              '/writing' : (context) => Frame(child: WritingMode()),
-              '/practice' : (context) => Frame(child: PracticeMode()),
-            }
+            routes: navigatorRoutes
           ),
         ),
       );

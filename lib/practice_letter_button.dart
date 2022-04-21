@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 
-class PracticeLetterButton extends StatefulWidget {
+class PracticeCharacterButton extends StatefulWidget {
   String letter;
 
-  PracticeLetterButton(this.letter, {Key key}) : super(key: key);
+  PracticeCharacterButton(this.letter, {Key key}) : super(key: key);
 
   @override
   _PracticeLetterState createState() => _PracticeLetterState();
 }
 
-class _PracticeLetterState extends State<PracticeLetterButton> {
+class _PracticeLetterState extends State<PracticeCharacterButton> {
   @override
   Widget build(BuildContext context) {
     return Container(

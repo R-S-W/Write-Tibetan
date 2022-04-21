@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 
 //Used to scale the app for different screen resolutions.
 const double kDevScreenWidth = 414.0*  1/ 1;
+String kAlphabet= "ཀཁགངཅཆཇཉཏཐདནཔཕབམཙཚཛཝཞཟཡའརལཤསཧཨ";
+
 
 //Basic Colors______________________________________________________
 const Color kTRed = Color(0xff982929);

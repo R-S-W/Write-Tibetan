@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 
-class PracticeLetterPage extends StatefulWidget {
-  const PracticeLetterPage({Key key}) : super(key: key);
+class PracticeCharacterPage extends StatefulWidget {
+  String character;
+  PracticeCharacterPage(String this.character, {Key key}) : super(key: key);
 
   @override
-  _PracticeLetterPageState createState() => _PracticeLetterPageState();
+  _PracticeCharacterPageState createState() => _PracticeCharacterPageState();
 }
 
-class _PracticeLetterPageState extends State<PracticeLetterPage> {
+class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
   @override
   Widget build(BuildContext context) {
     return Container();
