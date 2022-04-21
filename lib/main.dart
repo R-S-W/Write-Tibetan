@@ -51,17 +51,16 @@ class MainPage extends StatelessWidget {
     screenDimensions*=sdm;
 
     //Generate routes for different pages for navigator
-    Map navigatorRoutes = {
+    Map <String, Widget Function(BuildContext)>navigatorRoutes = {
       '/':(context) => Frame(child: StartScreen()),
       '/writing' : (context) => Frame(child: WritingMode()),
       '/practice' : (context) => Frame(child: PracticeMode()),
     };
     for (int i = 0; i< kAlphabet.length; i++){
-      navigatorRoutes.update(
-        '/'+kAlphabet[i],
-        (context) => Frame(child: PracticeCharacterPage(kAlphabet[i]))
-      );
+      navigatorRoutes['/' + kAlphabet[i]] =
+        (context) => Frame(child: PracticeCharacterPage(kAlphabet[i]));
     }
+
 
 
 
