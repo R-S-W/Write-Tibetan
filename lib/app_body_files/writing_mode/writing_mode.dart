@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-<<<<<<< HEAD:lib/app_body_files/writing_mode/writing_mode.dart
 import '../../app_logic/app_brain.dart';
-import '../../main_body.dart';
-=======
-import '../app_logic/app_brain.dart';
-import '../main_body.dart';
->>>>>>> 5b05839b042da42562c3cf4c792468202f95b23c:lib/writing_mode.dart
-import 'package:tibetan_handwriting_app_0_1/styling_files/constants.dart';
+import 'main_body/main_body.dart';
+import '../../styling_files/constants.dart';
 
 class WritingMode extends StatelessWidget {
   const WritingMode({

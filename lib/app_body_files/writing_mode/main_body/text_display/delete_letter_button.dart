@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import '../../../styling_files/constants.dart';
+import '../../../../styling_files/constants.dart';
 
 
 /*Class for the delete button in the button row in the TextDisplay.  This button

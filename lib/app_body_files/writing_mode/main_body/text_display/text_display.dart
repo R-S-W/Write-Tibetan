@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:clipboard/clipboard.dart';
-import 'package:tibetan_handwriting_app_0_1/writing_mode/main_body/text_display/text_display_button.dart';
-import '../../../app_logic/app_brain.dart';
-import '../../../styling_files/constants.dart';
-import '../../../styling_files/custom_painters.dart';
+import 'text_display_button.dart';
+import '../../../../app_logic/app_brain.dart';
+import '../../../../styling_files/constants.dart';
+import '../../../../styling_files/custom_painters.dart';
 import 'delete_letter_button.dart';
 
 

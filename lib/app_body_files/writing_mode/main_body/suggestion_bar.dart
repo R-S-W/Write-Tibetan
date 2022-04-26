@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../app_logic/app_brain.dart';
-import '../styling_files/constants.dart';
+import '../../../app_logic/app_brain.dart';
+import '../../../styling_files/constants.dart';
 
 
 class SuggestionBar extends StatefulWidget {

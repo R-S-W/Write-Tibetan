@@ -4,7 +4,7 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:tibetan_handwriting_app_0_1/support_files/bezier_interpolation.dart';
+import '../support_files/bezier_interpolation.dart';
 import 'constants.dart';
 
 

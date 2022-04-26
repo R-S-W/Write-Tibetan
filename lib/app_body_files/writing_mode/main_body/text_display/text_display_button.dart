@@ -1,6 +1,6 @@
 //Widgets used for the buttons on the TextDisplay, (copy all, delete, etc.)
 import 'package:flutter/material.dart';
-import '../../../styling_files/constants.dart';
+import '../../../../styling_files/constants.dart';
 
 class TextDisplayButton extends StatelessWidget {
   final VoidCallback onPressed;

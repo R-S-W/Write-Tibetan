@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
-import 'package:tibetan_handwriting_app_0_1/styling_files/constants.dart';
-import 'package:tibetan_handwriting_app_0_1/support_files/linked_list.dart';
 import '../data_files/info_screen_content.dart';
+import '../styling_files/constants.dart';
+import '../support_files/linked_list.dart';
 import 'tibetan_letter_finder.dart';
 import '../letter_files/letter_encyclopedia.dart';
 

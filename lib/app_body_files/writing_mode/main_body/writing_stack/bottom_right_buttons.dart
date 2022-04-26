@@ -3,9 +3,9 @@ import 'dart:ui' as ui;
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../../styling_files/constants.dart';
-import '../../../styling_files/tseg_she_thumb_shape.dart';
-import '../../../styling_files/tseg_she_slider_track_shape.dart';
+import '../../../../styling_files/constants.dart';
+import '../../../../styling_files/tseg_she_thumb_shape.dart';
+import '../../../../styling_files/tseg_she_slider_track_shape.dart';
 
 
 

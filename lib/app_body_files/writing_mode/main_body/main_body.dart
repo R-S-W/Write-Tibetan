@@ -3,9 +3,9 @@ import 'text_display/text_display.dart';
 import 'suggestion_bar.dart';
 import 'writing_stack/writing_stack.dart';
 import 'package:provider/provider.dart';
-import '../../app_logic/app_brain.dart';
+import '../../../app_logic/app_brain.dart';
 import 'info_screen.dart';
-import '../../styling_files/constants.dart';
+import '../../../styling_files/constants.dart';
 
 
 class MainBody extends StatefulWidget {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tibetan_handwriting_app_0_1/practice_character_button.dart';
-import 'package:tibetan_handwriting_app_0_1/styling_files/constants.dart';
+import 'practice_character_button.dart';
+import '../../styling_files/constants.dart';
 
-import '../app_logic/practice_mode_brain.dart';
+import '../../app_logic/practice_mode_brain.dart';
 
 class PracticeMode extends StatelessWidget {
   const PracticeMode({

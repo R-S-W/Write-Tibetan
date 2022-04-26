@@ -1,20 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tibetan_handwriting_app_0_1/practice_mode/practice_character_page.dart';
-import 'package:tibetan_handwriting_app_0_1/practice_mode/practice_mode.dart';
-<<<<<<< HEAD:lib/app_body_files/main.dart
-import 'package:tibetan_handwriting_app_0_1/app_body_files/start_screen.dart';
-import 'package:tibetan_handwriting_app_0_1/writing_mode/writing_mode.dart';
-
-import 'frame.dart';
-import '../styling_files/constants.dart';
-=======
-import 'package:tibetan_handwriting_app_0_1/start_screen.dart';
-import 'package:tibetan_handwriting_app_0_1/writing_mode/writing_mode.dart';
-
-import 'frame.dart';
+import 'app_body_files/frame.dart';
+import 'app_body_files/practice_mode/practice_character_page.dart';
+import 'app_body_files/practice_mode/practice_mode.dart';
+import 'app_body_files/start_screen.dart';
+import 'app_body_files/writing_mode/writing_mode.dart';
 import 'styling_files/constants.dart';
->>>>>>> 5b05839b042da42562c3cf4c792468202f95b23c:lib/main.dart
 
 
 void main() {

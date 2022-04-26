@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tibetan_handwriting_app_0_1/styling_files/constants.dart';
-import '../data_files/character_to_stroke_unicode.dart';
-import '../data_files/character_to_wylie.dart';
-import '../drawn_stroke.dart';
+import '../../styling_files/constants.dart';
+import '../../data_files/character_to_stroke_unicode.dart';
+import '../../data_files/character_to_wylie.dart';
+import 'drawn_stroke.dart';
 
 
 class PracticeCharacterPage extends StatefulWidget {
