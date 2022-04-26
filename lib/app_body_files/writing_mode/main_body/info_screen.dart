@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import './styling_files/constants.dart';
+
+import '../../styling_files/constants.dart';
 /*
   Displays the instructions to use the app.
   Takes data from info_screen_content.dart and the pagenumber from appBrain to

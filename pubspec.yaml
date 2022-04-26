@@ -94,6 +94,10 @@ flutter:
         - asset: assets/fonts/Mohave/Mohave-Medium.ttf
           weight: 500
 
+    - family: NotoSansTibetanStroke
+      fonts:
+        - asset: assets/fonts/Noto_Sans_Tibetan_Stroke/NotoSansTibetanStroke.ttf
+
 
 
 

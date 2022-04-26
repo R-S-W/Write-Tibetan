@@ -7,10 +7,10 @@ class PracticeCharacterButton extends StatefulWidget {
   PracticeCharacterButton(this.letter, {Key key}) : super(key: key);
 
   @override
-  _PracticeLetterState createState() => _PracticeLetterState();
+  _PracticeCharacterState createState() => _PracticeCharacterState();
 }
 
-class _PracticeLetterState extends State<PracticeCharacterButton> {
+class _PracticeCharacterState extends State<PracticeCharacterButton> {
   @override
   Widget build(BuildContext context) {
     return Container(

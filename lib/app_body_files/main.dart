@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
-import 'package:tibetan_handwriting_app_0_1/practice_letter_page.dart';
-import 'package:tibetan_handwriting_app_0_1/practice_mode.dart';
+import 'package:tibetan_handwriting_app_0_1/practice_mode/practice_character_page.dart';
+import 'package:tibetan_handwriting_app_0_1/practice_mode/practice_mode.dart';
 import 'package:tibetan_handwriting_app_0_1/start_screen.dart';
-import 'package:tibetan_handwriting_app_0_1/writing_mode.dart';
+import 'package:tibetan_handwriting_app_0_1/writing_mode/writing_mode.dart';
 
-import 'app_logic/app_brain.dart';
 import 'frame.dart';
-import 'main_body.dart';
 import 'styling_files/constants.dart';
 
 
@@ -41,14 +38,14 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size screenDimensions = MediaQuery.of(context).size;
-    EdgeInsets padding = MediaQuery.of(context).padding;
-
-    //Screen dimensions multiplier
-    double safeScreenWidth = screenDimensions.width-padding.left -padding.right;
-    double safeScreenHeight= screenDimensions.height-padding.top-padding.bottom;
-    double sdm = safeScreenWidth / kDevScreenWidth;
-    screenDimensions*=sdm;
+    // Size screenDimensions = MediaQuery.of(context).size;
+    // EdgeInsets padding = MediaQuery.of(context).padding;
+    //
+    // //Screen dimensions multiplier
+    // double safeScreenWidth = screenDimensions.width-padding.left -padding.right;
+    // double safeScreenHeight= screenDimensions.height-padding.top-padding.bottom;
+    // double sdm = safeScreenWidth / kDevScreenWidth;
+    // screenDimensions*=sdm;
 
     //Generate routes for different pages for navigator
     Map <String, Widget Function(BuildContext)>navigatorRoutes = {
