@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tibetan_handwriting_app_0_1/practice_mode/practice_character_page.dart';
 import 'package:tibetan_handwriting_app_0_1/practice_mode/practice_mode.dart';
-import 'package:tibetan_handwriting_app_0_1/start_screen.dart';
+import 'package:tibetan_handwriting_app_0_1/app_body_files/start_screen.dart';
 import 'package:tibetan_handwriting_app_0_1/writing_mode/writing_mode.dart';
 
 import 'frame.dart';
-import 'styling_files/constants.dart';
+import '../styling_files/constants.dart';
 
 
 void main() {

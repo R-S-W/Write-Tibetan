@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../app_logic/app_brain.dart';
-import '../main_body.dart';
+import '../../app_logic/app_brain.dart';
+import '../../main_body.dart';
 import 'package:tibetan_handwriting_app_0_1/styling_files/constants.dart';
 
 class WritingMode extends StatelessWidget {

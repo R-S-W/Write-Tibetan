@@ -24,6 +24,7 @@ const String kKohSantepheap = 'KohSantepheap';
 const String kKoulen = 'Koulen';
 const String kMohave = 'Mohave';
 const String kSFPro = 'SF_Pro';
+const String kNotoSansTibetanStroke = 'NotoSansTibetanStroke';
 
 
 //General Constants____________________________________________________
@@ -50,6 +51,11 @@ const TextStyle kInfoScreenTextStyle = TextStyle(
 );
 
 const double kTrimHeight = 3.5;
+
+
+//Practice Mode
+double kPracticeCharStrokeSize = 300;
+
 
 
 //Text Display---------------------------------------------------------------
