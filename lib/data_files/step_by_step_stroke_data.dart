@@ -3,7 +3,6 @@
 
 import 'package:flutter/material.dart';
 import 'dart:math' as m;
-
 import '../support_files/custom_gradient_transforms.dart';
 
 
@@ -44,9 +43,9 @@ const Map<String,String> characterToStrokeUnicode = <String,String>{
   "ཨོ" :"\u00af",
 };
 
-const List<AlignmentGeometry> t2b = <AlignmentGeometry>[Alignment.topCenter, Alignment.bottomCenter];
+const List<AlignmentGeometry> t2b =
+  <AlignmentGeometry>[Alignment.topCenter, Alignment.bottomCenter];
 const List<AlignmentGeometry> l2r = <AlignmentGeometry>[Alignment(-1,0.0), Alignment(1,0.0)];
-
 
 const Map characterToGradientData = {
   "ཀ" : [
@@ -165,15 +164,41 @@ const Map characterToGradientData = {
   "ར" : [
     [1,l2r],
     [1,t2b],
-    [2,Alignment(0,-.5),[0,.7*m.pi],GradientRotationReverse(alpha, beta)]
+    [2,Alignment(0,-.5),[0,.7*m.pi],GradientRotationReverse]
   ],
-  "ལ" : [],
-  "ཤ" : [],
-  "ས" : [],
-  "ཧ" : [],
-  "ཨ" : [],
+  "ལ" : [
+    [1,l2r],
+    [2,Alignment(-.6,.7),[m.pi*.65,m.pi*1.3]],
+    [2,Alignment(-.6,.7),[-m.pi*.34,m.pi*.34],GradientRotationReverse],
+    [2,Alignment(.2,-.7),[.33*m.pi,.55*m.pi],GradientRotationReverse],
+    [1,t2b]
+  ],
+  "ཤ" : [
+    [1,l2r],
+    [2,Alignment(0,0),[m.pi*.6]],
+    [1,t2b],
+    [1,l2r],
+    [1,t2b]
+  ],
+  "ས" : [
+    [1,l2r],
+    [1,t2b],
+    [1,l2r],
+    [1,t2b]
+  ],
+  "ཧ" : [
+    [1,l2r],
+    [1,t2b],
+    [2,Alignment(.3,-.6),[-.5*m.pi,.6*m.pi], GradientRotationReverse]
+  ],
+  "ཨ" : [
+    [1,l2r],
+    [2,Alignment(-.4,-.7),[.6*m.pi,2.4*m.pi], GradientRotationReverse],
+    [1,[Alignment(-.1,.1),Alignment(.8,-.8)]],
+    [1,t2b]
+  ],
   "ཨི" : [],
   "ཨེ" : [],
   "ཨུ" : [],
   "ཨོ" : []
-}
+};
