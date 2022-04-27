@@ -6,30 +6,32 @@ import '../../styling_files/constants.dart';
 
 class DrawnStroke extends StatefulWidget {
   String character;
-  DrawnStroke(this.character,{Key key}) : super(key: key);
+  Function shaderCallback;
+  DrawnStroke(this.character,{@required this.shaderCallback, Key key}) :
+    super(key: key);
 
   @override
   _DrawnStrokeState createState() => _DrawnStrokeState();
 }
 
 class _DrawnStrokeState extends State<DrawnStroke> with SingleTickerProviderStateMixin{
-  AnimationController animationController;
+  AnimationController _animationController;
   Animation _animation;
 
   @override
   void initState(){
-    animationController  = AnimationController(vsync: this,duration: Duration(milliseconds: 2000));
-    _animation = Tween(begin: 0.0, end: 1.0).animate(animationController)..addListener((){
+    _animationController  = AnimationController(vsync: this,duration: Duration(milliseconds: 2000));
+    _animation = Tween(begin: 0.0, end: 1.0).animate(_animationController)..addListener((){
       setState((){
       });
     });
-    animationController.forward();
+    _animationController.forward();
     super.initState;
   }
 
   @override
   void dispose(){
-    animationController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
@@ -46,11 +48,7 @@ class _DrawnStrokeState extends State<DrawnStroke> with SingleTickerProviderStat
             color: Colors.white
           ),
         ),
-        shaderCallback: (rect)=>LinearGradient(
-            colors: [Colors.black, Colors.white],
-            stops: [_animation.value,_animation.value]
-          ).createShader(rect),
-        //     textAlign
+        shaderCallback: widget.shaderCallback(_animation.value),
       ),
     );
   }

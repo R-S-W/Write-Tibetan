@@ -8,8 +8,10 @@ import 'drawn_stroke.dart';
 class PracticeCharacterPage extends StatefulWidget {
   String character;
   String strokeChars;
+  List gradientData;
   PracticeCharacterPage(String this.character, {Key key}){
     strokeChars = characterToStrokeUnicode[this.character];
+    gradientData = characterToGradientData[this.character];
   }
 
   @override
@@ -29,10 +31,11 @@ class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
     double safeScreenWidth = screenDims.width-padding.left -padding.right;
 
     List<Widget> stackList = <Widget>[]; //For Stack Widget below
-    if (this.strokeIdx == 0){
-      stackList.add(DrawnStroke(widget.strokeChars[this.strokeIdx], key: ValueKey(strokeIdx)));
-    }else{
-      stackList.add(DrawnStroke(widget.strokeChars[this.strokeIdx], key: ValueKey(strokeIdx)));
+    stackList.add(DrawnStroke(widget.strokeChars[this.strokeIdx],
+      key: ValueKey(strokeIdx),
+      shaderCallback: widget.gradientData[strokeIdx].shaderCallback
+    ));
+    if (this.strokeIdx > 0){
       stackList.add(Text(widget.strokeChars[this.strokeIdx-1],
         style: TextStyle(
           fontFamily: kNotoSansTibetanStroke,
@@ -43,60 +46,49 @@ class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
     }
 
 
-    return SafeArea(
+      return SafeArea(
         child: Container(
-            width: safeScreenWidth,
-            height: safeScreenHeight,
-            color:Color(0xff3896d4),
-            child: Column(
-              children: <Widget>[
-                // Text(widget.character),
-                Text(characterToWylie[widget.character]),
-                // CharacterWritingPad('\u0059'),
-                Stack(
-                  children: stackList
-                ),
-                Row(//Controls
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    // TextButton(child: Container(
-                    //   width: 100,
-                    //   height: 100,
-                    //   color: Colors.black),
-                    //   onPressed: ()=>{},
-                    //   child:
-                    // ),
-                    IconButton(
-                      icon:Icon(Icons.keyboard_arrow_left_outlined),
-                      iconSize: 40,
-                      onPressed: (){
-                        if (this.strokeIdx>0){
-                          setState((){
-                            this.strokeIdx-=1;
-                            // stackList[0].animationController.forward();
-                          });
-                        }
+          width: safeScreenWidth,
+          height: safeScreenHeight,
+          color:Color(0xff3896d4),
+          child: Column(
+            children: <Widget>[
+              Text(characterToWylie[widget.character]),
+
+              Stack(children: stackList),
+
+              Row(//Controls
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  IconButton(
+                    icon:Icon(Icons.keyboard_arrow_left_outlined),
+                    iconSize: 40,
+                    onPressed: (){
+                      if (this.strokeIdx>0){
+                        setState((){
+                          this.strokeIdx-=1;
+                          // stackList[0].animationController.forward();
+                        });
                       }
-                    ),
-                    IconButton(
-                        icon:Icon(Icons.keyboard_arrow_right_outlined),
-                        iconSize:40,
-                        onPressed: (){
-                          if (this.strokeIdx<widget.strokeChars.length-1){
-                            setState((){
-                              this.strokeIdx+=1;
-                            });
-                          }
-                        }
-                    ),
-                    // TextButton(child: Container(width: 100, height: 100, color: Colors.black),onPressed: ()=>{}),
-
-                  ]
-                ),
-              ]
-            )
-
+                    }
+                  ),
+                  IconButton(
+                    icon:Icon(Icons.keyboard_arrow_right_outlined),
+                    iconSize:40,
+                    onPressed: (){
+                      if (this.strokeIdx<widget.strokeChars.length-1){
+                        setState((){
+                          this.strokeIdx+=1;
+                        });
+                      }
+                    }
+                  ),
+                ]
+              ),
+            ]
+          )
         )
-    );
+      );
+    }
   }
-}
+

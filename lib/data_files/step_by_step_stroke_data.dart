@@ -47,155 +47,250 @@ const List<AlignmentGeometry> t2b =
   <AlignmentGeometry>[Alignment.topCenter, Alignment.bottomCenter];
 const List<AlignmentGeometry> l2r = <AlignmentGeometry>[Alignment(-1,0.0), Alignment(1,0.0)];
 
-const Map characterToGradientData = {
+class GradientData{
+  List<AlignmentGeometry> linearStartEndPoints;
+  GradientTransform gradientTransform;
+  AlignmentGeometry center;
+  List<double> angleRange;
+  bool isReversed;
+  Function shaderCallback;
+
+  GradientData(){}
+  GradientData.linear(this.linearStartEndPoints){
+    this.shaderCallback = (animationVal) {
+      return (rect)=>LinearGradient(
+          colors: [Colors.black, Colors.white],
+          begin: linearStartEndPoints[0],
+          end: linearStartEndPoints[1],
+          stops: [animationVal, animationVal]
+      ).createShader(rect);
+    };
+
+  }
+  GradientData.sweep(this.center, this.angleRange, {this.isReversed = false}){
+    if (this.angleRange.length==0) {
+      this.angleRange = [0,2*m.pi];
+    }else if (this.angleRange.length ==1) {
+      this.angleRange.add(2*m.pi);
+    }
+    this.gradientTransform = GradientRotationReverse(this.angleRange[0],this.angleRange[1]);
+
+    this.shaderCallback = (animationVal){
+      return (rect)=>SweepGradient(
+          colors: [Colors.black, Colors.white],
+          center: center,
+          startAngle: angleRange[0],
+          endAngle: angleRange[1],
+          stops: [ animationVal, animationVal],
+          transform: gradientTransform
+      ).createShader(rect);
+    };
+  }
+
+  //Helper function that takes the gradientData and creates a callback for the
+  //ShaderMask widget in DrawnStroke
+
+// Function generateShaderCallback(){
+  //
+  //   if (_gradientType == 1) { //is a Linear Gradient
+  //     return (animationVal) {
+  //       return (rect)=>LinearGradient(
+  //           colors: [Colors.black, Colors.white],
+  //           begin: linearStartEndPoints[0],
+  //           end: linearStartEndPoints[1],
+  //           stops: [animationVal, animationVal]
+  //       ).createShader(rect);
+  //     };
+  //
+  //   }else if (_gradientType == 2) { //Is a sweep gradient
+  //     return (animationVal){
+  //       return (rect)=>SweepGradient(
+  //           colors: [Colors.black, Colors.white],
+  //           center: center,
+  //           startAngle: angleRange[0],
+  //           endAngle: angleRange[1],
+  //           stops: [ animationVal, animationVal],
+  //           transform: gradientTransform
+  //       ).createShader(rect);
+  //     };
+  //
+  //   }else {//Default
+  //     print('to default');
+  //     return (animationVal){
+  //       return (rect)=>LinearGradient(
+  //           colors: [Colors.black, Colors.white],
+  //           stops: [animationVal,animationVal]
+  //       ).createShader(rect);
+  //     };
+  //   }
+  // }
+  //
+
+}
+
+Map characterToGradientData = {
   "ཀ" : [
-    [1,l2r],
-    [1,t2b],
-    [1,t2b],
-    [1,t2b]
+    GradientData.linear(l2r),
+    GradientData.linear(t2b),
+    GradientData.linear(t2b),
+    GradientData.linear(t2b)
   ],
   "ཁ" : [
-    [1,l2r],
-    [1,t2b],
-    [2,Alignment(.3, .4),[m.pi/2,2*m.pi]],
-    [1,t2b],
+    GradientData.linear(l2r),
+    GradientData.linear(t2b),
+    GradientData.sweep(Alignment(.3, .4),[m.pi/2,2*m.pi]),
+    GradientData.linear(t2b),
   ],
   "ག" : [
-    [1,l2r],
-    [2,Alignment(-.3,.3),[m.pi/2,1.6*m.pi]],
-    [1,t2b],
-    [1,t2b]
+    GradientData.linear(l2r),
+    GradientData.sweep(Alignment(-.3,.3),[m.pi/2,1.6*m.pi]),
+    GradientData.linear(t2b),
+    GradientData.linear(t2b)
   ],
   "ང" : [
-    [1,l2r],
-    [2,Alignment(0.0,.3),[m.pi*.6]]
+    GradientData.linear(l2r),
+    GradientData.sweep(Alignment(0.0,.3),[m.pi*.6])
   ],
   "ཅ" : [
-    [1,l2r],
-    [2,Alignment(-.5,.6),[],GradientRotationReverse],
-    [2,Alignment(0.0,-.4),[],GradientRotationReverse],
+    GradientData.linear(l2r),
+    GradientData.sweep(Alignment(-.5,.6),[],isReversed : true),
+    GradientData.sweep(Alignment(0.0,-.4),[],isReversed : true),
   ],
   "ཆ" : [
 
   ],
   "ཇ" : [
-    [1,l2r],
-    [1,l2r],
-    [2,Alignment.center,[m.pi/2]]
+    GradientData.linear(l2r),
+    GradientData.linear(l2r),
+    GradientData.sweep(Alignment.center,[m.pi/2])
   ],
   "ཉ" : [
-    [1,[Alignment(-.3,1),Alignment(.3,1)]],
-    [2,Alignment(0.0,.7),[m.pi*.65,m.pi*1.3]],
-    [2,Alignment(0.0,.7),[-m.pi*.34,m.pi*.34],GradientRotationReverse],
-    [2,Alignment(0.0,0.0),[-.5*m.pi,m.pi*1.2],GradientRotationReverse]
+    GradientData.linear(l2r),
+    GradientData.sweep(Alignment(0.0,.7),[m.pi*.65,m.pi*1.3]),
+    GradientData.sweep(Alignment(0.0,.7),[-m.pi*.34,m.pi*.34],isReversed : true
+),
+    GradientData.sweep(Alignment(0.0,0.0),[-.5*m.pi,m.pi*1.2],isReversed : true
+)
   ],
   "ཏ" : [
-    [1,l2r],
-    [1,t2b],
-    [2,Alignment(0.0,0.0),[-.5*m.pi,m.pi*1.2],GradientRotationReverse]
+    GradientData.linear(l2r),
+    GradientData.linear(t2b),
+    GradientData.sweep(Alignment(0.0,0.0),[-.5*m.pi,m.pi*1.2],isReversed : true
+)
   ],
   "ཐ" : [
-    [1,l2r],
-    [2,Alignment(0.0,.3),[.7*m.pi]],
-    [2,Alignment(0.0,0.0),[.7*m.pi,1.8*m.pi]],
-    [1,t2b]
+    GradientData.linear(l2r),
+    GradientData.sweep(Alignment(0.0,.3),[.7*m.pi]),
+    GradientData.sweep(Alignment(0.0,0.0),[.7*m.pi,1.8*m.pi]),
+    GradientData.linear(t2b)
   ],
   "ད" : [
-    [1,l2r],
-    [2,Alignment(0.0,0.0),[.7*m.pi,1.8*m.pi]],
+    GradientData.linear(l2r),
+    GradientData.sweep(Alignment(0.0,0.0),[.7*m.pi,1.8*m.pi]),
   ],
   "ན" : [],
   "པ" : [
-    [1,l2r],
-    [2,Alignment(0.0,0.0),[.7*m.pi,1.8*m.pi]],
-    [1,t2b]    
+    GradientData.linear(l2r),
+    GradientData.sweep(Alignment(0.0,0.0),[.7*m.pi,1.8*m.pi]),
+    GradientData.linear(t2b)
   ],
   "ཕ" : [
-    [1,l2r],
-    [2,Alignment(0.0,0.0),[.7*m.pi,1.8*m.pi]],
-    [1,t2b],
-    [2,Alignment(.7,.8),[.5*m.pi,m.pi]]
+    GradientData.linear(l2r),
+    GradientData.sweep(Alignment(0.0,0.0),[.7*m.pi,1.8*m.pi]),
+    GradientData.linear(t2b),
+    GradientData.sweep(Alignment(.7,.8),[.5*m.pi,m.pi])
   ],
   "བ" : [
-    [1,l2r],
-    [2,Alignment(0.0,0.0),[.7*m.pi,1.8*m.pi]],
-    [1,t2b]    
+    GradientData.linear(l2r),
+    GradientData.sweep(Alignment(0.0,0.0),[.7*m.pi,1.8*m.pi]),
+    GradientData.linear(t2b)
   ],
   "མ" : [],
   "ཙ" : [
-    [1,l2r],
-    [2,Alignment(-.5,.6),[],GradientRotationReverse],
-    [2,Alignment(0.0,-.4),[],GradientRotationReverse],
-    [1,[Alignment(.7,.7), Alignment(1,1)]]
+    GradientData.linear(l2r),
+    GradientData.sweep(Alignment(-.5,.6),[],isReversed : true
+),
+    GradientData.sweep(Alignment(0.0,-.4),[],isReversed : true
+),
+    GradientData.linear([Alignment(.7,.7), Alignment(1,1)])
   ],
   "ཚ" : [],
   "ཛ" : [
-    [1,l2r],
-    [1,l2r],
-    [2,Alignment.center,[m.pi/2]],
-    [1,[Alignment(.7,.7), Alignment(1,1)]]
+    GradientData.linear(l2r),
+    GradientData.linear(l2r),
+    GradientData.sweep(Alignment.center,[m.pi/2]),
+    GradientData.linear([Alignment(.7,.7), Alignment(1,1)])
   ],
   "ཝ" : [
-    [1,l2r],
-    [2,Alignment(-.6,.7),[m.pi*.65,m.pi*1.3]],
-    [2,Alignment(-.6,.7),[-m.pi*.34,m.pi*.34],GradientRotationReverse],
-    [1,[Alignment(-.6,.7),Alignment(.4,.4)]],
-    [2,Alignment(0.4,0.0),[.7*m.pi,1.8*m.pi]],
-    [1,t2b]
+    GradientData.linear(l2r),
+    GradientData.sweep(Alignment(-.6,.7),[m.pi*.65,m.pi*1.3]),
+    GradientData.sweep(Alignment(-.6,.7),[-m.pi*.34,m.pi*.34],isReversed : true
+),
+    GradientData.linear([Alignment(-.6,.7),Alignment(.4,.4)]),
+    GradientData.sweep(Alignment(0.4,0.0),[.7*m.pi,1.8*m.pi]),
+    GradientData.linear(t2b)
   ],
   "ཞ" : [],
   "ཟ" : [
-    [1,l2r],
-    [1,l2r],
-    [1,l2r],
-    [1,t2b]
+    GradientData.linear(l2r),
+    GradientData.linear(l2r),
+    GradientData.linear(l2r),
+    GradientData.linear(t2b)
   ],
   "འ" : [
-    [1,l2r],
-    [2,Alignment(-.2,.6),[m.pi*.65,m.pi*1.3]],
-    [2,Alignment(-.2,.6),[-m.pi*.34,m.pi*.34],GradientRotationReverse],
-    [2,Alignment(.2,-.7),[.33*m.pi,.55*m.pi],GradientRotationReverse],
+    GradientData.linear(l2r),
+    GradientData.sweep(Alignment(-.2,.6),[m.pi*.65,m.pi*1.3]),
+    GradientData.sweep(Alignment(-.2,.6),[-m.pi*.34,m.pi*.34],isReversed : true
+),
+    GradientData.sweep(Alignment(.2,-.7),[.33*m.pi,.55*m.pi],isReversed : true
+),
   ],
   "ཡ" : [
-    [2,Alignment(-.4,-.4),[.6*m.pi,2.4*m.pi],GradientRotationReverse],
-    [1,[Alignment(0,0),Alignment(1,-1)]],
-    [1,t2b]
+    GradientData.sweep(Alignment(-.4,-.4),[.6*m.pi,2.4*m.pi],isReversed : true
+),
+    GradientData.linear([Alignment(0,0),Alignment(1,-1)]),
+    GradientData.linear(t2b)
   ],
   "ར" : [
-    [1,l2r],
-    [1,t2b],
-    [2,Alignment(0,-.5),[0,.7*m.pi],GradientRotationReverse]
+    GradientData.linear(l2r),
+    GradientData.linear(t2b),
+    GradientData.sweep(Alignment(0,-.5),[0,.7*m.pi],isReversed : true
+)
   ],
   "ལ" : [
-    [1,l2r],
-    [2,Alignment(-.6,.7),[m.pi*.65,m.pi*1.3]],
-    [2,Alignment(-.6,.7),[-m.pi*.34,m.pi*.34],GradientRotationReverse],
-    [2,Alignment(.2,-.7),[.33*m.pi,.55*m.pi],GradientRotationReverse],
-    [1,t2b]
+    GradientData.linear(l2r),
+    GradientData.sweep(Alignment(-.6,.7),[m.pi*.65,m.pi*1.3]),
+    GradientData.sweep(Alignment(-.6,.7),[-m.pi*.34,m.pi*.34],isReversed : true
+),
+    GradientData.sweep(Alignment(.2,-.7),[.33*m.pi,.55*m.pi],isReversed : true
+),
+    GradientData.linear(t2b)
   ],
   "ཤ" : [
-    [1,l2r],
-    [2,Alignment(0,0),[m.pi*.6]],
-    [1,t2b],
-    [1,l2r],
-    [1,t2b]
+    GradientData.linear(l2r),
+    GradientData.sweep(Alignment(0,0),[m.pi*.6]),
+    GradientData.linear(t2b),
+    GradientData.linear(l2r),
+    GradientData.linear(t2b)
   ],
   "ས" : [
-    [1,l2r],
-    [1,t2b],
-    [1,l2r],
-    [1,t2b]
+    GradientData.linear(l2r),
+    GradientData.linear(t2b),
+    GradientData.linear(l2r),
+    GradientData.linear(t2b)
   ],
   "ཧ" : [
-    [1,l2r],
-    [1,t2b],
-    [2,Alignment(.3,-.6),[-.5*m.pi,.6*m.pi], GradientRotationReverse]
+    GradientData.linear(l2r),
+    GradientData.linear(t2b),
+    GradientData.sweep(Alignment(.3,-.6),[-.5*m.pi,.6*m.pi], isReversed : true
+)
   ],
   "ཨ" : [
-    [1,l2r],
-    [2,Alignment(-.4,-.7),[.6*m.pi,2.4*m.pi], GradientRotationReverse],
-    [1,[Alignment(-.1,.1),Alignment(.8,-.8)]],
-    [1,t2b]
+    GradientData.linear(l2r),
+    GradientData.sweep(Alignment(-.4,-.7),[.6*m.pi,2.4*m.pi], isReversed : true
+),
+    GradientData.linear([Alignment(-.1,.1),Alignment(.8,-.8)]),
+    GradientData.linear(t2b)
   ],
   "ཨི" : [],
   "ཨེ" : [],
