@@ -117,7 +117,7 @@ class GradientData{
 
 
     if(this.isReversed){
-      this.gradientTransform = GradientReverse(this.angleRange[0],this.angleRange[1],phase,this.center);
+      this.gradientTransform = GradientReversal(this.angleRange[0],this.angleRange[1],phase,this.center);
     }else if (phase>0){
       this.gradientTransform = GradientCenterRotation(-phase,this.center);
     }

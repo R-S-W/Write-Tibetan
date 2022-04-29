@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math' as m;
 //used in animations of the step by step strokes in the CharacterPage widgets in
 //Practice Mode
-class GradientReverse extends GradientTransform{
+class GradientReversal extends GradientTransform{
   /* To reverse the sweep angle, the starting angle alpha, the ending angle beta,
     and the center of the angle must be known.
     Reversing the angle requires one to invert the sweeping angle on the y-axis
@@ -19,7 +19,7 @@ class GradientReverse extends GradientTransform{
   double beta = 2*m.pi;
   double phase = 0; //Used to rotate gradient if 0 or 2pi is between alpha and beta
   Alignment center = Alignment(0.0,0.0);
-  GradientReverse(double this.alpha, double this.beta, double this.phase, Alignment this.center);
+  GradientReversal(double this.alpha, double this.beta, double this.phase, Alignment this.center);
 
   @override
   Matrix4 transform(Rect bounds, {TextDirection textDirection}){
