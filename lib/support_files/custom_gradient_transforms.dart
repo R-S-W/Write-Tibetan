@@ -5,14 +5,27 @@ import 'dart:math' as m;
 class GradientRotationReverse extends GradientTransform{
   double alpha = 0;
   double beta = 2*m.pi;
-  GradientRotationReverse(double this.alpha, double this.beta);
+  Alignment center = Alignment(0.0,0.0);
+  GradientRotationReverse(double this.alpha, double this.beta, Alignment this.center);
 
   @override
   Matrix4 transform(Rect bounds, {TextDirection textDirection}){
     assert(bounds!=null);
+    final double angle = -alpha-beta;
+
+    final double sinRadians = m.sin(angle);
+    final double oneMinusCosRadians = 1 - m.cos(angle);
+    Offset boxcenter = bounds.center;
+    boxcenter+= Offset(boxcenter.dx*this.center.x,boxcenter.dy*this.center.y);
+    final double originX = sinRadians * boxcenter.dy + oneMinusCosRadians * boxcenter.dx;
+    final double originY = -sinRadians * boxcenter.dx + oneMinusCosRadians * boxcenter.dy;
+
     Matrix4 mat = Matrix4.identity();
-    mat.setEntry(0,0,-1);
-    mat.rotateZ(alpha+beta);
+    mat.translate(0.0,(1 + this.center.y)*bounds.height);
+    mat.setEntry(1,1,-1);
+    mat.translate(originX, originY);
+    mat.rotateZ(angle);
+
     return mat;
   }
 

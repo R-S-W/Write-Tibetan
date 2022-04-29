@@ -55,7 +55,17 @@ class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
             children: <Widget>[
               Text(characterToWylie[widget.character]),
 
-              Stack(children: stackList),
+              Container(
+                width: 275,
+                height: 570,
+                color: Colors.white,
+                alignment: Alignment.center,
+                child: Stack(
+                  children: stackList,
+                  alignment: Alignment.center
+
+                )
+              ),
 
               Row(//Controls
                 mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -20,7 +20,7 @@ class _DrawnStrokeState extends State<DrawnStroke> with SingleTickerProviderStat
 
   @override
   void initState(){
-    _animationController  = AnimationController(vsync: this,duration: Duration(milliseconds: 2000));
+    _animationController  = AnimationController(vsync: this,duration: Duration(milliseconds: 5000));
     _animation = Tween(begin: 0.0, end: 1.0).animate(_animationController)..addListener((){
       setState((){
       });
@@ -40,15 +40,20 @@ class _DrawnStrokeState extends State<DrawnStroke> with SingleTickerProviderStat
   Widget build(BuildContext context) {
     return Container(
       child: ShaderMask(
-        child: Text(
-          widget.character,
-          style: TextStyle(
-            fontFamily: kNotoSansTibetanStroke,
-            fontSize: kPracticeCharStrokeSize,
-            color: Colors.white
-          ),
+        child:
+        // Text(
+        //   widget.character,
+        //   style: TextStyle(
+        //     fontFamily: kNotoSansTibetanStroke,
+        //     fontSize: kPracticeCharStrokeSize,
+        //     color: Colors.white
+        //   ),
+        // ),
+        Container(
+          width: 200,height: 400,color: Colors.white
         ),
-        shaderCallback: widget.shaderCallback(_animation.value),
+        shaderCallback:
+        widget.shaderCallback(_animation.value),
       ),
     );
   }

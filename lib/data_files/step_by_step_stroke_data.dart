@@ -1,11 +1,16 @@
-
+/*
+  This file has data for the CharacterPage and DrawnStroke widgets of the
+  drawn characters in Practice Mode.
+ */
 
 
 import 'package:flutter/material.dart';
 import 'dart:math' as m;
 import '../support_files/custom_gradient_transforms.dart';
 
-
+//Map that converts the tibetan character into the step by step characters
+//That appear in the custom font, NotoSansTibetanStroke. Each character in each
+//Map value represents a step in drawing the picture of the character in the key
 const Map<String,String> characterToStrokeUnicode = <String,String>{
   "ཀ" : "!\"#\$",
   "ཁ" : "%&\'(",
@@ -43,6 +48,16 @@ const Map<String,String> characterToStrokeUnicode = <String,String>{
   "ཨོ" :"\u00af",
 };
 
+
+
+/*
+  GradientData is a class made to contain all the data for the Gradient used in
+  animation, as well as the function "shaderCallback" that is used in the
+  ShaderMask widget inside DrawnStroke.
+  (Extra)
+  This function returns a curried function that ShaderMask actually uses.  This
+  is because the Animation class
+*/
 const List<AlignmentGeometry> t2b =
   <AlignmentGeometry>[Alignment.topCenter, Alignment.bottomCenter];
 const List<AlignmentGeometry> l2r = <AlignmentGeometry>[Alignment(-1,0.0), Alignment(1,0.0)];
@@ -73,7 +88,8 @@ class GradientData{
     }else if (this.angleRange.length ==1) {
       this.angleRange.add(2*m.pi);
     }
-    this.gradientTransform = GradientRotationReverse(this.angleRange[0],this.angleRange[1]);
+    this.gradientTransform = (this.isReversed) ?
+      GradientRotationReverse(this.angleRange[0],this.angleRange[1],this.center) : null;
 
     this.shaderCallback = (animationVal){
       return (rect)=>SweepGradient(
@@ -82,7 +98,7 @@ class GradientData{
           startAngle: angleRange[0],
           endAngle: angleRange[1],
           stops: [ animationVal, animationVal],
-          transform: gradientTransform
+          transform: this.gradientTransform
       ).createShader(rect);
     };
   }
@@ -138,7 +154,8 @@ Map characterToGradientData = {
   "ཁ" : [
     GradientData.linear(l2r),
     GradientData.linear(t2b),
-    GradientData.sweep(Alignment(.3, .4),[m.pi/2,2*m.pi]),
+    // GradientData.sweep(Alignment(.3, .4),[m.pi/2,2*m.pi]),
+    GradientData.sweep(Alignment(-.5,.7),[0,.6*m.pi],isReversed: true),
     GradientData.linear(t2b),
   ],
   "ག" : [
