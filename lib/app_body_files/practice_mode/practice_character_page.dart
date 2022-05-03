@@ -63,7 +63,6 @@ class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
                 child: Stack(
                   children: stackList,
                   alignment: Alignment.center
-
                 )
               ),
 

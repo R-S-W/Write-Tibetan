@@ -39,13 +39,13 @@ const Map<String,String> characterToStrokeUnicode = <String,String>{
   "ར" : "rst",
   "ལ" : "uvwxy",
   "ཤ" : "z{|}~",
-  "ས" : "i\u00a2\u00a3\u00a4",
+  "ས" : "\u00a1\u00a2\u00a3\u00a4",
   "ཧ" : "\u00a5\u00a6\u00a7",
   "ཨ" : "\u00a8\u00a9\u00aa\u00ab",
-  "ཨི" :"\u00ac",
-  "ཨེ" :"\u00ad",
-  "ཨུ" :"\u00ae",
-  "ཨོ" :"\u00af",
+  "ཨི" :"\u00ab\u00ac",
+  "ཨེ" :"\u00ab\u00ae",
+  "ཨུ" :"\u00ab\u00b0",
+  "ཨོ" :"\u00ab\u00af",
 };
 
 
@@ -145,7 +145,6 @@ Map characterToGradientData = {
   "ཁ" : [
     GradientData.linear(l2r),
     GradientData.linear(t2b20_),
-    // GradientData.sweep(Alignment(.3, .4),[m.pi/2,2*m.pi]),
     GradientData.sweep(Alignment(.5,-.4),[.4*m.pi,1.0*m.pi],isReversed: true),
     GradientData.linear(t2b20_),
   ],
@@ -162,146 +161,144 @@ Map characterToGradientData = {
   "ཅ" : [
     GradientData.linear(l2r15_),
     GradientData.sweep(Alignment(-.3,-.35),[-.25*m.pi,.9*m.pi]),
-    GradientData.sweep(Alignment(0.0,.0),[-.6*m.pi,1.3*m.pi]),
+    GradientData.sweep(Alignment(0.0,.0),[-.65*m.pi,1.3*m.pi]),
   ],
   "ཆ" : [
 
   ],
   "ཇ" : [
-    GradientData.linear(l2r),
-    GradientData.linear(l2r),
-    GradientData.sweep(Alignment.center,[m.pi/2])
+    GradientData.linear(l2r15_),
+    GradientData.linear(l2r15_),
+    GradientData.sweep(Alignment(0,-.25),[.2*m.pi,1.8*m.pi],isReversed:true)
   ],
   "ཉ" : [
-    GradientData.linear(l2r),
-    GradientData.sweep(Alignment(0.0,.7),[m.pi*.65,m.pi*1.3]),
-    GradientData.sweep(Alignment(0.0,.7),[-m.pi*.34,m.pi*.34],isReversed : true
-),
-    GradientData.sweep(Alignment(0.0,0.0),[-.5*m.pi,m.pi*1.2],isReversed : true
-)
+    GradientData.linear([Alignment(-.8,.0),Alignment(.8,.0)]),
+    GradientData.sweep(Alignment(0.0,-.3),[m.pi*.66,m.pi*1.2],isReversed:true),
+    GradientData.sweep(Alignment(0.0,-.3),[-m.pi*.34,m.pi*.34]),
+    GradientData.sweep(Alignment(0.2,0.1),[.6*m.pi,m.pi*2.6])
   ],
   "ཏ" : [
-    GradientData.linear(l2r),
-    GradientData.linear(t2b),
-    GradientData.sweep(Alignment(0.0,0.0),[-.5*m.pi,m.pi*1.2],isReversed : true
-)
+    GradientData.linear(l2r15_),
+    GradientData.linear(t2b20_),
+    GradientData.sweep(Alignment(0.0,0.0),[-.95*m.pi,m.pi*.6])
   ],
   "ཐ" : [
-    GradientData.linear(l2r),
-    GradientData.sweep(Alignment(0.0,.3),[.7*m.pi]),
-    GradientData.sweep(Alignment(0.0,0.0),[.7*m.pi,1.8*m.pi]),
-    GradientData.linear(t2b)
+    GradientData.linear(l2r15_),
+    GradientData.sweep(Alignment(0.0,-.3),[0.0,1.3*m.pi],isReversed:true),
+    GradientData.sweep(Alignment(-.27,-0.02),[.1*m.pi,1.3*m.pi],isReversed: true),
+    GradientData.linear(t2b20_)
   ],
   "ད" : [
-    GradientData.linear(l2r),
-    GradientData.sweep(Alignment(0.0,0.0),[.7*m.pi,1.8*m.pi]),
+    GradientData.linear(l2r15_),
+    GradientData.sweep(Alignment(1.2,-0.22),[.5*m.pi,1.15*m.pi],isReversed: true),
   ],
   "ན" : [],
   "པ" : [
-    GradientData.linear(l2r),
-    GradientData.sweep(Alignment(0.0,0.0),[.7*m.pi,1.8*m.pi]),
-    GradientData.linear(t2b)
+    GradientData.linear(l2r15_),
+    GradientData.sweep(Alignment(0.8,-0.25),[.5*m.pi,1.2*m.pi],isReversed:true),
+    GradientData.linear(t2b20_)
   ],
   "ཕ" : [
-    GradientData.linear(l2r),
-    GradientData.sweep(Alignment(0.0,0.0),[.7*m.pi,1.8*m.pi]),
-    GradientData.linear(t2b),
-    GradientData.sweep(Alignment(.7,.8),[.5*m.pi,m.pi])
+    GradientData.linear(l2r15_),
+    GradientData.sweep(Alignment(0.8,-0.25),[.5*m.pi,1.2*m.pi],isReversed:true),
+    GradientData.linear(t2b20_),
+    GradientData.sweep(Alignment(.7,.0),[1.1*m.pi,1.5*m.pi],isReversed: true)
   ],
   "བ" : [
-    GradientData.linear(l2r),
-    GradientData.sweep(Alignment(0.0,0.0),[.7*m.pi,1.8*m.pi]),
-    GradientData.linear(t2b)
+    GradientData.linear(l2r15_),
+    GradientData.sweep(Alignment(1.0,-.8),[.5*m.pi,.85*m.pi],isReversed: true),
+    GradientData.linear(t2b20_)
   ],
   "མ" : [],
   "ཙ" : [
-    GradientData.linear(l2r),
-    GradientData.sweep(Alignment(-.5,.6),[],isReversed : true
-),
-    GradientData.sweep(Alignment(0.0,-.4),[],isReversed : true
-),
-    GradientData.linear([Alignment(.7,.7), Alignment(1,1)])
+    GradientData.linear(l2r15_),
+    GradientData.sweep(Alignment(-.3,-.35),[-.25*m.pi,.9*m.pi]),
+    GradientData.sweep(Alignment(0.0,.0),[-.65*m.pi,1.3*m.pi]),
+    GradientData.linear([Alignment(.3,-.5), Alignment(1,-.7)])
   ],
   "ཚ" : [],
   "ཛ" : [
-    GradientData.linear(l2r),
-    GradientData.linear(l2r),
-    GradientData.sweep(Alignment.center,[m.pi/2]),
-    GradientData.linear([Alignment(.7,.7), Alignment(1,1)])
+    GradientData.linear(l2r15_),
+    GradientData.linear(l2r15_),
+    GradientData.sweep(Alignment(0,-.25),[.2*m.pi,1.8*m.pi],isReversed:true),
+    GradientData.linear([Alignment(.3,-.5), Alignment(1,-.7)])
   ],
   "ཝ" : [
-    GradientData.linear(l2r),
-    GradientData.sweep(Alignment(-.6,.7),[m.pi*.65,m.pi*1.3]),
-    GradientData.sweep(Alignment(-.6,.7),[-m.pi*.34,m.pi*.34],isReversed : true
-),
-    GradientData.linear([Alignment(-.6,.7),Alignment(.4,.4)]),
-    GradientData.sweep(Alignment(0.4,0.0),[.7*m.pi,1.8*m.pi]),
-    GradientData.linear(t2b)
+    GradientData.linear(l2r15_),
+    GradientData.sweep(Alignment(-.4,-.3),[m.pi*.55,m.pi*1.2],isReversed:true),
+    GradientData.sweep(Alignment(-.4,-.3),[-m.pi*.34,m.pi*.34]),
+    GradientData.linear([Alignment(-.6,-.45),Alignment(.4,.35)]),
+    GradientData.sweep(Alignment(1.0,-.45),[.5*m.pi,.9*m.pi]),
+    GradientData.linear(t2b20_)
   ],
   "ཞ" : [],
   "ཟ" : [
-    GradientData.linear(l2r),
-    GradientData.linear(l2r),
-    GradientData.linear(l2r),
-    GradientData.linear(t2b)
+    GradientData.linear(l2r15_),
+    GradientData.linear(l2r15_),
+    GradientData.linear(l2r15_),
+    GradientData.linear(t2b20_)
   ],
   "འ" : [
-    GradientData.linear(l2r),
-    GradientData.sweep(Alignment(-.2,.6),[m.pi*.65,m.pi*1.3]),
-    GradientData.sweep(Alignment(-.2,.6),[-m.pi*.34,m.pi*.34],isReversed : true
-),
-    GradientData.sweep(Alignment(.2,-.7),[.33*m.pi,.55*m.pi],isReversed : true
-),
+    GradientData.linear(l2r15_),
+    GradientData.sweep(Alignment(.0,-.3),[m.pi*.65,m.pi*1.3],isReversed : true),
+    GradientData.sweep(Alignment(.0,-.3),[-m.pi*.34,m.pi*.34]),
+    GradientData.sweep(Alignment(-.2,.7),[1.5*m.pi,1.8*m.pi]),
   ],
   "ཡ" : [
-    GradientData.sweep(Alignment(-.4,-.4),[.6*m.pi,2.4*m.pi],isReversed : true
-),
-    GradientData.linear([Alignment(0,0),Alignment(1,-1)]),
-    GradientData.linear(t2b)
+    GradientData.sweep(Alignment(-.4,-.3),[1.65*m.pi,3.42*m.pi],isReversed:   true),
+    GradientData.sweep(Alignment(-1.0,.8),[1.6*m.pi,1.8*m.pi]),
+    GradientData.linear(t2b20_)
   ],
   "ར" : [
-    GradientData.linear(l2r),
-    GradientData.linear(t2b),
-    GradientData.sweep(Alignment(0,-.5),[0,.7*m.pi],isReversed : true
-)
+    GradientData.linear(l2r15_),
+    GradientData.linear(t2b20_),
+    GradientData.sweep(Alignment(0,1.0),[1.3*m.pi,1.7*m.pi])
   ],
   "ལ" : [
-    GradientData.linear(l2r),
-    GradientData.sweep(Alignment(-.6,.7),[m.pi*.65,m.pi*1.3]),
-    GradientData.sweep(Alignment(-.6,.7),[-m.pi*.34,m.pi*.34],isReversed : true
-),
-    GradientData.sweep(Alignment(.2,-.7),[.33*m.pi,.55*m.pi],isReversed : true
-),
-    GradientData.linear(t2b)
+    GradientData.linear(l2r15_),
+    GradientData.sweep(Alignment(-.3,-.25),[m.pi*.55,m.pi*1.34],isReversed:true),
+    GradientData.sweep(Alignment(-.3,-.25),[-.4*m.pi,.4*m.pi]),
+    GradientData.sweep(Alignment(-.25,1.0),[1.5*m.pi,1.7*m.pi]),
+    GradientData.linear(t2b20_)
   ],
   "ཤ" : [
-    GradientData.linear(l2r),
-    GradientData.sweep(Alignment(0,0),[m.pi*.6]),
-    GradientData.linear(t2b),
-    GradientData.linear(l2r),
-    GradientData.linear(t2b)
+    GradientData.linear(l2r15_),
+    GradientData.sweep(Alignment(0,-.25),[m.pi*.15,1.4*m.pi],isReversed:true),
+    GradientData.linear(t2b20_),
+    GradientData.linear(l2r15_),
+    GradientData.linear(t2b20_)
   ],
   "ས" : [
-    GradientData.linear(l2r),
-    GradientData.linear(t2b),
-    GradientData.linear(l2r),
-    GradientData.linear(t2b)
+    GradientData.linear(l2r15_),
+    GradientData.sweep(Alignment(.0,-.1),[.5*m.pi,1.4*m.pi],isReversed: true),
+    GradientData.linear([Alignment(-.4,-.45),Alignment(.6,.3)]),
+    GradientData.linear(t2b20_)
   ],
   "ཧ" : [
-    GradientData.linear(l2r),
-    GradientData.linear(t2b),
-    GradientData.sweep(Alignment(.3,-.6),[-.5*m.pi,.6*m.pi], isReversed : true
-)
+    GradientData.linear(l2r15_),
+    GradientData.sweep(Alignment(.4,-.15),[.5*m.pi,1.3*m.pi],isReversed:true),
+    GradientData.sweep(Alignment(.0,.25),[-.6*m.pi,.6*m.pi])
   ],
   "ཨ" : [
-    GradientData.linear(l2r),
-    GradientData.sweep(Alignment(-.4,-.7),[.6*m.pi,2.4*m.pi], isReversed : true
-),
-    GradientData.linear([Alignment(-.1,.1),Alignment(.8,-.8)]),
-    GradientData.linear(t2b)
+    GradientData.linear([Alignment(-.35,0),Alignment(.35,0)]),
+    GradientData.sweep(Alignment(-.6,-.2),[-.4*m.pi,1.55*m.pi]),
+    GradientData.linear([Alignment(.0,-.5),Alignment(.75,.2)]),
+    GradientData.linear(t2b20_)
   ],
-  "ཨི" : [],
-  "ཨེ" : [],
-  "ཨུ" : [],
-  "ཨོ" : []
+  "ཨི" : [
+    GradientData.linear([Alignment(.0,.9),Alignment.bottomCenter]),
+    GradientData.sweep(Alignment(-.17,-.7),[.33*m.pi,2.32*m.pi])
+  ],
+  "ཨེ" : [
+    GradientData.linear([Alignment(.0,.9),Alignment.bottomCenter]),
+    GradientData.sweep(Alignment(-1.0,.45),[1.5*m.pi,1.75*m.pi])
+  ],
+  "ཨུ" : [
+    GradientData.linear([Alignment(.0,.9),Alignment.bottomCenter]),
+    GradientData.sweep(Alignment(.28,.37),[1.4*m.pi,3.25*m.pi])
+  ],
+  "ཨོ" : [
+    GradientData.linear([Alignment(.0,.9),Alignment.bottomCenter]),
+    GradientData.linear(l2r)
+  ]
 };
