@@ -27,7 +27,7 @@ class GradientReversal extends GradientTransform{
 
     Offset boxcenter = bounds.center;
     boxcenter+= Offset(boxcenter.dx*this.center.x,boxcenter.dy*this.center.y);
-    final double angle = -(alpha+beta+this.phase);
+    final double angle = (this.phase == 0) ? -(alpha+beta) : -beta+this.phase;
 
     //Coordinates for first rotation
     final double originX = m.sin(angle) * boxcenter.dy + (1 - m.cos(angle)) * boxcenter.dx;
