@@ -7,11 +7,27 @@ import 'drawn_stroke.dart';
 
 class PracticeCharacterPage extends StatefulWidget {
   String character;
-  String strokeChars;
+  List strokeChars;
   List gradientData;
   PracticeCharacterPage(String this.character, {Key key}){
-    strokeChars = characterToStrokeUnicode[this.character];
+    String temp = characterToStrokeUnicode[this.character];
     gradientData = characterToGradientData[this.character];
+
+    strokeChars  = [];
+    for (int i =0; i<temp.length; i++){
+      if (temp[i]!=" "){
+        strokeChars.add(temp[i]);
+      }else{
+        List<String> subStrokeList = [];
+        i+=1;
+        while(temp[i]!=" "){
+          subStrokeList.add(temp[i]);
+          i+=1;
+        }
+        strokeChars.add(subStrokeList);
+      }
+    }
+    print(strokeChars);
   }
 
   @override
@@ -20,6 +36,7 @@ class PracticeCharacterPage extends StatefulWidget {
 
 class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
   int strokeIdx = 0;
+  int subStrokeIdx = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +52,13 @@ class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
       key: ValueKey(strokeIdx),
       shaderCallback: widget.gradientData[strokeIdx].shaderCallback
     ));
+
     if (this.strokeIdx > 0){
-      stackList.add(Text(widget.strokeChars[this.strokeIdx-1],
+      var prevChar = widget.strokeChars[this.strokeIdx-1];
+      if(prevChar.runtimeType == List){
+        prevChar = prevChar[prevChar.length-1];
+      }
+      stackList.add(Text(prevChar.toString(),
         style: TextStyle(
           fontFamily: kNotoSansTibetanStroke,
           fontSize: kPracticeCharStrokeSize,
