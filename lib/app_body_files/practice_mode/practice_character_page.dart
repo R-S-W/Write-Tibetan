@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../data_files/character_to_gradient_data.dart';
 import '../../styling_files/constants.dart';
-import '../../data_files/step_by_step_stroke_data.dart';
+import '../../data_files/character_to_stroke_unicode.dart';
 import '../../data_files/character_to_wylie.dart';
 import 'drawn_stroke.dart';
 
