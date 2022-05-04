@@ -23,7 +23,7 @@ const Map<String,String> characterToStrokeUnicode = <String,String>{
   "ཏ" : ";<=",
   "ཐ" : ">?@A",
   "ད" : "BC",
-  "ན" : "DE",
+  "ན" : "D \u00c0E ",
   "པ" : "FGH",
   "ཕ" : "IJKL",
   "བ" : "MNO",
@@ -50,6 +50,21 @@ const Map<String,String> characterToStrokeUnicode = <String,String>{
 
 
 
+Function chaShaderCallback(animationVal){
+  return (rect)=>SweepGradient(
+      colors: [Colors.black, Colors.white,Colors.white,Colors.black],
+      center: Alignment.center,
+      // startAngle: angleRange[0],
+      // endAngle: angleRange[1],
+      stops: [ animationVal-.1, animationVal-.1,animationVal+.1,animationVal+.1],
+      transform: null
+  ).createShader(rect);
+
+}
+
+
+
+
 /*
   GradientData is a class made to contain all the data for the Gradient used in
   animation, as well as the function "shaderCallback" that is used in the
@@ -71,8 +86,11 @@ class GradientData{
 
   bool isReversed;
   Function shaderCallback;
+  List<GradientData> multiStepList;
 
   GradientData(){}
+
+
   GradientData.linear(this.linearStartEndPoints){
     this.shaderCallback = (animationVal) {
       return (rect)=>LinearGradient(
@@ -133,6 +151,12 @@ class GradientData{
       ).createShader(rect);
     };
   }
+
+
+
+  GradientData.multiStep(List<GradientData> this.multiStepList){
+    this.shaderCallback = (stepIdx,animationVal)=> this.multiStepList[stepIdx].shaderCallback(animationVal);
+  }
 }
 
 Map characterToGradientData = {
@@ -164,7 +188,8 @@ Map characterToGradientData = {
     GradientData.sweep(Alignment(0.0,.0),[-.65*m.pi,1.3*m.pi]),
   ],
   "ཆ" : [
-
+    GradientData.linear(l2r),
+    // GradientData(chaShaderCallback)
   ],
   "ཇ" : [
     GradientData.linear(l2r15_),
@@ -192,7 +217,13 @@ Map characterToGradientData = {
     GradientData.linear(l2r15_),
     GradientData.sweep(Alignment(1.2,-0.22),[.5*m.pi,1.15*m.pi],isReversed: true),
   ],
-  "ན" : [],
+  "ན" : [
+    GradientData.linear(l2r15_),
+    GradientData.multiStep([
+      GradientData.linear(l2r15_),
+      GradientData.linear(l2r15_)
+    ]),
+  ],
   "པ" : [
     GradientData.linear(l2r15_),
     GradientData.sweep(Alignment(0.8,-0.25),[.5*m.pi,1.2*m.pi],isReversed:true),
