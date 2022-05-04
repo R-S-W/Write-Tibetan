@@ -155,7 +155,11 @@ class GradientData{
 
 
   GradientData.multiStep(List<GradientData> this.multiStepList){
-    this.shaderCallback = (stepIdx,animationVal)=> this.multiStepList[stepIdx].shaderCallback(animationVal);
+    this.shaderCallback = (stepIdx,animationVal){
+      return this.multiStepList[stepIdx].shaderCallback(
+        this.multiStepList.length * animationVal - stepIdx
+      );
+    }
   }
 }
 
@@ -220,8 +224,8 @@ Map characterToGradientData = {
   "ན" : [
     GradientData.linear(l2r15_),
     GradientData.multiStep([
-      GradientData.linear(l2r15_),
-      GradientData.linear(l2r15_)
+      GradientData.linear([Alignment(.0,-.4),Alignment(.0,.1)]),
+      GradientData.sweep(Alignment(.24,-.08),[.457*m.pi,2.456*m.pi])
     ]),
   ],
   "པ" : [

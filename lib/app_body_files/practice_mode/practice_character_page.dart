@@ -36,7 +36,6 @@ class PracticeCharacterPage extends StatefulWidget {
 
 class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
   int strokeIdx = 0;
-  int subStrokeIdx = 0;
 
   @override
   Widget build(BuildContext context) {
