@@ -124,7 +124,12 @@ Map characterToGradientData = {
     GradientData.linear(t2b20_)
   ],
   "ཞ" : [
-
+    GradientData.linear([Alignment(-.35,.0),Alignment(1.0,.0)]),
+    GradientData.sweep(Alignment(.0,-.3),[.5*m.pi,1.33*m.pi],isReversed:true),
+    GradientData.multiStep([
+      GradientData.sweep(Alignment(.15,-.1),[-.4*m.pi,.7*m.pi]),
+      GradientData.sweep(Alignment(.15,-.1),[.7*m.pi,2.4*m.pi]),
+    ])
   ],
   "ཟ" : [
     GradientData.linear(l2r15_),

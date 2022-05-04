@@ -24,7 +24,7 @@ const Map<String,String> characterToStrokeUnicode = <String,String>{
   "ཚ" : "WXY",
   "ཛ" : "Z[\\]",
   "ཝ" : "^_`abc",
-  "ཞ" : "def",
+  "ཞ" : "de \u00c2f ",
   "ཟ" : "ghij",
   "འ" : "klmn",
   "ཡ" : "opq",
