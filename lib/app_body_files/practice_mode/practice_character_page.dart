@@ -20,11 +20,13 @@ class PracticeCharacterPage extends StatefulWidget {
       }else{
         List<String> subStrokeList = [];
         i+=1;
-        while(temp[i]!=" "){
+        while(i<temp.length && temp[i]!=" "){
           subStrokeList.add(temp[i]);
           i+=1;
         }
-        strokeChars.add(subStrokeList);
+        if (subStrokeList.isNotEmpty){
+          strokeChars.add(subStrokeList);
+        }
       }
     }
     print(strokeChars);
@@ -54,7 +56,7 @@ class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
 
     if (this.strokeIdx > 0){
       var prevChar = widget.strokeChars[this.strokeIdx-1];
-      if(prevChar.runtimeType == List){
+      if(prevChar is List){
         prevChar = prevChar[prevChar.length-1];
       }
       stackList.add(Text(prevChar.toString(),

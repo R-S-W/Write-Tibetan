@@ -27,7 +27,7 @@ const Map<String,String> characterToStrokeUnicode = <String,String>{
   "པ" : "FGH",
   "ཕ" : "IJKL",
   "བ" : "MNO",
-  "མ" : "PQR",
+  "མ" : "P \u00c1Q R ",
   "ཙ" : "STUV",
   "ཚ" : "WXY",
   "ཛ" : "Z[\\]",
@@ -47,20 +47,6 @@ const Map<String,String> characterToStrokeUnicode = <String,String>{
   "ཨུ" :"\u00ab\u00b0",
   "ཨོ" :"\u00ab\u00af",
 };
-
-
-
-Function chaShaderCallback(animationVal){
-  return (rect)=>SweepGradient(
-      colors: [Colors.black, Colors.white,Colors.white,Colors.black],
-      center: Alignment.center,
-      // startAngle: angleRange[0],
-      // endAngle: angleRange[1],
-      stops: [ animationVal-.1, animationVal-.1,animationVal+.1,animationVal+.1],
-      transform: null
-  ).createShader(rect);
-
-}
 
 
 
@@ -159,7 +145,7 @@ class GradientData{
       return this.multiStepList[stepIdx].shaderCallback(
         this.multiStepList.length * animationVal - stepIdx
       );
-    }
+    };
   }
 }
 
@@ -244,7 +230,14 @@ Map characterToGradientData = {
     GradientData.sweep(Alignment(1.0,-.8),[.5*m.pi,.85*m.pi],isReversed: true),
     GradientData.linear(t2b20_)
   ],
-  "མ" : [],
+  "མ" : [
+    GradientData.linear(l2r15_),
+    GradientData.multiStep([
+      GradientData.sweep(Alignment(-.4,-.15),[-.5*m.pi,.7*m.pi]),
+      GradientData.sweep(Alignment(-.4,-.15),[.65*m.pi,2.25*m.pi])
+    ]),
+    GradientData.linear(t2b20_)
+  ],
   "ཙ" : [
     GradientData.linear(l2r15_),
     GradientData.sweep(Alignment(-.3,-.35),[-.25*m.pi,.9*m.pi]),
@@ -266,7 +259,9 @@ Map characterToGradientData = {
     GradientData.sweep(Alignment(1.0,-.45),[.5*m.pi,.9*m.pi]),
     GradientData.linear(t2b20_)
   ],
-  "ཞ" : [],
+  "ཞ" : [
+
+  ],
   "ཟ" : [
     GradientData.linear(l2r15_),
     GradientData.linear(l2r15_),

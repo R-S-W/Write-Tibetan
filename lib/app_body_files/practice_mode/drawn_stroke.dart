@@ -82,7 +82,6 @@ class _DrawnStrokeState extends State<DrawnStroke> with SingleTickerProviderStat
 
     return Stack(
       children: <Widget>[
-        prevLetter,
         ShaderMask(
           child:
           shaderMaskChild,
@@ -93,6 +92,7 @@ class _DrawnStrokeState extends State<DrawnStroke> with SingleTickerProviderStat
             widget.shaderCallback(_animation.value) :
             widget.shaderCallback(this.characterStepIdx,_animation.value)
         ),
+        prevLetter
       ]
     );
   }
