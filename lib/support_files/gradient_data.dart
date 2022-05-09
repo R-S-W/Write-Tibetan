@@ -1,7 +1,22 @@
 /*
-  GradientData is a class made to contain all the data for the Gradient used in
-  animation, as well as the function "shaderCallback" that is used in the
-  ShaderMask widget inside DrawnStroke.
+  GradientData is a class that is used to hold the animation data for the
+  DrawnStroke widget used in the PracticeCharacterPage.  Each GradientData
+  instance holds information on how to animate a single stroke in a tibetan
+  character.
+
+  GradientData works with the ShaderMask widget in DrawnStroke.  DrawnStroke
+  draws a single stroke of a tibetan character.  It does this by taking a
+  white letter and coloring over it in black.  DrawnStroke uses Animation and
+  AnimationController widgets that repeatedly color over the letter.
+
+  This letter is colored in the ShaderMask widget.  The coloring is done by a
+  Shader class.  This shader is created from the function in GradientData called
+  shaderCallback.  ShaderCallback creates the coloring for only a single frame of
+  the animation.  It keeps creating different shaders as the Animation widget
+  progresses and rerenders the widget.
+
+  The shaderCallback is the most important part of GradientData, as it is used
+  in DrawnStroke.
 */
 import 'package:flutter/material.dart';
 import 'dart:math' as m;
@@ -10,15 +25,15 @@ import 'custom_gradient_transforms.dart';
 
 class GradientData{
   List<AlignmentGeometry> linearStartEndPoints;
-  GradientTransform gradientTransform;
   AlignmentGeometry center;
   List<double> angleRange;
-
   bool isReversed;
+
   Function shaderCallback;
+  GradientTransform gradientTransform;
   List<GradientData> multiStepList;
 
-  //_____________CONSTRUCTORS______________
+  //___________________CONSTRUCTORS____________________
   GradientData(){}
 
 
@@ -48,8 +63,9 @@ class GradientData{
       this.angleRange = [0,2*m.pi];
     }
     //Sweep angle does not work for angle ranges that include 0 rad or 2pi rad.
-    //This code makes it so that these angle ranges are drawn correctly by
-    //shifting the start and end angles and adding a rotation of 'phase' radians.
+    //This code makes it so that these angle ranges are drawn correctly
+    // (by shifting the start and end angles and adding a rotation of 'phase'
+    // radians)
     bool isBetween0 = this.angleRange[0]<0 && 0<this.angleRange[1];
     bool isBetween2pi = this.angleRange[0]<2*m.pi && 2*m.pi< this.angleRange[1];
     double phase = 0;
@@ -62,8 +78,8 @@ class GradientData{
       this.angleRange[0] += phase;
       this.angleRange[1] += phase;
     }
-
-    if(this.isReversed){
+    //These Transforms are used to create shaderCallback.
+    if(this.isReversed){//Reverse the angular range for cw or ccw strokes
       this.gradientTransform = GradientReversal(
         this.angleRange[0], this.angleRange[1], phase,this.center
       );
@@ -95,6 +111,9 @@ class GradientData{
   multiStep returns the shaderCallback of the corresponding GradientData in
   multiStepList.
 
+  Warning: MultiStep is not created to handle passing MultiStep GradientDatas in
+  multiStepList.
+
   (Extra)
   The reason why multiStep passes in
   this.multiStepList.length*animationVal-stepIdx
@@ -107,7 +126,7 @@ class GradientData{
   .5< animationVal <1.
   The expression that multiStep passes in ensures that the sub stroke will
   be animated within the allotted time in DrawnStroke.
-   */
+  */
   GradientData.multiStep(List<GradientData> this.multiStepList){
     this.shaderCallback = (stepIdx,animationVal){
       return this.multiStepList[stepIdx].shaderCallback(
