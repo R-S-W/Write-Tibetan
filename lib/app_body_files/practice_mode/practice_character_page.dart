@@ -49,12 +49,14 @@ class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
     double safeScreenHeight= screenDims.height-padding.top-padding.bottom;
     double safeScreenWidth = screenDims.width-padding.left -padding.right;
 
-    List<Widget> stackList = <Widget>[]; //For Stack Widget below
+    //Widget that has the animation for the main Stack widget below.
+    List<Widget> stackList = <Widget>[];
     stackList.add(DrawnStroke(widget.strokeChars[this.strokeIdx],
       key: ValueKey(strokeIdx),
       shaderCallback: widget.gradientData[strokeIdx].shaderCallback
     ));
 
+    //Draw the character with all the previously drawn strokes behind DrawnStroke
     if (this.strokeIdx > 0){
       var prevChar = widget.strokeChars[this.strokeIdx-1];
       if(prevChar is List){
@@ -83,7 +85,6 @@ class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
                 width: 275,
                 height: 570,
                 color: Colors.white,
-                // alignment: Alignment.center,
                 child: Stack(
                   children: stackList,
                   alignment: Alignment.center

@@ -57,8 +57,9 @@ class _DrawnStrokeState extends State<DrawnStroke> with SingleTickerProviderStat
 
   @override
   Widget build(BuildContext context) {
-    // print('1');
-    String currentChar = (widget.isSingularCharacter) ? widget.character : widget.partialChars[this.characterStepIdx];
+    String currentChar = (widget.isSingularCharacter) ?
+      widget.character : widget.partialChars[this.characterStepIdx];
+
     Widget shaderMaskChild = Text(currentChar,
       style: TextStyle(
         fontFamily: kNotoSansTibetanStroke,
@@ -71,7 +72,7 @@ class _DrawnStrokeState extends State<DrawnStroke> with SingleTickerProviderStat
         style: TextStyle(
           fontFamily:kNotoSansTibetanStroke,
           fontSize: kPracticeCharStrokeSize,
-          color: Colors.red,
+          color: Colors.black,
         ),
       )
       :
@@ -86,9 +87,7 @@ class _DrawnStrokeState extends State<DrawnStroke> with SingleTickerProviderStat
         ShaderMask(
           child:
           shaderMaskChild,
-          // Container(
-          //   width: 200,height: 400,color: Colors.white
-          // ),
+          // Container(width: 200,height: 400,color: Colors.white),
           shaderCallback: (widget.isSingularCharacter) ?
             widget.shaderCallback(_animation.value) :
             widget.shaderCallback(this.characterStepIdx,_animation.value)
