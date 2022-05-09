@@ -1,3 +1,10 @@
+/*
+  A map that takes a tibetan character as a kay and returns the animation data
+  for every stroke in the character.  This is used in the PracticeCharacterPage
+  in the DrawnStroke widget for the Practice Mode of the app.
+  The "animation data" is in the GradientDatas, a class that creates a
+  function callback for the ShaderMask widget in DrawnStroke.
+ */
 import 'package:flutter/material.dart';
 import 'dart:math' as m;
 import '../support_files/gradient_data.dart';

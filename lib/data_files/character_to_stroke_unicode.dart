@@ -1,8 +1,9 @@
-//Map that converts the tibetan character into the step by step characters used
-//in PracticeCharacterPage and DrawnStroke in PracticeMode
-
-//That appear in the custom font, NotoSansTibetanStroke. Each character in each
-//Map value represents a step in drawing the picture of the character in the key
+/*Map that converts the tibetan character into the step by step characters used
+ in PracticeCharacterPage and DrawnStroke in PracticeMode.  The step by step
+ characters appear in the custom font, NotoSansTibetanStroke. Each character in
+ each Map value represents a step in drawing the picture of the character in the
+ key
+*/
 const Map<String,String> characterToStrokeUnicode = <String,String>{
   "ཀ" : "!\"#\$",
   "ཁ" : "%&\'(",
