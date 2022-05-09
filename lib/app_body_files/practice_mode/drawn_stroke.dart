@@ -73,34 +73,28 @@ class _DrawnStrokeState extends State<DrawnStroke> with SingleTickerProviderStat
           fontSize: kPracticeCharStrokeSize,
           color: Colors.red,
         ),
-        // textAlign: TextAlign.center
-
-
       )
       :
-      Text("");
+      Container();
 
 
 
 
-    return SizedBox(
-      width: 214,
-      child: Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
-          ShaderMask(
-            child:
-            shaderMaskChild,
-            // Container(
-            //   width: 200,height: 400,color: Colors.white
-            // ),
-            shaderCallback: (widget.isSingularCharacter) ?
-              widget.shaderCallback(_animation.value) :
-              widget.shaderCallback(this.characterStepIdx,_animation.value)
-          ),
-          prevLetter
-        ]
-      ),
+    return Stack(
+      alignment: Alignment.center,
+      children: <Widget>[
+        ShaderMask(
+          child:
+          shaderMaskChild,
+          // Container(
+          //   width: 200,height: 400,color: Colors.white
+          // ),
+          shaderCallback: (widget.isSingularCharacter) ?
+            widget.shaderCallback(_animation.value) :
+            widget.shaderCallback(this.characterStepIdx,_animation.value)
+        ),
+        prevLetter
+      ]
     );
   }
 }
