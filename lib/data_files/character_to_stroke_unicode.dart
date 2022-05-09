@@ -9,7 +9,7 @@ const Map<String,String> characterToStrokeUnicode = <String,String>{
   "ག" : ")*+,",
   "ང" : "-.",
   "ཅ" : "/01",
-  "ཆ" : "23",
+  "ཆ" : "2 \u00c3\u00c43",
   "ཇ" : "456",
   "ཉ" : "789:",
   "ཏ" : ";<=",

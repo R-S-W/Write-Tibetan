@@ -43,7 +43,12 @@ Map characterToGradientData = {
   ],
   "ཆ" : [
     GradientData.linear(l2r),
-    // GradientData(chaShaderCallback)
+    GradientData.multiStep([
+      GradientData.linear([Alignment(.0,-1.0),Alignment(.0,.15)]),
+      GradientData.sweep(Alignment(-.5,-.1),[],isReversed: true),
+      GradientData.sweep(Alignment(.5,-.1),[m.pi,3*m.pi])
+
+    ])
   ],
   "ཇ" : [
     GradientData.linear(l2r15_),
@@ -108,7 +113,9 @@ Map characterToGradientData = {
     GradientData.sweep(Alignment(0.0,.0),[-.65*m.pi,1.3*m.pi]),
     GradientData.linear([Alignment(.3,-.5), Alignment(1,-.7)])
   ],
-  "ཚ" : [],
+  "ཚ" : [
+
+  ],
   "ཛ" : [
     GradientData.linear(l2r15_),
     GradientData.linear(l2r15_),

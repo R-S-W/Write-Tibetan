@@ -83,7 +83,7 @@ class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
                 width: 275,
                 height: 570,
                 color: Colors.white,
-                alignment: Alignment.center,
+                // alignment: Alignment.center,
                 child: Stack(
                   children: stackList,
                   alignment: Alignment.center
