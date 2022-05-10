@@ -5,6 +5,8 @@ import '../../styling_files/constants.dart';
 
 import '../../app_logic/practice_mode_brain.dart';
 
+const double kGridSpacing = 20;
+
 class PracticeMode extends StatelessWidget {
   const PracticeMode({
     Key key,
@@ -19,9 +21,14 @@ class PracticeMode extends StatelessWidget {
     double safeScreenWidth = screenDims.width-padding.left -padding.right;
 
     List<Widget> alphabetList = <Widget>[];
-    for (int i =0; i<kAlphabet.length; i++){
+    List<Widget> vowelList = <Widget>[];
+    for (int i =0; i<30; i++){
       alphabetList.add(PracticeCharacterButton(kAlphabet[i]));
     }
+    for (int i=30; i<kAlphabet.length; i++){
+      vowelList.add(PracticeCharacterButton(kAlphabet[i]));
+    }
+
 
 
 
@@ -32,21 +39,82 @@ class PracticeMode extends StatelessWidget {
         child: ChangeNotifierProvider(
           create:(context) => PracticeModeBrain(),
           child: Container(
-            child: Column(
+            child: Stack(
               children: <Widget>[
-                Text('Basic Alphabet'),
-                SizedBox(
-                  width: 300,
-                  height: 400,
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(//Top bar
+                    color: kAppBarBackgroundColor,
+                    width: safeScreenWidth,
+                    height: kTopBarHeight*sdm,
+                    padding: EdgeInsets.symmetric(horizontal: 30*sdm),
+                    child: Stack(
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        children:[
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Container(//Back to StartScreen
+                              width: 25*sdm,
+                              height: 25*sdm,
+                              child: IconButton(
+                                  icon: Icon(
+                                      Icons.arrow_back_ios_rounded,
+                                      size: 24*sdm,
+                                      color: kTWhite
+                                  ),
+                                  onPressed: ()=>Navigator.pop(context),
+                                  padding: EdgeInsets.zero
+                              ),
+                            ),
+                          ),
 
-                  child: Container(
-                    color: Color(0xff6ca792),
-                    alignment: Alignment.center,
-                    child: Wrap(
-                      spacing: 15,
-                      runSpacing: 15,
-                      alignment: WrapAlignment.center,
-                      children: alphabetList
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              'The Tibetan Alphabet',
+                              style: TextStyle(
+                                  fontFamily:kMohave,
+                                  fontSize:26 * sdm,
+                                  color: kTWhite
+                              ),
+                            ),
+                          ),
+
+                          // SizedBox(width: 12*sdm), //Spacer
+
+                        ]
+                    ),
+                  ),
+                ),
+                // Text('The Tibetan Alphabet'),
+                Expanded(
+                  child: Align(
+                    alignment:Alignment.center,
+                    child: SizedBox(
+                      width: 270,
+                      height: 682,
+
+
+                      child: Container(
+                        color: Color(0xff6ca792),
+                        alignment: Alignment.center,
+                        child: Column(
+                          children: [
+                            Wrap(
+                              spacing: kGridSpacing,
+                              runSpacing: kGridSpacing,
+                              alignment: WrapAlignment.center,
+                              children: alphabetList
+                            ),
+                            SizedBox(height: kGridSpacing),
+                            Wrap(
+                              spacing:kGridSpacing,
+                              runSpacing: kGridSpacing,
+                              children: vowelList
+                            )
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 )

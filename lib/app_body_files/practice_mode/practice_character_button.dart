@@ -14,8 +14,8 @@ class _PracticeCharacterState extends State<PracticeCharacterButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 35,
-      height: 60,
+      width: 42,
+      height: 58,
       child: TextButton(
         style: TextButton.styleFrom(
           backgroundColor: Colors.white,
@@ -23,7 +23,9 @@ class _PracticeCharacterState extends State<PracticeCharacterButton> {
           onSurface: Colors.white
         ),
         onPressed: ()=>Navigator.pushNamed(context, "/"+ widget.letter),
-        child: Text(widget.letter)
+        child: Text(widget.letter,
+          style:TextStyle(fontSize: 37)
+        )
       ),
     );
 
