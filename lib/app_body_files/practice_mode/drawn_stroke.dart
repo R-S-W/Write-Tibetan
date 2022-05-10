@@ -1,4 +1,7 @@
-
+/*
+  DrawnStroke is a widget that draws and animates the step-by-step strokes of
+  a Tibetan character.
+*/
 
 
 import 'package:flutter/material.dart';

@@ -33,6 +33,18 @@ const double kButtonTextSize = 19;
 const double kMargin = 9.0;
 
 
+
+
+//Start Page______________________________________________
+const kModeButtonTextStyle = TextStyle(
+  color:Color(0xffeca444),
+  fontFamily:kMohave,
+  fontSize: 55,
+  fontWeight: FontWeight.w700
+);
+
+
+
 //Main---------------------------------------------------------------
 const Offset kScreenDim = Offset(414.0,896.0);
 final ThemeData kMyAppThemeData = ThemeData(

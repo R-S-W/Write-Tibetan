@@ -16,22 +16,72 @@ class StartScreen extends StatelessWidget {
     double safeScreenWidth = screenDims.width-padding.left -padding.right;
 
     return Container(
-      color: Colors.white,
+      // color: kTGreen,
+      decoration:BoxDecoration(
+        gradient:LinearGradient(
+          begin:Alignment.topCenter,
+          end:Alignment.bottomCenter,
+          colors: [Color(0xFF005C9F),Color(0xFF318A90)],
+          //colors: [Color(0xFF004C84),Color(0xFF318A90)],
+          stops: [.2,.8]
+        )
+      ),
       child: SafeArea(
           child: Container(
             width: safeScreenWidth,
             height: safeScreenHeight,
-            color:Colors.green,
+            // color: Color(0x9e705010),
             child: Column(
               children: <Widget>[
-                Text('Write Tibetan'),
-                TextButton(
-                  child: Text("Writing Mode"),
-                  onPressed: ()=>Navigator.pushNamed(context, '/writing')
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 60, 0,(35+25).toDouble()),
+                  child: Text('Write\nTibetan',
+                    style:TextStyle(
+                      color: kTWhite,
+                      fontSize:110,
+                      height: 1.1,
+                      // fontFamily: kBigShouldersInlineText,
+                      // fontWeight: FontWeight.w600,
+                      fontFamily: kSairaCondensed,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 TextButton(
-                  child: Text("Practice Mode"),
+                  child: Text("Write",
+                    style: kModeButtonTextStyle
+                  ),
+                  onPressed: ()=>Navigator.pushNamed(context, '/writing')
+                ),
+                SizedBox(height: 10),
+                TextButton(
+                  child: Text("Study",
+                    style: kModeButtonTextStyle
+                  ),
                   onPressed: ()=>Navigator.pushNamed(context,'/practice')
+                ),
+
+
+
+                // Padding(
+                //   child: Text('བྲིས་བོད་ཡིག',
+                //     style: TextStyle(
+                //       fontSize: 100,
+                //       color: kTWhite
+                //       //Color(0x99ffffff)
+                //     )
+                //   ),
+                //   padding: EdgeInsets.fromLTRB(0,60,0,0),
+                // ),
+                Expanded(child: Container()),
+                Padding(
+                  child: Text("Created by Raymond Wu",
+                    style:TextStyle(
+                      color: kTWhite
+                    )
+                  ),
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 25),
                 )
               ]
             )

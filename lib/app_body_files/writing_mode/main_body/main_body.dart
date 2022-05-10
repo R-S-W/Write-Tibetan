@@ -74,7 +74,7 @@ class _MainBodyState extends State<MainBody> {
                           height: 25*sdm,
                           child: IconButton(
                               icon: Icon(
-                                  Icons.info_outline,
+                                  Icons.question_mark_outlined,
                                   size: 24*sdm,
                                   color: kTWhite
                               ),
