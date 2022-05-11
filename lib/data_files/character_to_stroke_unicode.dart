@@ -38,5 +38,5 @@ const Map<String,String> characterToStrokeUnicode = <String,String>{
   "ཨི" :"\u00ab\u00ac",
   "ཨེ" :"\u00ab\u00ae",
   "ཨུ" :"\u00ab\u00b0",
-  "ཨོ" :"\u00ab\u00af",
+  "ཨོ" :"\u00c7\u00af",
 };

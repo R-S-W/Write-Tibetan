@@ -19,7 +19,7 @@ class GradientReversal extends GradientTransform{
   double beta = 2*m.pi;
   double phase = 0; //Used to rotate gradient if 0 or 2pi is between alpha and beta
   Alignment center = Alignment(0.0,0.0);
-  GradientReversal(double this.alpha, double this.beta, double this.phase, Alignment this.center);
+  GradientReversal(this.alpha, this.beta, this.phase, this.center);
 
   @override
   Matrix4 transform(Rect bounds, {TextDirection textDirection}){
@@ -49,7 +49,7 @@ class GradientReversal extends GradientTransform{
 class GradientCenterRotation extends GradientTransform{
   double angle = 0;
   Alignment center = Alignment(0.0,0.0);
-  GradientCenterRotation(double this.angle, Alignment this.center);
+  GradientCenterRotation(this.angle, this.center);
 
   @override
   Matrix4 transform(Rect bounds, {TextDirection textDirection}){

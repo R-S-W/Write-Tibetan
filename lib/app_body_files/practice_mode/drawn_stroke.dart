@@ -37,7 +37,7 @@ class _DrawnStrokeState extends State<DrawnStroke> with SingleTickerProviderStat
 
   @override
   void initState(){
-    _animationController  = AnimationController(vsync: this,duration: Duration(milliseconds: 2000));
+    _animationController  = AnimationController(vsync: this,duration: Duration(milliseconds: 1000));
     _animation = Tween(begin: 0.0, end: 1.0).animate(_animationController)..addListener((){
       if (!widget.isSingularCharacter && _animation.value > (this.characterStepIdx+1)/widget.partialChars.length  && this.characterStepIdx< widget.partialChars.length-1){
         setState((){
@@ -67,7 +67,7 @@ class _DrawnStrokeState extends State<DrawnStroke> with SingleTickerProviderStat
       style: TextStyle(
         fontFamily: kNotoSansTibetanStroke,
         fontSize: kPracticeCharStrokeSize,
-        color: Colors.white
+        color: kPracticeCharacterPageCanvasColor
       ),
     );
     Widget prevLetter = (!widget.isSingularCharacter && this.characterStepIdx > 0) ?

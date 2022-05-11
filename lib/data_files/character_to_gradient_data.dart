@@ -20,6 +20,8 @@ const List<AlignmentGeometry> l2r15_ =
 <AlignmentGeometry>[Alignment(-.7,0.0), Alignment(1,0.0)];
 
 
+//The Alignments used are fitted for a box of 275 px in width and 570 in length
+
 Map characterToGradientData = {
   "ཀ" : [
     GradientData.linear(l2r),
@@ -127,7 +129,7 @@ Map characterToGradientData = {
       GradientData.sweep(Alignment(-.5,-.1),[],isReversed: true),
       GradientData.sweep(Alignment(.5,-.1),[m.pi,3*m.pi])
     ]),
-    GradientData.linear([Alignment(.7,-.4),Alignment(1.0,-.6)])
+    GradientData.linear([Alignment(.7,-.4),Alignment(1.0,-.7)])
 
   ],
   "ཛ" : [
@@ -141,7 +143,7 @@ Map characterToGradientData = {
     GradientData.sweep(Alignment(-.4,-.3),[m.pi*.55,m.pi*1.2],isReversed:true),
     GradientData.sweep(Alignment(-.4,-.3),[-m.pi*.34,m.pi*.34]),
     GradientData.linear([Alignment(-.6,-.45),Alignment(.4,.35)]),
-    GradientData.sweep(Alignment(1.0,-.45),[.5*m.pi,.9*m.pi]),
+    GradientData.sweep(Alignment(1.0,-.45),[.5*m.pi,.9*m.pi],isReversed:true),
     GradientData.linear(t2b20_)
   ],
   "ཞ" : [

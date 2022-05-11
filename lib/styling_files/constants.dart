@@ -68,6 +68,8 @@ const double kTrimHeight = 3.5;
 //Practice Mode
 double kPracticeCharStrokeSize = 300;
 
+const Color kPracticeCharacterPageCanvasColor = Color(0xffcfcfcf);
+
 
 
 //Text Display---------------------------------------------------------------

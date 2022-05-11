@@ -81,7 +81,7 @@ class StartScreen extends StatelessWidget {
                       color: kTWhite
                     )
                   ),
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 25),
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
                 )
               ]
             )
