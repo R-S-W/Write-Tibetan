@@ -39,6 +39,9 @@ class PracticeCharacterPage extends StatefulWidget {
 
 class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
   int strokeIdx = 0;
+  //Used to rebuild widget if user presses left button on the first animated
+  //stroke, reanimating it.
+  int leftButtonNumber = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +55,7 @@ class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
     //Widget that has the animation for the main Stack widget below.
     List<Widget> stackList = <Widget>[];
     stackList.add(DrawnStroke(widget.strokeChars[this.strokeIdx],
-      key: ValueKey(strokeIdx),
+      key: ValueKey(strokeIdx+leftButtonNumber),
       shaderCallback: widget.gradientData[strokeIdx].shaderCallback
     ));
 
@@ -135,14 +138,13 @@ class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
                   alignment: Alignment.center
                 )
               ),
-              // Expanded(child:SizedBox()),
 
-              Align(
+              Align(//Controls
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   color: kAppBarBackgroundColor,
                   height:90,
-                  child: Row(//Controls
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       IconButton(
@@ -150,12 +152,13 @@ class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
                         iconSize: 80,
                         color:Colors.white,
                         onPressed: (){
-                          if (this.strokeIdx>0){
-                            setState((){
+                          setState((){
+                            if (this.strokeIdx>0){
                               this.strokeIdx-=1;
-                              // stackList[0].animationController.forward();
-                            });
-                          }
+                            }else{
+                              this.leftButtonNumber= (this.leftButtonNumber+1)%2;
+                            }
+                          });
                         }
                       ),
                       SizedBox(width: 50),
