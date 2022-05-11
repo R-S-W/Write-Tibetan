@@ -53,7 +53,7 @@ class _DrawnStrokeState extends State<DrawnStroke> with SingleTickerProviderStat
       }
     });
     _animationController.forward();
-    super.initState;
+    super.initState();
   }
 
   @override

@@ -34,7 +34,7 @@ class GradientData{
   List<GradientData> multiStepList;
 
   //___________________CONSTRUCTORS____________________
-  GradientData(){}
+  GradientData();
 
 
   GradientData.linear(this.linearStartEndPoints){

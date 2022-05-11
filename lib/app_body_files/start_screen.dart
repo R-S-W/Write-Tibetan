@@ -63,7 +63,7 @@ class StartScreen extends StatelessWidget {
                   onPressed: ()=>Navigator.pushNamed(context,'/practice')
                 ),
 
-                Expanded(child: Container()),
+                Flexible(child: Container()),
                 Padding(
                   child: Text("Created by Raymond Wu",
                     style:TextStyle(
