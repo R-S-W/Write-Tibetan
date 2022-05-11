@@ -36,6 +36,18 @@ class PracticeMode extends StatelessWidget {
       child: Container(
         height: safeScreenHeight,
         width: safeScreenWidth,
+        decoration:BoxDecoration(
+          gradient: LinearGradient(
+            colors:[Color(0xFF538F73),Color(0xff336270)],
+            //0xFF568463
+            //#B91C00
+              //0xff15333C
+                //0xff20454e
+            begin:Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops:[0,.85]
+          )
+        ),
         child: ChangeNotifierProvider(
           create:(context) => PracticeModeBrain(),
           child: Container(
@@ -46,13 +58,13 @@ class PracticeMode extends StatelessWidget {
                   child: Container(//Top bar
                     color: kAppBarBackgroundColor,
                     width: safeScreenWidth,
-                    height: kTopBarHeight*sdm,
-                    padding: EdgeInsets.symmetric(horizontal: 30*sdm),
+                    height: 50*sdm,
+                    padding: EdgeInsets.symmetric(horizontal: 20*sdm),
                     child: Stack(
                         // mainAxisAlignment: MainAxisAlignment.center,
                         children:[
                           Align(
-                            alignment: Alignment.centerLeft,
+                            alignment: Alignment(-1.0,-.2),
                             child: Container(//Back to StartScreen
                               width: 25*sdm,
                               height: 25*sdm,
@@ -74,7 +86,7 @@ class PracticeMode extends StatelessWidget {
                               'The Tibetan Alphabet',
                               style: TextStyle(
                                   fontFamily:kMohave,
-                                  fontSize:26 * sdm,
+                                  fontSize:35 * sdm,
                                   color: kTWhite
                               ),
                             ),
@@ -96,7 +108,7 @@ class PracticeMode extends StatelessWidget {
 
 
                       child: Container(
-                        color: Color(0xff6ca792),
+                        // color: Color(0xff6ca792),
                         alignment: Alignment.center,
                         child: Column(
                           children: [
