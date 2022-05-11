@@ -12,7 +12,8 @@ class DrawnStroke extends StatefulWidget {
   Function shaderCallback;
   List<String> partialChars;
   bool isSingularCharacter = true;
-  DrawnStroke(currentChar,{@required this.shaderCallback, Key key}) :super(key: key) {
+  double sdm;
+  DrawnStroke(currentChar,{@required this.shaderCallback, @required this.sdm, Key key}) :super(key: key) {
     if (currentChar is String){
       this.character = currentChar;
       this.isSingularCharacter = true;
@@ -39,7 +40,11 @@ class _DrawnStrokeState extends State<DrawnStroke> with SingleTickerProviderStat
   void initState(){
     _animationController  = AnimationController(vsync: this,duration: Duration(milliseconds: 1000));
     _animation = Tween(begin: 0.0, end: 1.0).animate(_animationController)..addListener((){
-      if (!widget.isSingularCharacter && _animation.value > (this.characterStepIdx+1)/widget.partialChars.length  && this.characterStepIdx< widget.partialChars.length-1){
+      if (
+        !widget.isSingularCharacter &&
+        _animation.value>(this.characterStepIdx+1)/widget.partialChars.length &&
+        this.characterStepIdx< widget.partialChars.length-1
+      ){
         setState((){
           this.characterStepIdx +=1;
         });
@@ -69,19 +74,19 @@ class _DrawnStrokeState extends State<DrawnStroke> with SingleTickerProviderStat
         fontSize: kPracticeCharStrokeSize,
         color: kPracticeCharacterPageCanvasColor
       ),
+      textScaleFactor: widget.sdm,
     );
-    Widget prevLetter = (!widget.isSingularCharacter && this.characterStepIdx > 0) ?
+    Widget prevLetter = (!widget.isSingularCharacter && this.characterStepIdx >0) ?
       Text(widget.partialChars[this.characterStepIdx-1],
         style: TextStyle(
           fontFamily:kNotoSansTibetanStroke,
           fontSize: kPracticeCharStrokeSize,
           color: Colors.black,
         ),
+        textScaleFactor: widget.sdm,
       )
       :
       Container();
-
-
 
 
     return Stack(
@@ -90,7 +95,6 @@ class _DrawnStrokeState extends State<DrawnStroke> with SingleTickerProviderStat
         ShaderMask(
           child:
           shaderMaskChild,
-          // Container(width: 200,height: 400,color: Colors.white),
           shaderCallback: (widget.isSingularCharacter) ?
             widget.shaderCallback(_animation.value) :
             widget.shaderCallback(this.characterStepIdx,_animation.value)

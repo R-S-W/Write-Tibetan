@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../styling_files/character_to_top_padding.dart';
 import '../../styling_files/constants.dart';
 
@@ -16,19 +15,18 @@ class PracticeCharacterButton extends StatefulWidget {
 class _PracticeCharacterState extends State<PracticeCharacterButton> {
   @override
   Widget build(BuildContext context) {
+    Size screenDims = MediaQuery.of(context).size;
+    double sdm = screenDims.width / kDevScreenWidth;
+
     return Container(
-      width: 42,
-      height: 58,
+      width: 44*sdm,
+      height: 59*sdm,
       child: TextButton(
         style: TextButton.styleFrom(
           backgroundColor: Color(0x72FFFFFF),
-          // primary: Color(0xFFC4971C),
-          //0xFFB4562E,  0xFF8D4316
-            //gold 0xFF8D6F16,0xFFA07D17
-          // onSurface: Colors.white,
-          padding: EdgeInsets.all(1),
+          padding: EdgeInsets.all(1*sdm),
           shape:RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(11.5))
+            borderRadius: BorderRadius.all(Radius.circular(11.5*sdm))
           )
         ),
         onPressed: ()=>Navigator.pushNamed(context, "/"+ widget.letter),
@@ -36,39 +34,34 @@ class _PracticeCharacterState extends State<PracticeCharacterButton> {
           children: <Widget>[
 
             Positioned.fill(
-              top:characterToTopPadding[widget.letter],
+              top:characterToTopPadding[widget.letter]*sdm,
               child: Text(widget.letter,
                 style: TextStyle(
-                  fontSize: 37,
+                  fontSize: 39,
                   foreground: Paint()
                     ..style = PaintingStyle.stroke
-                    ..strokeWidth = 2.5*1
+                    ..strokeWidth = 2.5*sdm
                     ..color = Color(0x34ffffff)
                 ),
-                textScaleFactor: 1,
+                textScaleFactor: sdm,
                 textAlign: TextAlign.center,
               ),
             ),
             Positioned.fill(
-              top:characterToTopPadding[widget.letter],
+              top:characterToTopPadding[widget.letter]*sdm,
               child: Text(widget.letter,
                 style: TextStyle(
                   color: Color(0xFFAE881E),
                   //0xFF9B7A1D
-                  fontSize:37,
+                  fontSize:39,
                 ),
-                textScaleFactor: 1,
+                textScaleFactor: sdm,
                 textAlign: TextAlign.center,
               ),
             ),
           ],
         ),
-        // Text(widget.letter,
-        //   style:TextStyle(fontSize: 37)
-        // )
-
       ),
     );
-
   }
 }

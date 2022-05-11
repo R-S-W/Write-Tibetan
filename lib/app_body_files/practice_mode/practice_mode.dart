@@ -5,7 +5,7 @@ import '../../styling_files/constants.dart';
 
 import '../../app_logic/practice_mode_brain.dart';
 
-const double kGridSpacing = 20;
+const double kGridSpacing = 18;
 
 class PracticeMode extends StatelessWidget {
   const PracticeMode({
@@ -86,42 +86,36 @@ class PracticeMode extends StatelessWidget {
                               'The Tibetan Alphabet',
                               style: TextStyle(
                                   fontFamily:kMohave,
-                                  fontSize:35 * sdm,
+                                  fontSize:35,
                                   color: kTWhite
                               ),
+                              textScaleFactor: sdm,
                             ),
                           ),
-
-                          // SizedBox(width: 12*sdm), //Spacer
-
                         ]
                     ),
                   ),
                 ),
-                // Text('The Tibetan Alphabet'),
                 Expanded(
                   child: Align(
                     alignment:Alignment.center,
                     child: SizedBox(
-                      width: 270,
-                      height: 682,
-
-
+                      width: 270*sdm,
+                      height: 682*sdm,
                       child: Container(
-                        // color: Color(0xff6ca792),
                         alignment: Alignment.center,
                         child: Column(
                           children: [
                             Wrap(
-                              spacing: kGridSpacing,
-                              runSpacing: kGridSpacing,
+                              spacing: kGridSpacing*sdm,
+                              runSpacing: kGridSpacing*sdm,
                               alignment: WrapAlignment.center,
                               children: alphabetList
                             ),
-                            SizedBox(height: kGridSpacing),
+                            SizedBox(height: kGridSpacing*sdm),
                             Wrap(
-                              spacing:kGridSpacing,
-                              runSpacing: kGridSpacing,
+                              spacing:kGridSpacing*sdm,
+                              runSpacing: kGridSpacing*sdm,
                               children: vowelList
                             )
                           ],
@@ -133,8 +127,6 @@ class PracticeMode extends StatelessWidget {
               ]
             )
           )
-          // Container(width: 100, height: 100, color: Colors.red)
-
         ),
       ),
     );

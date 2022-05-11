@@ -16,13 +16,11 @@ class StartScreen extends StatelessWidget {
     double safeScreenWidth = screenDims.width-padding.left -padding.right;
 
     return Container(
-      // color: kTGreen,
       decoration:BoxDecoration(
         gradient:LinearGradient(
           begin:Alignment.topCenter,
           end:Alignment.bottomCenter,
           colors: [Color(0xFF005C9F),Color(0xFF318A90)],
-          //colors: [Color(0xFF004C84),Color(0xFF318A90)],
           stops: [.2,.8]
         )
       ),
@@ -30,11 +28,10 @@ class StartScreen extends StatelessWidget {
           child: Container(
             width: safeScreenWidth,
             height: safeScreenHeight,
-            // color: Color(0x9e705010),
             child: Column(
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0, 60, 0,(35+25).toDouble()),
+                  padding: EdgeInsets.fromLTRB(0, 60*sdm, 0,60*sdm),
                   child: Text('Write\nTibetan',
                     style:TextStyle(
                       color: kTWhite,
@@ -46,46 +43,38 @@ class StartScreen extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                     textAlign: TextAlign.center,
+                    textScaleFactor: sdm,
+
                   ),
                 ),
                 TextButton(
                   child: Text("Write",
-                    style: kModeButtonTextStyle
+                    style: kModeButtonTextStyle,
+                    textScaleFactor: sdm
                   ),
                   onPressed: ()=>Navigator.pushNamed(context, '/writing')
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 10*sdm),
                 TextButton(
                   child: Text("Study",
-                    style: kModeButtonTextStyle
+                    style: kModeButtonTextStyle,
+                    textScaleFactor: sdm,
                   ),
                   onPressed: ()=>Navigator.pushNamed(context,'/practice')
                 ),
 
-
-
-                // Padding(
-                //   child: Text('བྲིས་བོད་ཡིག',
-                //     style: TextStyle(
-                //       fontSize: 100,
-                //       color: kTWhite
-                //       //Color(0x99ffffff)
-                //     )
-                //   ),
-                //   padding: EdgeInsets.fromLTRB(0,60,0,0),
-                // ),
                 Expanded(child: Container()),
                 Padding(
                   child: Text("Created by Raymond Wu",
                     style:TextStyle(
                       color: kTWhite
-                    )
+                    ),
+                    textScaleFactor: sdm,
                   ),
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 20*sdm),
                 )
               ]
             )
-
           )
       ),
     );

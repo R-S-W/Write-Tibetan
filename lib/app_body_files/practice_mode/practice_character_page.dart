@@ -56,6 +56,7 @@ class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
     List<Widget> stackList = <Widget>[];
     stackList.add(DrawnStroke(widget.strokeChars[this.strokeIdx],
       key: ValueKey(strokeIdx+leftButtonNumber),
+      sdm: sdm,
       shaderCallback: widget.gradientData[strokeIdx].shaderCallback
     ));
 
@@ -70,8 +71,9 @@ class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
           fontFamily: kNotoSansTibetanStroke,
           fontSize: kPracticeCharStrokeSize,
           color: Colors.black
-        ))
-      );
+        ),
+        textScaleFactor: sdm
+      ));
     }
 
 
@@ -91,7 +93,6 @@ class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
                   height: 50*sdm,
                   padding: EdgeInsets.symmetric(horizontal: 30*sdm),
                   child: Stack(
-                    // mainAxisAlignment: MainAxisAlignment.center,
                       children:[
                         Align(
                           alignment: Alignment(-1.0,-0.2),
@@ -116,10 +117,11 @@ class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
                             characterToWylie[widget.character],
                             style: TextStyle(
                                 fontFamily:kMohave,
-                                fontSize:35 * sdm,
+                                fontSize:35,
                                 // fontWeight: FontWeight.w700,
                                 color: kTWhite
                             ),
+                            textScaleFactor: sdm,
                           ),
                         ),
                       ]
@@ -130,8 +132,8 @@ class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
 
 
               Container(
-                width: 275,
-                height: 570,
+                width: 275*sdm,
+                height: 570*sdm,
                 color: kPracticeCharacterPageCanvasColor,
                 child: Stack(
                   children: stackList,
@@ -143,13 +145,13 @@ class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   color: kAppBarBackgroundColor,
-                  height:90,
+                  height:90*sdm,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       IconButton(
                         icon:Icon(Icons.keyboard_arrow_left_outlined),
-                        iconSize: 80,
+                        iconSize: 80*sdm,
                         color:Colors.white,
                         onPressed: (){
                           setState((){
@@ -161,10 +163,10 @@ class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
                           });
                         }
                       ),
-                      SizedBox(width: 50),
+                      SizedBox(width: 50*sdm),
                       IconButton(
                         icon:Icon(Icons.keyboard_arrow_right_outlined),
-                        iconSize:80,
+                        iconSize:80*sdm,
                         color:Colors.white,
                         onPressed: (){
                           if (this.strokeIdx<widget.strokeChars.length-1){
@@ -177,7 +179,6 @@ class _PracticeCharacterPageState extends State<PracticeCharacterPage> {
                     ]
                   ),
                 ),
-
               )
             ]
           )
