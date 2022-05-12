@@ -96,30 +96,28 @@ class PracticeMode extends StatelessWidget {
                     ),
                   ),
                 ),
-                Expanded(
-                  child: Align(
-                    alignment:Alignment.center,
-                    child: SizedBox(
-                      width: 270*sdm,
-                      height: 682*sdm,
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: Column(
-                          children: [
-                            Wrap(
-                              spacing: kGridSpacing*sdm,
-                              runSpacing: kGridSpacing*sdm,
-                              alignment: WrapAlignment.center,
-                              children: alphabetList
-                            ),
-                            SizedBox(height: kGridSpacing*sdm),
-                            Wrap(
-                              spacing:kGridSpacing*sdm,
-                              runSpacing: kGridSpacing*sdm,
-                              children: vowelList
-                            )
-                          ],
-                        ),
+                Align(
+                  alignment:Alignment.center,
+                  child: SizedBox(
+                    width: 270*sdm,
+                    height: 682*sdm,
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Column(
+                        children: [
+                          Wrap(
+                            spacing: kGridSpacing*sdm,
+                            runSpacing: kGridSpacing*sdm,
+                            alignment: WrapAlignment.center,
+                            children: alphabetList
+                          ),
+                          SizedBox(height: kGridSpacing*sdm),
+                          Wrap(
+                            spacing:kGridSpacing*sdm,
+                            runSpacing: kGridSpacing*sdm,
+                            children: vowelList
+                          )
+                        ],
                       ),
                     ),
                   ),
