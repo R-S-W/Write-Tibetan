@@ -61,7 +61,6 @@ class PracticeMode extends StatelessWidget {
                     height: 50*sdm,
                     padding: EdgeInsets.symmetric(horizontal: 20*sdm),
                     child: Stack(
-                        // mainAxisAlignment: MainAxisAlignment.center,
                         children:[
                           Align(
                             alignment: Alignment(-1.0,-.2),
