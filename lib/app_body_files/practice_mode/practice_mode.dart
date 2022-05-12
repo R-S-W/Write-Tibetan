@@ -39,10 +39,6 @@ class PracticeMode extends StatelessWidget {
         decoration:BoxDecoration(
           gradient: LinearGradient(
             colors:[Color(0xFF538F73),Color(0xff336270)],
-            //0xFF568463
-            //#B91C00
-              //0xff15333C
-                //0xff20454e
             begin:Alignment.topCenter,
             end: Alignment.bottomCenter,
             stops:[0,.85]

@@ -5,7 +5,10 @@ import 'app_body_files/practice_mode/practice_character_page.dart';
 import 'app_body_files/practice_mode/practice_mode.dart';
 import 'app_body_files/start_screen.dart';
 import 'app_body_files/writing_mode/writing_mode.dart';
+import 'app_logic/app_brain.dart';
 import 'styling_files/constants.dart';
+import 'package:provider/provider.dart';
+
 
 
 void main() {
@@ -30,21 +33,23 @@ class MyApp extends StatelessWidget {
 
 
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   const MainPage({
     Key key,
   }) : super(key: key);
 
   @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  @override
   Widget build(BuildContext context) {
-    // Size screenDimensions = MediaQuery.of(context).size;
-    // EdgeInsets padding = MediaQuery.of(context).padding;
-    //
+    Size screenDimensions = MediaQuery.of(context).size;
+    EdgeInsets padding = MediaQuery.of(context).padding;
     // //Screen dimensions multiplier
-    // double safeScreenWidth = screenDimensions.width-padding.left -padding.right;
-    // double safeScreenHeight= screenDimensions.height-padding.top-padding.bottom;
-    // double sdm = safeScreenWidth / kDevScreenWidth;
-    // screenDimensions*=sdm;
+    double safeScreenWidth = screenDimensions.width-padding.left -padding.right;
+    double safeScreenHeight= screenDimensions.height-padding.top-padding.bottom;
 
     //Generate routes for different pages for navigator
     Map <String, Widget Function(BuildContext)>navigatorRoutes = {
@@ -57,10 +62,13 @@ class MainPage extends StatelessWidget {
         (context) => Frame(child: PracticeCharacterPage(kAlphabet[i]));
     }
 
-
-
-
-    return Scaffold(
+    return ChangeNotifierProvider(
+      create:(context) => AppBrain(
+          screenDims: screenDimensions,
+          safeScreenDims: Size(safeScreenWidth, safeScreenHeight),
+          safePadding: padding
+      ),
+      child: Scaffold(
       backgroundColor: kAppBarBackgroundColor,
       body: Container(
         decoration: BoxDecoration(
@@ -78,7 +86,7 @@ class MainPage extends StatelessWidget {
             routes: navigatorRoutes
           ),
         ),
-      );
-    // );
+      )
+    );
   }
 }
