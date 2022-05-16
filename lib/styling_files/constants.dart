@@ -19,9 +19,6 @@ const Color kTGreen = Color(0xff317486);
 //Fonts________________________________________________________________
 const String kSairaCondensed = 'Saira_Condensed';
 const String kShipporiAntiqueB1 = 'ShipporiAntiqueB1';
-const String kBigShouldersInlineText = 'BigShouldersInlineText';
-const String kKohSantepheap = 'KohSantepheap';
-const String kKoulen = 'Koulen';
 const String kMohave = 'Mohave';
 const String kSFPro = 'SF_Pro';
 const String kNotoSansTibetanStroke = 'NotoSansTibetanStroke';
