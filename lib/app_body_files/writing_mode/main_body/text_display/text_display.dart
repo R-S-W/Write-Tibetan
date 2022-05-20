@@ -57,6 +57,7 @@ class _TextDisplayState extends State<TextDisplay> {
                       cursorHeight: kEstLineHeight*sdm,
                       style: TextStyle(
                         fontSize: kTextFontSize*sdm,
+                        fontFamily: kTib,
                       )
                     ),
                   ),

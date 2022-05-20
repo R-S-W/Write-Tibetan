@@ -71,24 +71,14 @@ flutter:
         - asset: assets/fonts/Saira_Condensed/SairaCondensed-Bold.ttf
           weight: 700
 
+    - family: Tib
+      fonts:
+        - asset: assets/fonts/Tib/Tib.ttf
+
+
     - family: ShipporiAntiqueB1
       fonts:
         - asset: assets/fonts/Shippori_Antique_B1/ShipporiAntiqueB1-Regular.ttf
-
-    - family: BigShouldersInlineText
-      fonts:
-        - asset: assets/fonts/Big_Shoulders_Inline_Text/BigShouldersInlineText-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/Big_Shoulders_Inline_Text/BigShouldersInlineText-SemiBold.ttf
-          weight: 600
-
-    - family: KohSantepheap
-      fonts:
-        - asset: assets/fonts/Koh_Santepheap/KohSantepheap-Regular.ttf
-
-    - family: Koulen
-      fonts:
-        - asset: assets/fonts/Koulen/Koulen-Regular.ttf
 
     - family: Mohave
       fonts:

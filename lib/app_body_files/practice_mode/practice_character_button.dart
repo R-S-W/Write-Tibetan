@@ -38,6 +38,7 @@ class _PracticeCharacterState extends State<PracticeCharacterButton> {
               child: Text(widget.letter,
                 style: TextStyle(
                   fontSize: 39,
+                  fontFamily: kTib,
                   foreground: Paint()
                     ..style = PaintingStyle.stroke
                     ..strokeWidth = 2.5*sdm
@@ -52,6 +53,7 @@ class _PracticeCharacterState extends State<PracticeCharacterButton> {
               child: Text(widget.letter,
                 style: TextStyle(
                   color: Color(0xFFAE881E),
+                  fontFamily: kTib,
                   //0xFF9B7A1D
                   fontSize:39,
                 ),

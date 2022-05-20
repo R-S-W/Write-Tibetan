@@ -22,6 +22,7 @@ const String kShipporiAntiqueB1 = 'ShipporiAntiqueB1';
 const String kMohave = 'Mohave';
 const String kSFPro = 'SF_Pro';
 const String kNotoSansTibetanStroke = 'NotoSansTibetanStroke';
+const String kTib = 'Tib';
 
 
 //General Constants____________________________________________________
@@ -104,6 +105,7 @@ const Color kSuggestionBarColor = kCopyButtonColor;
 const kSuggestionTextColor = Color(0xffc8900a);
 const TextStyle kSuggestionTextStyle =  TextStyle(
   fontSize: 39,
+  fontFamily: kTib,
   color: kSuggestionTextColor,
 );
 
