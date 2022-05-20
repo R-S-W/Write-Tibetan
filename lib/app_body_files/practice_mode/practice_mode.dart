@@ -47,76 +47,72 @@ class PracticeMode extends StatelessWidget {
         child: ChangeNotifierProvider(
           create:(context) => PracticeModeBrain(),
           child: Container(
-            child: Stack(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(//Top bar
-                    color: kAppBarBackgroundColor,
-                    width: safeScreenWidth,
-                    height: 50*sdm,
-                    padding: EdgeInsets.symmetric(horizontal: 20*sdm),
-                    child: Stack(
-                        children:[
-                          Align(
-                            alignment: Alignment(-1.0,-.2),
-                            child: Container(//Back to StartScreen
-                              width: 25*sdm,
-                              height: 25*sdm,
-                              child: IconButton(
-                                  icon: Icon(
-                                      Icons.arrow_back_ios_rounded,
-                                      size: 24*sdm,
-                                      color: kTWhite
-                                  ),
-                                  onPressed: ()=>Navigator.pop(context),
-                                  padding: EdgeInsets.zero
-                              ),
+                Container(//Top bar
+                  color: kAppBarBackgroundColor,
+                  width: safeScreenWidth,
+                  height: 50*sdm,
+                  padding: EdgeInsets.symmetric(horizontal: 20*sdm),
+                  child: Stack(
+                      children:[
+                        Align(
+                          alignment: Alignment(-1.0,-.2),
+                          child: Container(//Back to StartScreen
+                            width: 25*sdm,
+                            height: 25*sdm,
+                            child: IconButton(
+                                icon: Icon(
+                                    Icons.arrow_back_ios_rounded,
+                                    size: 24*sdm,
+                                    color: kTWhite
+                                ),
+                                onPressed: ()=>Navigator.pop(context),
+                                padding: EdgeInsets.zero
                             ),
                           ),
+                        ),
 
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              'The Tibetan Alphabet',
-                              style: TextStyle(
-                                  fontFamily:kMohave,
-                                  fontSize:35,
-                                  color: kTWhite
-                              ),
-                              textScaleFactor: sdm,
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'The Tibetan Alphabet',
+                            style: TextStyle(
+                                fontFamily:kMohave,
+                                fontSize:35,
+                                color: kTWhite
                             ),
+                            textScaleFactor: sdm,
                           ),
-                        ]
+                        ),
+                      ]
+                  ),
+                ),
+                SizedBox(
+                  width: 270*sdm,
+                  height: 682*sdm,
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: [
+                        Wrap(
+                          spacing: kGridSpacing*sdm,
+                          runSpacing: kGridSpacing*sdm,
+                          alignment: WrapAlignment.center,
+                          children: alphabetList
+                        ),
+                        SizedBox(height: kGridSpacing*sdm),
+                        Wrap(
+                          spacing:kGridSpacing*sdm,
+                          runSpacing: kGridSpacing*sdm,
+                          children: vowelList
+                        )
+                      ],
                     ),
                   ),
                 ),
-                Align(
-                  alignment:Alignment.center,
-                  child: SizedBox(
-                    width: 270*sdm,
-                    height: 682*sdm,
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: Column(
-                        children: [
-                          Wrap(
-                            spacing: kGridSpacing*sdm,
-                            runSpacing: kGridSpacing*sdm,
-                            alignment: WrapAlignment.center,
-                            children: alphabetList
-                          ),
-                          SizedBox(height: kGridSpacing*sdm),
-                          Wrap(
-                            spacing:kGridSpacing*sdm,
-                            runSpacing: kGridSpacing*sdm,
-                            children: vowelList
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                )
+                Container(),
               ]
             )
           )
