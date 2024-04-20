@@ -28,11 +28,13 @@ The Suggestion Bar, controlled by the App Brain, displays different Tibetan char
 
 The Text Display outputs the written text.  Like a regular text box, sentences can be highlighted.  Editing control buttons allow the user to delete characters, copy the text, paste new text, and undo and redo actions.  The App Brain keeps a history of the Text Display for the undo and redo actions.  An interesting challenge arises because Tibetan characters can be composed of stacked letters of the Tibetan alphabet.  Usually, when pressing delete with most keyboards and input methods, the individual letters of the composite character are removed.  Other methods can allow new letters to be added to the original character.  This input method does not lend itself to edit characters in this way.  Deletion in this app will remove the entire character.  Thus, the number of alphabet letters for each character must be considered, since the built-in text component views each character as a combination of Tibetan characters and not a single symbol.  The App Brain contains a list of characters currently on the Text Display with a corresponding list that has the number of Tibetan letters in each character.  Deletion and addition of characters must update both lists.
 
-FIG  WITH TIBETAN CHARACTERS as COMPOSITE and how the computer views them
+<img width="450" alt="Composite character" src="https://github.com/R-S-W/Write-Tibetan/assets/73966827/9c00c904-fb54-42f9-b7a7-c9419eb0d3af">
+
 
 The App Brain is an object that holds the state of the app and the three main components.  It 
 
 These comprise the main features of the writing mode of the app.  A 
+
 
 
 
@@ -45,7 +47,7 @@ How do you take what the user draws and create a list of characters that might f
 
 The user's drawing is represented by it's position data.  Each character is made from multiple strokes.  Each stroke is a swipe across the screen, represented as a list of positions recorded multiple times a second by the app.  The user's drawing is recorded as a list of strokes, each stroke a list of position points with an X and Y value.  This is called a strokelist.
 
-FIG OF STROKELIST
+<img width="1000" alt="strokelist" src="https://github.com/R-S-W/Write-Tibetan/assets/73966827/785bd509-06f6-4974-a938-d3c846103839">
 
 
 In order to suggest possible characters the user may draw, we must compare the Tibetan characters with the drawing.  When we can compare them, we rank them by how well they fit the drawing. During development, each standard Tibetan character was drawn using this writing pad and recorded just like the input data, as a list of lists of positions.  This correctly drawn strokelists are used as a basis for what should represent the correctly-drawn characters.  
@@ -87,7 +89,7 @@ The character recognition program that generates the suggestions takes all of th
 
 Our metric to compare the characters is called the difference rating.  This is a positive number and its magnitude is a measure for how different the character and drawing are.  The difference rating is the sum of stroke difference ratings which measure the differences between two strokes.  For each pair of strokes, we look at their paths that are a list of gridnumbers.  To compute the stroke difference rating, we find out how many differences there are between the paths.  The paths for each stroke will usually have different lengths.  The function shifts the lists of gridnumbers and pairs the elements so that the greatest amount of like grid numbers match up.
 
-######## ADD FIGURE
+<img width="423" alt="comparison func 1" src="https://github.com/R-S-W/Write-Tibetan/assets/73966827/b62af09f-3721-4ac2-9b18-f72df8b21f2a">
 
 
 
