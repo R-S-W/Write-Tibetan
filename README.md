@@ -18,7 +18,7 @@ https://github.com/R-S-W/Write-Tibetan/assets/73966827/b93b54c4-8327-41cb-b626-f
 
 
 
-### Making the App
+## Making the App
 
 The writing mode has 3 main features: the Writing Pad, the Suggestion Bar, and the Text Display.&nbsp; The App Brain behind the scenes handles the state of these three components and communicates between them.&nbsp; It also takes the user's drawing and identifies which character it is, including other possible characters that match the drawing within a certain tolerance.
 
@@ -39,15 +39,20 @@ These comprise the main features of the writing mode of the app.  A
 
 
 The Study mode 
+<br/>
+<br/>
 
 
-### Suggestion Logic
+## Suggestion Logic
 
+<br/>
+
+### Challenges
 How do you take what the user draws and create a list of characters that might fit it?  Various challenges must be addressed.  What happens if users draw the characters in different sizes and shapes?  How do you guess which character matches the user's drawing?  How do make sure the drawing is the correct character?  How do you compare Tibetan characters with the drawing?
 
 The user's drawing is represented by it's position data.  Each character is made from multiple strokes.  Each stroke is a swipe across the screen, represented as a list of positions recorded multiple times a second by the app.  The user's drawing is recorded as a list of strokes, each stroke a list of position points with an X and Y value.  This is called a strokelist.
 
-<img width="1000" alt="strokelist" src="https://github.com/R-S-W/Write-Tibetan/assets/73966827/785bd509-06f6-4974-a938-d3c846103839">
+<img width="800" alt="strokelist" src="https://github.com/R-S-W/Write-Tibetan/assets/73966827/785bd509-06f6-4974-a938-d3c846103839">
 
 
 In order to suggest possible characters the user may draw, we must compare the Tibetan characters with the drawing.  When we can compare them, we rank them by how well they fit the drawing. During development, each standard Tibetan character was drawn using this writing pad and recorded just like the input data, as a list of lists of positions.  This correctly drawn strokelists are used as a basis for what should represent the correctly-drawn characters.  
@@ -56,10 +61,33 @@ Comparing the user's input strokelist to the correct strokelists is a nontrivial
 
  This comparison function could take the user's strokelist and one member of the correct strokelist, but it is difficult to compare with such dense and variable data.  Each character has a multitude of different position points, and deciding which points from both strokelists to compare is not evident.  Comparing every point in one list with every point in the other list would be a costly algorithm.  Not only that, roughly comparing all points in a strokelist doesn't reflect the nuances in the data: there would be difficulty discerning regions in the strokelist that are dense in position points.  Seeing as some Tibetan characters have many lines, curves, and shapes in a dense area, it would be a challenge in making a function that can differentiate between two dense symbols. 
  
+<br/>
+<br/>
+<p align="center">
+  <img width="650" alt="how to evaluate datapoints" src="https://github.com/R-S-W/Write-Tibetan/assets/73966827/48029d2d-7427-4cd9-8e84-edaf0915cb3f">
+<p align="center">
+<br/>
+<br/>
+<br/>
+
  Another problem is that characters can be written on the Writing Pad in any size, location, from taking only a fifth of the screen in the bottom left corner to occupying the entire right half of the screen.  Not only that, if someone draws a character slowly, more position points are recorded for the drawing, meaning a character can be drawn with little points or many points.  One cannot compare the data from each strokelist without processing it in some way.
 
- I use five powerful methods that simplify and fully utilize all of the information of a user's drawing:  nondimensionalizing and centering the position data, resolution reduction, counting strokes, using stroke order, and recording the path of the stroke.  To fix the problem of characters drawn in different sizes and locations on the Writing Pad, the program calculates the smallest rectangle that can fit the entire strokelist. Conceptually, we partition the shape into a 3 x 3 grid of rectangles with the same aspect ratio.  These rectangles are labeled from 1 to 9.  We take each position from the stroke list and find which grid cell it belongs to.  By doing this we convert the strokelist into a simpler list of lists that have the gridnumbers instead of coordinates for position.  When we convert positions to grid cell numbers, we simplify the position coordinates that could have pairs with values ranging from 0 to the thousands and categorize them into only 9 different locations. This reduction of resolution greatly simplifies the complexity of the data.  However, its information is not lost and is still preserved by the other two methods.  This simplification allows for easier comparisons in the comparison function.  
- 
+<br/><br/>
+<p align="center" float = "left">
+  <img width="450" alt="different scale and pos" src="https://github.com/R-S-W/Write-Tibetan/assets/73966827/f8e25966-f2e7-476c-ae35-e9d0d7f584fd">
+  <img width="550" alt="datapoint difference" src="https://github.com/R-S-W/Write-Tibetan/assets/73966827/a4abc507-5ec0-49ac-af1d-2920c0edd5a4">
+</p>
+<br/><br/><br/>
+
+
+### Solutions
+I use five powerful methods that simplify and fully utilize all of the information of a user's drawing:  nondimensionalizing and centering the position data, resolution reduction, counting strokes, using stroke order, and recording the path of the stroke.  To fix the problem of characters drawn in different sizes and locations on the Writing Pad, the program calculates the smallest rectangle that can fit the entire strokelist, called the smallest bounding rectangle. We partition the shape into a 3 x 3 grid of rectangles with the same aspect ratio.  These rectangles are labeled from 1 to 9.  We take each position from the stroke list and find which grid cell it belongs to.  By doing this we convert the strokelist into a simpler list of lists that have the gridnumbers instead of coordinates for position.  When we convert positions to grid cell numbers, we simplify the position coordinates that could have pairs with values ranging from 0 to the thousands and categorize them into only 9 different locations. This reduction of resolution greatly simplifies the complexity of the data.  However, its information is not lost and is still preserved by the other two methods.  This simplification allows for easier comparisons in the comparison function.  
+ <br/><br/>
+ <p align = "center">
+   <img width="700" alt="points to 3x3" src="https://github.com/R-S-W/Write-Tibetan/assets/73966827/03d99b19-739f-4f15-b2fb-508f1088989b">
+ </p>
+<br/><br/><br/>
+
  The problem of comparing two characters of different sizes and positions is resolved with the smallest bounding rectangle and its 9 cells.  When we transform a position coordinate to a grid cell, mathematically, we move away from measuring the positions on the entire Writing Pad and instead replace them with grid numbers of regions in the smallest bounding rectangle. This is nondimensionalizing and centering the data.  Now the positions are dependent to the smallest bounding rectangle.  Two strokelists can be converted into this format and each position can be compared without worry of how it was drawn.  The comparison function needs only to consider if two strokelists each had a stroke that occupied the same grid cells and not similar position coordinates.
 
 The next step in processing the data is to take each stroke (now a list of gridnumbers) and remove the duplicate adjacent gridnumbers (ex. the stroke 5555666333 becomes 563.)  This step simplifies the comparison process and ensures that two drawings of the same character that have varying amounts of position points in their strokelists are evaluated in the same way.  This final iteration of the data is called the pathlist, a list of 'paths,' each having a list of grid numbers.
@@ -82,14 +110,16 @@ These five methods order the data into meaningful metrics and give us an appropr
 
 
 
-### Comparison Function
+## Comparison Function
 
 
 The character recognition program that generates the suggestions takes all of the Tibetan characters, selects some of them and ranks them with a comparison function on how similar they are to the user's drawing.  First, the list of characters are filtered by the number of their strokes; only ones with the same number of strokes of the user's drawing are compared.  Then, the strokes of both characters are paired.  
 
 Our metric to compare the characters is called the difference rating.  This is a positive number and its magnitude is a measure for how different the character and drawing are.  The difference rating is the sum of stroke difference ratings which measure the differences between two strokes.  For each pair of strokes, we look at their paths that are a list of gridnumbers.  To compute the stroke difference rating, we find out how many differences there are between the paths.  The paths for each stroke will usually have different lengths.  The function shifts the lists of gridnumbers and pairs the elements so that the greatest amount of like grid numbers match up.
 
-<img width="423" alt="comparison func 1" src="https://github.com/R-S-W/Write-Tibetan/assets/73966827/b62af09f-3721-4ac2-9b18-f72df8b21f2a">
+<p align = 'center'>
+  <img width="423" alt="comparison func 1" src="https://github.com/R-S-W/Write-Tibetan/assets/73966827/b62af09f-3721-4ac2-9b18-f72df8b21f2a">
+</p>
 
 
 
