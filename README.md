@@ -92,11 +92,18 @@ I use five powerful methods that simplify and fully utilize all of the informati
 
 The next step in processing the data is to take each stroke (now a list of gridnumbers) and remove the duplicate adjacent gridnumbers (ex. the stroke 5555666333 becomes 563.)  This step simplifies the comparison process and ensures that two drawings of the same character that have varying amounts of position points in their strokelists are evaluated in the same way.  This final iteration of the data is called the pathlist, a list of 'paths,' each having a list of grid numbers.
 
+![grid to path](https://github.com/R-S-W/Write-Tibetan/assets/73966827/89f5e438-aada-47fc-b76f-666f143cca48)
+
 
 Nondimensionalization, centering, and resolution reduction solve issues in comparing the user's drawing and the correctly-drawn characters, but by themselves too much information is lost.  However, three other metrics, the number of strokes, stroke order, and stroke path, preserve and represent the input data effectively.  Trying to find appropriate suggestions to the user's input out of over a hundred Tibetan characters can pose a challenge.  A simple way of culling Tibetan characters unlikely to match with the user drawing is to count how many strokes the drawing has.  If some characters have too few or too many strokes, they will not be considered as possible candidates for the Suggestion Bar.  
 
-One might ask when comparing pathlists which paths should be compared with which.  Pathlists are naturally ordered by stroke order, i.e. from first created stroke to last stroke.  The first path in one pathlist is compared with the first path of another, and so forth, simplifying the comparison method.  A third problem arises when we are given two strokes to compare.  How do we compare the grid numbers of both paths with each other?  The stroke's path, or the order in which it was drawn, gives us a way to pair up gridnumbers.  These paths are created in this order already, allowing easy comparisons to be made.  
-FIG EXPLAINING OVERLAP
+<p align = 'center'>
+  <img width="625" alt="stroke orders" src="https://github.com/R-S-W/Write-Tibetan/assets/73966827/e9a61562-5aaa-4b17-b7a9-c80e6e781994">
+  <img width="500" alt="stroke path" src="https://github.com/R-S-W/Write-Tibetan/assets/73966827/148f142d-088a-4732-9626-e5f5b156640a">
+</p>
+
+One might ask when comparing pathlists which paths should be compared with which.  Pathlists are naturally ordered by stroke order, i.e. from first created stroke to last stroke.  The first path in one pathlist is compared with the first path of another, and so forth, simplifying the comparison method.  A third problem arises when we are given two strokes to compare.  How do we compare the grid numbers of both paths with each other?  The stroke's path, or the order in which it was drawn, gives us a way to pair up gridnumbers.  These paths are created in this order already, allowing easier comparisons to be made.  The strokes may have different numbers of gridnumbers, and picking which numbers to pair is handled by the comparison function.
+
 
 These five methods order the data into meaningful metrics and give us an appropriate framework to compare user drawings with correctly-drawn characters.  
 
