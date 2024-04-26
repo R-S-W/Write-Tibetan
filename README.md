@@ -90,9 +90,14 @@ I use five powerful methods that simplify and fully utilize all of the informati
 
  The problem of comparing two characters of different sizes and positions is resolved with the smallest bounding rectangle and its 9 cells.  When we transform a position coordinate to a grid cell, mathematically, we move away from measuring the positions on the entire Writing Pad and instead replace them with grid numbers of regions in the smallest bounding rectangle. This is nondimensionalizing and centering the data.  Now the positions are dependent to the smallest bounding rectangle.  Two strokelists can be converted into this format and each position can be compared without worry of how it was drawn.  The comparison function needs only to consider if two strokelists each had a stroke that occupied the same grid cells and not similar position coordinates.
 
-The next step in processing the data is to take each stroke (now a list of gridnumbers) and remove the duplicate adjacent gridnumbers (ex. the stroke 5555666333 becomes 563.)  This step simplifies the comparison process and ensures that two drawings of the same character that have varying amounts of position points in their strokelists are evaluated in the same way.  This final iteration of the data is called the pathlist, a list of 'paths,' each having a list of grid numbers.
+The next step in processing the data is to take each stroke (now a list of gridnumbers) and remove the duplicate adjacent gridnumbers (ex. the stroke 5555666333 becomes 563.)  This step simplifies the comparison process and ensures that two drawings of the same character that have varying amounts of position points in their strokelists are evaluated in the same way.  This final iteration of the data is called the pathlist, a list of 'paths,' each having a list of grid numbers.  
+
+
 
 ![grid to path](https://github.com/R-S-W/Write-Tibetan/assets/73966827/89f5e438-aada-47fc-b76f-666f143cca48)
+
+**_Optional addendum:_**&nbsp; the gridnumber is slightly more complex: if the stroke only hits a gridcell for only a short time (i.e. for only a small amount of datapoints,) the gridnumber is recorded, but is marked down as a stroke that was only there for a short time.  The gridnumber is recorded down as a letter from "A" to "I", where "A" equates to a cell with gridnumber "1", "B" corresponds to gridnumber "2," and so on.  It is an important distinction because it is factored in the metric function used by the comparison function.
+
 
 
 Nondimensionalization, centering, and resolution reduction solve issues in comparing the user's drawing and the correctly-drawn characters, but by themselves too much information is lost.  However, three other metrics, the number of strokes, stroke order, and stroke path, preserve and represent the input data effectively.  Trying to find appropriate suggestions to the user's input out of over a hundred Tibetan characters can pose a challenge.  A simple way of culling Tibetan characters unlikely to match with the user drawing is to count how many strokes the drawing has.  If some characters have too few or too many strokes, they will not be considered as possible candidates for the Suggestion Bar.  
@@ -120,13 +125,29 @@ These five methods order the data into meaningful metrics and give us an appropr
 ## Comparison Function
 
 
-The character recognition program that generates the suggestions takes all of the Tibetan characters, selects some of them and ranks them with a comparison function on how similar they are to the user's drawing.  First, the list of characters are filtered by the number of their strokes; only ones with the same number of strokes of the user's drawing are compared.  Then, the strokes of both characters are paired.  
+The character recognition program that generates the suggestions takes all of the Tibetan characters, selects some of them and sorts them to find the characters that are closest to the user's drawing.  First, the list of characters are filtered by the number of their strokes; only ones with the same number of strokes of the user's drawing are compared.  The list is sorted with the comparison function that evaluates the differences between the drawing and one candidate character.  The function calculates difference ratings, stroke difference ratings, and distances to quantify the character's differences.
 
-Our metric to compare the characters is called the difference rating.  This is a positive number and its magnitude is a measure for how different the character and drawing are.  The difference rating is the sum of stroke difference ratings which measure the differences between two strokes.  For each pair of strokes, we look at their paths that are a list of gridnumbers.  To compute the stroke difference rating, we find out how many differences there are between the paths.  The paths for each stroke will usually have different lengths.  The function shifts the lists of gridnumbers and pairs the elements so that the greatest amount of like grid numbers match up.
+
+The comparison function takes two pathlists and returns the difference rating.  This nonnegative number is a measure for how different the character and drawing are.  The list of candidate characters are ordered from smallest to largest difference rating.  The difference of the characters is dependent on the differences between all the strokes of the characters.  In the same way, the difference rating is the sum the stroke difference ratings.  The strokes of each character are paired up by the order they were drawn and their stroke difference rating is calculated.
+
+The stroke difference rating is a measure of the differences between two strokes.  The difference between two strokes is based on the differences between the gridnumbers of the strokes.  Thus the stroke difference rating is the sum of the "distances" between gridnumbers.  These distances are based on the positions the gridnumbers originally label.  We define how we choose which gridnumbers will be paired to make distances below.
+
+In calculating the stroke difference rating, we pair gridnumbers in a specific way: the function shifts the lists of gridnumbers and pairs the elements so that the greatest amount of like grid numbers match up.  
 
 <p align = 'center'>
   <img width="423" alt="comparison func 1" src="https://github.com/R-S-W/Write-Tibetan/assets/73966827/b62af09f-3721-4ac2-9b18-f72df8b21f2a">
 </p>
+
+The function then removes the matching numbers and splits the two paths into four  Matching numbers have no differences, so they do not contribute to the stroke difference rating and are removed.  The function then recurses and runs the same process for every pair of paths.  The recursion ends when there are no matching numbers in a path pair.  The result of this process is a list of pairs reduced to only the differences between their original paths.  Each element of a pair is a segment of its path.  For every pair, we quantify the difference between these path segments with another method called a metric function.  
+
+The gridnumbers represent positions on the 3x3 grid, and the metric function simply calculates the distance between the centers of two cells on the grid.  A complication in the program is when two path segments have different amounts of gridnumbers.  In this case, the function calculates an average: it takes all combinations of gridnumber pairs by choosing one point from each segment, finds their difference, and takes the average of all of them.  
+
+
+**_Optional addendum:_**&nbsp; The comparison function handles paths with letter gridnumbers (ex. 412**C**5**F**9) differently when calculating the difference rating.  If a pair of path segments do not match and have a letter gridnumber, its resultant distance from the metric function is weighted.  If a gridnumber pair lie on the same cell (like the pair 1 and A) then its distance is multiplied by two.  If the pair lie on different cells (like the numbers 2 and C) then the distance is multiplied by 3.  In this way more disparate gridnumbers contribute more to the stroke difference rating.
+
+
+The distances of all path segment pairs are computed and sum up to the stroke difference rating for a pair of strokes.  Every pair of strokes in the compared characters have their stroke difference rating calculated that sum up to the final difference rating.  The list of candidate characters are sorted from smallest to largest difference rating, and this list is sent to the Suggestion Bar.
+
 
 
 
@@ -142,10 +163,4 @@ to create an app that allows users to practice handwriting in Tibetan.
 I created a handwriting recognition software that predicts and suggests characters as the user writes.
 
 The software accounts for the complex, stacked composite characters and vowels unique to written Tibetan.
-
-## A
-
-
-
-- b
 
