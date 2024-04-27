@@ -17,10 +17,22 @@ https://github.com/R-S-W/Write-Tibetan/assets/73966827/b93b54c4-8327-41cb-b626-f
 
 ## Table of Contents
 1. [App Overview](#app-overview)
-2. a
+   *  Writing Mode
+   *  Study Mode
+2. [Suggestion Logic](#suggestion-logic)
+   *  [Challenges](#challenges)
+   *  [Solutions](#solutions)
+   *  [Comparison Function](#comparison-function)
+3. [Remaining Unique Problems](#remaining-unique-problems)
+   *  Vowels Above and Below
+   *  Cha Chha Slide
+5. [Conclusion](#conclusion)
+6. 
+<br/>
+<br/>
 
 ## App Overview
-<br/><br/><br/>
+<br/><br/>
 ### Writing Mode
 Write Tibetan has a Writing and Study Mode.  The writing mode has 3 main features: the Writing Pad, the Suggestion Bar, and the Text Display.&nbsp; The App Brain behind the scenes handles the state of these three components and communicates between them.&nbsp; It also takes the user's drawing and identifies which character it is, including other possible characters that match the drawing within a certain tolerance.
 
@@ -134,7 +146,7 @@ These five methods order the data into meaningful metrics and give us an appropr
 
 
 
-## Comparison Function
+### Comparison Function
 
 
 The character recognition program that generates the suggestions takes all of the Tibetan characters, selects some of them and sorts them to find the characters that are closest to the user's drawing.  First, the list of characters are filtered by the number of their strokes; only ones with the same number of strokes of the user's drawing are compared.  The list is sorted with the comparison function that evaluates the differences between the drawing and one candidate character.  The function calculates difference ratings, stroke difference ratings, and distances to quantify the character's differences.
