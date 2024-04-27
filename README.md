@@ -4,23 +4,25 @@
 
 Available on the [iOS](https://apps.apple.com/us/app/write-tibetan/id1615471990) and [Android](https://play.google.com/store/apps/details?id=com.RaymondWu.com.tibetan_handwriting_app_0_1&hl=en&gl=US)
 
-Tibetan is a complex language: grammatically and phonetically, it is completely distinct from English. &nbsp;The written language is even more challenging. &nbsp;Originally inspired by sanskrit from India, modern day Tibetan retains its structure and spelling from its creation 1200 years ago.&nbsp; A tibetan character can be composed of multiple stacked letters and vowels, leading to hundreds of unique forms.&nbsp; This posed a considerable problem in creating a method to input Tibetan onto a computer.&nbsp; Various tibetan input methods have been created, some mapping english words to tibetan syllables, while others construct the character component by component with a custom keyboard.&nbsp; 
+Tibetan is a complex language: grammatically and phonetically, its structure is worlds apart from English . &nbsp;The written language is even more challenging: originally inspired by sanskrit from India, modern day Tibetan retains its structure and spelling from its creation 1200 years ago.&nbsp; A tibetan character can be composed of multiple stacked letters and vowels, leading to hundreds of unique forms.&nbsp; This posed a considerable problem in creating a method to input Tibetan onto a computer.&nbsp; Various tibetan input methods have been created, some mapping english words to tibetan syllables, while others construct the character component by component with a custom keyboard.&nbsp; 
 
 Despite these efforts, there still is a disconnect for Tibetans and students in using out the language.&nbsp; The most popular method, the english to tibetan mapping, only permits users like students to type in english to write in tibetan, abstracting them from the language.&nbsp; When writing the syllable "བསྐྱིས," they remember and type the unwieldy word "bskyis" as opposed to recalling its tibetan letters. &nbsp;Likewise, Tibetans fluent in their language must write it through a clunky set of words like "brgyud" and "brnyog."
 
-Write Tibetan is an app that allows users to write Tibetan and learn basic Tibetan characters.&nbsp; Users write by drawing characters on the screen and are given a list of different characters from the suggestion bar.&nbsp; A textbox above displays the output text that can be copied and pasted into ones notes, messages, and other apps.&nbsp;
+Write Tibetan is an app that allows users to write Tibetan and learn basic Tibetan characters.&nbsp; Users write by drawing characters on the screen and are given a list of different characters from the suggestion bar.&nbsp; A textbox above displays the output text that can be copied and pasted into ones notes, messages, and other apps.&nbsp; A Study Mode allows users to learn how to draw the basic Tibetan alphabet with step-by-step animations.
 
 
 https://github.com/R-S-W/Write-Tibetan/assets/73966827/b93b54c4-8327-41cb-b626-f73eb715bfeb
 
 
 
+## Table of Contents
+1. [App Overview](#app-overview)
+2. a
 
-
-
-## Making the App
-
-The writing mode has 3 main features: the Writing Pad, the Suggestion Bar, and the Text Display.&nbsp; The App Brain behind the scenes handles the state of these three components and communicates between them.&nbsp; It also takes the user's drawing and identifies which character it is, including other possible characters that match the drawing within a certain tolerance.
+## App Overview
+<br/><br/><br/>
+### Writing Mode
+Write Tibetan has a Writing and Study Mode.  The writing mode has 3 main features: the Writing Pad, the Suggestion Bar, and the Text Display.&nbsp; The App Brain behind the scenes handles the state of these three components and communicates between them.&nbsp; It also takes the user's drawing and identifies which character it is, including other possible characters that match the drawing within a certain tolerance.
 
 The Writing Pad is built from the ground up.&nbsp; When a user touches and drags a finger across the screen, a gesture detector records its position every tenth of a second.&nbsp; Using that input data, the app paints a curve of the finger's path.&nbsp; I used bezier interpolation to create the curve using the data in order to create a smoother and less choppy path as well as to reduce the frequency of detecting touch inputs for added efficiency.&nbsp; Users can undo strokes with the Undo Button and clear the entire canvas with a long press.&nbsp; The Tseg/She Button on the right adds Tibetan punctuation directly to the Text Display.&nbsp; This custom button can be tapped or slid downwards to write, mimicking the actual way to write them down.&nbsp; The Writing Pad records each stroke and sends it to the app's main state.&nbsp;
 
@@ -31,14 +33,25 @@ The Text Display outputs the written text.  Like a regular text box, sentences c
 <img width="450" alt="Composite character" src="https://github.com/R-S-W/Write-Tibetan/assets/73966827/9c00c904-fb54-42f9-b7a7-c9419eb0d3af">
 
 
-The App Brain is an object that holds the state of the app and the three main components.  It 
+The App Brain is an object that holds the state of the app and the three main components.  Datum like the user's strokelist, the list of suggested characters, the typed text and its history in the Text Display, and the position of the text cursor are stored in the App Brain.  This component uses this data along with custom helper classes, like a dictionary for the properly-drawn characters or Letter classes for Tibetan characters, in order to create suggestions for the user.  The process is described in the subsequent sections.  These comprise the main features of the Writing Mode of the app.  
 
-These comprise the main features of the writing mode of the app.  A 
+<br/><br/><br/>
+
+### Study Mode
+The Study Mode is a simple tool for language students to learn the basic alphabet.  The full list of 34 letters and vowels is displayed.  Each letter has a page for itself including its transliterated english name and a large screen that for a step-by-step animation of the letter.  Controls at the bottom allow the user to go through the animations easily.
+
+The animations are rendered in the app with a custom animation I made.  I used a combination of custom Flutter's basic animation packages, a custom font of Tibetan letters drawn stroke by stroke, and masking layers.  In the custom font I created, every tibetan letter has "partial letters" that is the character drawn partially without all its strokes.  
+
+Every animated alphabet letter is a layer of images.  For example, if we are drawing the third stroke of a letter, the layers are created as such.  At the bottom is the white backround. On top of it is partial letter in black that shows the first two strokes animated before.  On top of it is Flutter's animated layer that paints a black and white image.  The final layer is a mask of another partial letter that has the third stroke, similar to a white page with a hole in the shape of the partial letter.  The final result is an animated picture.
+
+
+<p align="center">
+  <img width="1000" alt="study mode animation" src="https://github.com/R-S-W/Write-Tibetan/assets/73966827/8e751a38-4e57-4125-9dc6-c091aa0a80ae">
+<p align="center">
 
 
 
-
-The Study mode 
+<br/>
 <br/>
 <br/>
 
@@ -48,7 +61,7 @@ The Study mode
 <br/>
 
 ### Challenges
-How do you take what the user draws and create a list of characters that might fit it?  Various challenges must be addressed.  What happens if users draw the characters in different sizes and shapes?  How do you guess which character matches the user's drawing?  How do make sure the drawing is the correct character?  How do you compare Tibetan characters with the drawing?
+How do you take what the user draws and create a list of characters that might fit it?  Various challenges arise: what happens if users draw the characters in different sizes and shapes?  How do you guess which character matches the user's drawing?  How do make sure the drawing is the correct character?  How do you compare Tibetan characters with the drawing?
 
 The user's drawing is represented by it's position data.  Each character is made from multiple strokes.  Each stroke is a swipe across the screen, represented as a list of positions recorded multiple times a second by the app.  The user's drawing is recorded as a list of strokes, each stroke a list of position points with an X and Y value.  This is called a strokelist.
 
@@ -93,13 +106,14 @@ I use five powerful methods that simplify and fully utilize all of the informati
 The next step in processing the data is to take each stroke (now a list of gridnumbers) and remove the duplicate adjacent gridnumbers (ex. the stroke 5555666333 becomes 563.)  This step simplifies the comparison process and ensures that two drawings of the same character that have varying amounts of position points in their strokelists are evaluated in the same way.  This final iteration of the data is called the pathlist, a list of 'paths,' each having a list of grid numbers.  
 
 
-
-![grid to path](https://github.com/R-S-W/Write-Tibetan/assets/73966827/89f5e438-aada-47fc-b76f-666f143cca48)
+<p align = 'center'>
+   <img width="625" alt="grid to path" src="https://github.com/R-S-W/Write-Tibetan/assets/73966827/89f5e438-aada-47fc-b76f-666f143cca48">
+</p>
 
 **_Optional addendum:_**&nbsp; the gridnumber is slightly more complex: if the stroke only hits a gridcell for only a short time (i.e. for only a small amount of datapoints,) the gridnumber is recorded, but is marked down as a stroke that was only there for a short time.  The gridnumber is recorded down as a letter from "A" to "I", where "A" equates to a cell with gridnumber "1", "B" corresponds to gridnumber "2," and so on.  It is an important distinction because it is factored in the metric function used by the comparison function.
 
 
-
+<br/>
 Nondimensionalization, centering, and resolution reduction solve issues in comparing the user's drawing and the correctly-drawn characters, but by themselves too much information is lost.  However, three other metrics, the number of strokes, stroke order, and stroke path, preserve and represent the input data effectively.  Trying to find appropriate suggestions to the user's input out of over a hundred Tibetan characters can pose a challenge.  A simple way of culling Tibetan characters unlikely to match with the user drawing is to count how many strokes the drawing has.  If some characters have too few or too many strokes, they will not be considered as possible candidates for the Suggestion Bar.  
 
 <p align = 'center'>
@@ -113,9 +127,7 @@ One might ask when comparing pathlists which paths should be compared with which
 These five methods order the data into meaningful metrics and give us an appropriate framework to compare user drawings with correctly-drawn characters.  
 
 
-
-
-
+<br/><br/><br/>
 
 
 
@@ -145,22 +157,15 @@ The gridnumbers represent positions on the 3x3 grid, and the metric function sim
 
 **_Optional addendum:_**&nbsp; The comparison function handles paths with letter gridnumbers (ex. 412**C**5**F**9) differently when calculating the difference rating.  If a pair of path segments do not match and have a letter gridnumber, its resultant distance from the metric function is weighted.  If a gridnumber pair lie on the same cell (like the pair 1 and A) then its distance is multiplied by two.  If the pair lie on different cells (like the numbers 2 and C) then the distance is multiplied by 3.  In this way more disparate gridnumbers contribute more to the stroke difference rating.
 
+</br>
 
 The distances of all path segment pairs are computed and sum up to the stroke difference rating for a pair of strokes.  Every pair of strokes in the compared characters have their stroke difference rating calculated that sum up to the final difference rating.  The list of candidate characters are sorted from smallest to largest difference rating, and this list is sent to the Suggestion Bar.
 
+The use of simplifying the original position data of the strokelists are essential in maintaining an efficient, fast, and smooth application.  Without simplification, the comparison function would have to take the original drawing and compare it with a scores of possible candidate characters. Both characters would range on average in having 50 to 100 position points.  Pairing each datapoint with this data would not necessarily be a linear operation.  To add onto this, this process of comparing dozens of characters occurs with every stroke the user creates.  It is essential that The character recognition program simplifies the original data into the gridnumber and pathlists to ensure efficiency.
 
 
 
-
-
-Small curves and taps to the writing pad are not recorded to ensure the program does not miscount the number of strokes and misclassify the input drawing.
-
-
-
-
-to create an app that allows users to practice handwriting in Tibetan.
-
-I created a handwriting recognition software that predicts and suggests characters as the user writes.
 
 The software accounts for the complex, stacked composite characters and vowels unique to written Tibetan.
+
 
