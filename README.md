@@ -23,11 +23,8 @@ https://github.com/R-S-W/Write-Tibetan/assets/73966827/b93b54c4-8327-41cb-b626-f
    *  [Challenges](#challenges)
    *  [Solutions](#solutions)
    *  [Comparison Function](#comparison-function)
-3. [Remaining Unique Problems](#remaining-unique-problems)
-   *  Vowels Above and Below
-   *  Cha Chha Slide
-5. [Conclusion](#conclusion)
-6. 
+4. [Conclusion](#conclusion)
+
 <br/>
 <br/>
 
@@ -171,13 +168,19 @@ The gridnumbers represent positions on the 3x3 grid, and the metric function sim
 
 </br>
 
+
+
 The distances of all path segment pairs are computed and sum up to the stroke difference rating for a pair of strokes.  Every pair of strokes in the compared characters have their stroke difference rating calculated that sum up to the final difference rating.  The list of candidate characters are sorted from smallest to largest difference rating, and this list is sent to the Suggestion Bar.
+
+<img width="950" alt="difference rating" src="https://github.com/R-S-W/Write-Tibetan/assets/73966827/17865676-8de1-4449-b6d3-93efd5097e03">
+
 
 The use of simplifying the original position data of the strokelists are essential in maintaining an efficient, fast, and smooth application.  Without simplification, the comparison function would have to take the original drawing and compare it with a scores of possible candidate characters. Both characters would range on average in having 50 to 100 position points.  Pairing each datapoint with this data would not necessarily be a linear operation.  To add onto this, this process of comparing dozens of characters occurs with every stroke the user creates.  It is essential that The character recognition program simplifies the original data into the gridnumber and pathlists to ensure efficiency.
 
+<br/><br/><br/>
 
+## Conclusion
 
-
-The software accounts for the complex, stacked composite characters and vowels unique to written Tibetan.
+Write Tibetan has helped thousands of language students pick up the pen and learn a written language that continues to carry on and represent the history and culture of Tibet for over a millennia.  Tibetans and other ethnic groups struggle to preserve their identity, heritage, and language as the world modernizes and their mother tongue is used less and less often.  In a world dominated by smartphones and tablets, Write Tibetan and its character recognition software can help connect people to a language more than any keyboard ever could.
 
 
