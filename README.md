@@ -29,7 +29,7 @@ https://github.com/R-S-W/Write-Tibetan/assets/73966827/b93b54c4-8327-41cb-b626-f
 <br/>
 
 ## App Overview
-<br/><br/>
+<br/>
 ### Writing Mode
 Write Tibetan has a Writing and Study Mode.  The writing mode has 3 main features: the Writing Pad, the Suggestion Bar, and the Text Display.&nbsp; The App Brain behind the scenes handles the state of these three components and communicates between them.&nbsp; It also takes the user's drawing and identifies which character it is, including other possible characters that match the drawing within a certain tolerance.
 
@@ -66,7 +66,6 @@ Every animated alphabet letter is a layer of images.  For example, if we are dra
 
 
 ## Suggestion Logic
-
 <br/>
 
 ### Challenges
@@ -176,8 +175,7 @@ The distances of all path segment pairs are computed and sum up to the stroke di
 
 
 The use of simplifying the original position data of the strokelists are essential in maintaining an efficient, fast, and smooth application.  Without simplification, the comparison function would have to take the original drawing and compare it with a scores of possible candidate characters. Both characters would range on average in having 50 to 100 position points.  Pairing each datapoint with this data would not necessarily be a linear operation.  To add onto this, this process of comparing dozens of characters occurs with every stroke the user creates.  It is essential that The character recognition program simplifies the original data into the gridnumber and pathlists to ensure efficiency.
-
-<br/><br/><br/>
+<br/><br/>
 
 ## Conclusion
 
